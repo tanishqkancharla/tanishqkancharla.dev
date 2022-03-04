@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { build } = require("estrella");
+import { build } from "estrella";
 
 build({
   entry: ["./src/index.ts", "./src/style.css"],
