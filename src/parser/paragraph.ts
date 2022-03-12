@@ -1,4 +1,3 @@
-import { ParserStep } from ".";
 import { success } from "../typeUtils";
 
 type ParagraphToken = { type: "paragraph"; content: string };
@@ -9,7 +8,7 @@ declare module "." {
 	}
 }
 
-export const paragraphParser: ParserStep<ParagraphToken> = (state) => {
+export const paragraphParser: Parser<ParagraphToken> = (state) => {
 	const newLine = state.content.indexOf("\n");
 	if (newLine < 0) {
 		// Consume rest of content

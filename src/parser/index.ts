@@ -1,21 +1,11 @@
-import { Result } from "../typeUtils";
+export interface TKParseTokenMap {}
 
-export type ParserState = {
-	content: string;
-};
+type ParseTokenType = keyof TKParseTokenMap;
 
-export type ParserStep<K> = (
-	state: ParserState
-) => Result<{ state: ParserState; token: K }>;
-
-export interface ParseTokenMap {}
-
-type ParseTokenType = keyof ParseTokenMap;
-
-export type ParseToken<Types extends ParseTokenType = ParseTokenType> = {
+export type TKParseToken<Types extends ParseTokenType = ParseTokenType> = {
 	[Type in Types]: {
 		type: Type;
-	} & ParseTokenMap[Type];
+	} & TKParseTokenMap[Type];
 }[Types];
 
 export function parseFile() {}
