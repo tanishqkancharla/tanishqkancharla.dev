@@ -1,0 +1,65 @@
+# How I setup my website
+---
+Making my website has been like...a year-long endeavor. I guess it's never really finished, right? I just want to briefly talk about where the website's been and where its going.
+---
+2021-08
+
+Originally, my site was built using [Fruition](https://fruitionsite.com). It was a quick way to get started with a website by directly connecting it to my notion. It was slow, and hard to customize though, so I eventually moved it away to using the unofficial notion API built by Splitbee (when Notion didn't have an API):
+
+[https://github.com/splitbee/notion-api-worker]
+
+At that point, I was using Next.js with Tailwind. Honestly, when I was done, it felt like complete magic. It didn't take much time at all, and all my Notion pages rendered almost seamlessly in my own design language. And publishing a blog post was as easy as adding a new Notion page to a database.
+
+It wasn't a perfect solution though -- the more I worked with using Notion, the more flaws I saw it had.
+
+[twitter:https://twitter.com/moonrisetk/status/1275263735184199681?s=21]
+
+(this was before I was working on the website, but its a good example of just the confusing garbage Notion's internal API was sending). 
+
+> I also became pretty disillusioned with Tailwind. 
+| I got annoyed with how long my class names ended up being, and that there wasn't a good first-class solution for it. I also just wanted my html to be hella clean and semantic (look at the source of this website!). So I ejected Tailwind and just rebuilt it in CSS.
+
+Regarding the Notion issue, I'm still working on it, but I've also ripped it out for now. I'd love to use Notion's official API, but they don't support non-text blocks yet.
+
+So how does my blog work now? Well...I started using MDX, but it didn't click for me. I just felt that if I wanted custom components in my prose, I should just be able to extend Markdown's existing syntax. MDX isn't annoying to use or anything...its just a matter of principle like I shouldn't have to switch to React syntax when I want something as simple as a toggle block.
+
+So, naturally, I just built my own parser for a custom prose format. The whole thing is about 300 lines of code, and that's reading `.tk` files, parsing them into an AST and recompiling them into HTML. I can't stress how easy [Ohm-js](https://github.com/cdglabs/ohm) made this for me. With 0 parser experience to building a markdown+ format in like 4 hours. Here is the spec for my format:
+
+```
+MarkdownOuter {
+  doc = h1 divider line divider block+
+  block =  blank | h3 | h2 | h1 | divider | image | block_link | toggle | bullet_list | code | blockquote | para | endline
+  h3 = "### " rest
+  h2 = "## " rest
+  h1 = "# " rest  
+  divider = ("---" nl) | ("***" nl)
+  block_link = "[" (~"]" ~nl any)+ "]" nl
+  blockquote = inner_block+
+  inner_block = "| " (image | line)
+  image = "/ " (~(nl | sp) any)* " / " line
+  toggle = "> " line inner_block+
+  para = line+ // paragraph is just multiple consecutive lines
+  bullet_list = "- " (~"-" ~blank ~(nl nl) rest)* (bullet)*
+  bullet = "- " rest (~"-" ~blank ~(nl nl) rest)*
+  code = q rest (~q any)* q //anything between the \`\`\` markers
+  q = "\`\`\`"   // start and end code blocks
+  nl = "\\n"   // new line
+  sp = " "
+  blank = sp* nl  // blank line has only newline
+  endline = (~nl any)+ end
+  line = (~nl any)+ nl  // line has at least one letter
+  rest = (~nl any)* nl  // everything to the end of the line
+}
+```
+
+and that's it! A single document, as you can see at the top, consists of a heading, followed by a descriptive line, and then the full content. I pass that into Ohm, along with semantic definitions of each node, and out pops an AST. I could save a little bit of time and condense my code quite a bit if I simply pass in the html equivalents directly to Ohm, but having an AST in between is nice for debugging.
+
+---
+
+I'm still figuring out the rest of my setup. I don't know if I'll completely move everything away from Notion or move everything back when the official API does everything I want it to. Big question is the projects page, which I've linked to the Notion page currently. Maybe I'll use another Ohm parser.
+
+Things I want:
+
+- A feed of things I'm thinking about, or a changelog for things that were updated on my website recently.
+- Little pieces of art/illustration all over the place. Maybe sharks that follow around your cursor?
+- Minigames. I have one idea kind of like Google's disconnected dinosaur game, except its someone surfing and jumping over obstacles.
