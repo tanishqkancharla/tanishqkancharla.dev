@@ -13,6 +13,11 @@ interface ParseResultI<T> {
 	chain<S>(
 		fn: (val: T, stream: ParserStream) => ParseResult<S>
 	): ParseResult<S>;
+
+	fold<S>(
+		successFn: (val: T, stream: ParserStream) => S,
+		failFn: (val: T, stream: ParserStream) => S
+	): S;
 }
 
 export class ParseSuccess<T> implements ParseResultI<T> {
@@ -29,6 +34,13 @@ export class ParseSuccess<T> implements ParseResultI<T> {
 	chain<S>(fn: (val: T, stream: ParserStream) => S) {
 		return fn(this.value, this.stream);
 	}
+
+	fold<S>(
+		successFn: (val: T, stream: ParserStream) => S,
+		failFn: (val: T, stream: ParserStream) => S
+	) {
+		return successFn(this.value, this.stream);
+	}
 }
 
 export class ParseFailure implements ParseResultI<string> {
@@ -44,5 +56,12 @@ export class ParseFailure implements ParseResultI<string> {
 
 	chain<S>(fn: (val: any, stream: ParserStream) => S) {
 		return this;
+	}
+
+	fold<S>(
+		successFn: (val: any, stream: ParserStream) => S,
+		failFn: (val: any, stream: ParserStream) => S
+	) {
+		return failFn(this.value, this.stream);
 	}
 }

@@ -1,0 +1,12 @@
+import { assert, assertEqual } from "../assertUtils";
+import { isParseSuccess } from "../utils.test";
+import { h2Parser } from "./h2";
+
+describe("h2", () => {
+	it("works", () => {
+		const result = h2Parser.run("## h2 heading\n");
+		assert.ok(isParseSuccess(result));
+
+		assertEqual(result.value.content, "h2 heading");
+	});
+});

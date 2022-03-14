@@ -14,7 +14,7 @@ export class ParserStream {
 	// Get the first value from the iterable.
 	head() {
 		if (this.length <= 0) {
-			throw new TypeError("index out of range");
+			throw new TypeError("Stream was emptied");
 		}
 		return this.content[this.index];
 	}
@@ -40,5 +40,11 @@ export class ParserStream {
 			this.index + start,
 			(stop || this.length) - start
 		);
+	}
+
+	log() {
+		const marker = " ".repeat(this.index) + "^";
+
+		console.log(`${this.content.replaceAll("\n", "\\n")}\n${marker}\n`);
 	}
 }

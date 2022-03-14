@@ -1,25 +1,93 @@
 import { Parser } from "./Parser";
 import { ParseFailure, ParseSuccess } from "./ParseResult";
+import { isParseFailure, isParseSuccess } from "./utils.test";
 
-export const where = <Char extends string>(
-	predicate: (char: Char) => boolean
-): Parser<Char> =>
+// Helper types
+// Hover over the declare const to get a sense of what they do
+
+type ParserToken<T> = T extends Parser<infer U> ? U : never;
+
+declare const aParser: Parser<"a">;
+declare const tokenX: ParserToken<typeof aParser>;
+
+type ParserTokenArray<Tuple extends readonly Parser<any>[]> = {
+	[Index in keyof Tuple]: ParserToken<Tuple[Index]>;
+};
+
+declare const parsers: [Parser<"a">, Parser<"b">, Parser<"c">];
+declare const tokenArray: ParserTokenArray<typeof parsers>;
+
+type ParserArrayType<ParserArray extends readonly Parser<any>[]> =
+	ParserTokenArray<ParserArray>[number];
+
+declare const type: ParserArrayType<typeof parsers>;
+
+export const char = <Char extends string>(c: Char): Parser<Char> =>
 	new Parser((stream) => {
-		const value = stream.head() as Char;
+		const value = stream.head() as Char | undefined;
 
-		if (predicate(value)) {
+		if (!value) {
+			return new ParseFailure("Stream was empty", stream);
+		}
+
+		if (value === c) {
 			return new ParseSuccess(value, stream.move(1));
 		}
 
-		return new ParseFailure("Char did not match", stream);
+		return new ParseFailure(`Char did not match ${c}`, stream);
 	});
 
-export const char = <Char extends string>(c: Char): Parser<Char> =>
-	where((char) => char === c);
+export const notChar = <Char extends string>(c: Char): Parser<string> =>
+	new Parser((stream) => {
+		const value = stream.head();
+
+		if (!value) {
+			return new ParseFailure("Stream was empty", stream);
+		}
+
+		if (value !== c) {
+			return new ParseSuccess(value, stream.move(1));
+		}
+
+		return new ParseFailure(`Char matched ${c}`, stream);
+	});
+
+export const notChars = (chars: string[]): Parser<string> =>
+	not(oneOf(chars.map((charV) => char(charV))));
+
+export const zeroOrMore = <T>(parser: Parser<T>): Parser<T[]> =>
+	new Parser((stream) => {
+		const values: T[] = [];
+		let result = parser.run(stream);
+
+		while (isParseSuccess(result)) {
+			values.push(result.value);
+			result = parser.run(result.stream);
+		}
+
+		return new ParseSuccess(values, result.stream);
+	});
+
+export const oneOrMore = <T>(parser: Parser<T>): Parser<T[]> =>
+	new Parser((stream) => {
+		const values: T[] = [];
+		let result = parser.run(stream);
+
+		if (isParseFailure(result)) {
+			return new ParseFailure("oneOrMore failed", result.stream);
+		}
+
+		while (isParseSuccess(result)) {
+			values.push(result.value);
+			result = parser.run(result.stream);
+		}
+
+		return new ParseSuccess(values, result.stream);
+	});
 
 export const oneOf = <ParserArray extends readonly Parser<any>[]>(
 	parsers: ParserArray
-): Parser<ParserArrayTypes<ParserArray>> =>
+): Parser<ParserArrayType<ParserArray>> =>
 	new Parser((stream) => {
 		for (const parser of parsers) {
 			const result = parser.run(stream);
@@ -32,20 +100,12 @@ export const oneOf = <ParserArray extends readonly Parser<any>[]>(
 		return new ParseFailure("oneOf failed", stream);
 	});
 
-type ParserToken<T> = T extends Parser<infer U> ? U : never;
-
-type ParserArrayTypeMap<ParserArray extends readonly Parser<any>[]> = {
-	[Parser in keyof ParserArray]: ParserToken<ParserArray[Parser]>;
-};
-
-type ParserArrayTypes<ParserArray extends readonly Parser<any>[]> = {
-	[ParserKey in keyof ParserArray]: ParserToken<ParserArray[ParserKey]>;
-}[keyof ParserArray];
-
 export const sequence = <ParserArray extends readonly Parser<any>[]>(
 	parsers: ParserArray
-): Parser<ParserArrayTypeMap<ParserArray>> =>
+): Parser<ParserTokenArray<ParserArray>> =>
 	new Parser((stream) => {
+		// type SeqParserTokenArray = ParserTokenArray<ParserArray>;
+		// type SeqParserToken = SeqParserTokenArray[keyof SeqParserTokenArray];
 		const seqValues = [] as any;
 
 		for (const parser of parsers) {
@@ -66,12 +126,45 @@ export const sequence = <ParserArray extends readonly Parser<any>[]>(
 export const maybe = <T>(parser: Parser<T>): Parser<T | undefined> =>
 	new Parser((stream) => {
 		const result = parser.run(stream);
-		if (result instanceof ParseSuccess) {
-			return result;
-		} else {
+
+		if (isParseFailure(result)) {
 			return new ParseSuccess(undefined, stream);
+		} else {
+			return new ParseSuccess(result.value, result.stream);
 		}
 	});
 
 export const str = (str: string): Parser<string> =>
 	sequence(str.split("").map(char)).map((tokens) => tokens.join(""));
+
+export const between = <L, T, R>(
+	left: Parser<L>,
+	parser: Parser<T>,
+	right: Parser<R>
+): Parser<T> => sequence([left, parser, right] as const).map((v) => v[1]);
+
+export const prefix = <P, T>(prefix: Parser<P>, parser: Parser<T>): Parser<T> =>
+	sequence([prefix, parser] as const).map((v) => v[1]);
+
+export const suffix = <S, T>(parser: Parser<T>, suffix: Parser<S>): Parser<T> =>
+	sequence([parser, suffix] as const).map((v) => v[0]);
+
+export const not = <T>(parser: Parser<T>): Parser<string> =>
+	new Parser((stream) => {
+		const result = parser.run(stream);
+
+		if (isParseFailure(result)) {
+			return new ParseSuccess(stream.head(), stream.move(1));
+		} else {
+			return new ParseFailure("not failed", stream);
+		}
+	});
+
+export const line = suffix(zeroOrMore(notChar("\n")), char("\n")).map(
+	(chars) => {
+		return chars.join("");
+	}
+);
+
+export const takeUntil = <T>(parser: Parser<T>): Parser<string> =>
+	suffix(zeroOrMore(not(parser)), parser).map((chars) => chars.join(""));

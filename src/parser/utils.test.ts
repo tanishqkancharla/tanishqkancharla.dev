@@ -1,7 +1,6 @@
 import { assert, assertEqual } from "./assertUtils";
 import { ParseFailure, ParseResult, ParseSuccess } from "./ParseResult";
-import { ParserStream } from "./ParserStream";
-import { char, maybe, sequence } from "./utils";
+import { char, line, maybe, notChars, sequence, zeroOrMore } from "./utils";
 
 export function isParseSuccess<T>(
 	result: ParseResult<T>
@@ -16,56 +15,136 @@ export function isParseFailure(
 }
 
 describe("Parse utils", () => {
-	it("char success", () => {
-		const result = char("a").run("a");
+	it("char", () => {
+		const parser = char("a");
 
-		assert.ok(result instanceof ParseSuccess);
+		success: {
+			const result = parser.run("a");
 
-		const { stream, value } = result;
+			assert.ok(result instanceof ParseSuccess);
 
-		assert.ok(stream.isEmpty);
-		assertEqual(value, "a");
+			const { stream, value } = result;
+
+			assert.ok(stream.isEmpty);
+			assertEqual(value, "a");
+		}
+
+		fail: {
+			const result = parser.run("b");
+			assert.ok(isParseFailure(result));
+		}
 	});
 
-	it("char error", () => {
-		const result = char("a").run("b");
-		assert.ok(result instanceof ParseFailure);
+	it.skip("notChar");
+
+	it("notChars", () => {
+		const parser = notChars(["a", "b", "c"]);
+
+		success: {
+			const result = parser.run("ddd");
+
+			assert.ok(isParseSuccess(result));
+		}
+
+		fail: {
+			let result = parser.run("a");
+			assert.ok(isParseFailure(result));
+
+			result = parser.run("abc");
+			assert.ok(isParseFailure(result));
+		}
 	});
 
-	it("sequence success", () => {
-		const result = sequence([char("a"), char("b"), char("c")] as const).run(
-			"abc"
-		);
+	it("sequence", () => {
+		const parser = sequence([char("a"), char("b"), char("c")] as const);
 
-		assert.ok(isParseSuccess(result));
+		success: {
+			const result = parser.run("abc");
 
-		const { value } = result;
-		assertEqual(value, ["a", "b", "c"]);
+			assert.ok(isParseSuccess(result));
+
+			const { value } = result;
+			assertEqual(value, ["a", "b", "c"]);
+		}
+
+		fail: {
+			const result = parser.run("bac");
+
+			assert.ok(isParseFailure(result));
+		}
 	});
 
-	it("sequence error", () => {
-		const result = sequence([char("a"), char("b"), char("c")]).run("bac");
+	it("maybe", () => {
+		const parser = maybe(char("a"));
+		success: {
+			const result = parser.run("a");
 
-		assert.ok(isParseFailure(result));
+			assert.ok(isParseSuccess(result));
+			const { value, stream } = result;
+
+			assert.ok(stream.isEmpty);
+			assertEqual(value, "a");
+		}
+		fail: {
+			const result = parser.run("b");
+
+			assert.ok(isParseSuccess(result));
+			const { value, stream } = result;
+
+			assert.ok(!stream.isEmpty);
+			assertEqual(value, undefined);
+		}
 	});
 
-	it("maybe success", () => {
-		const result = maybe(char("a")).run(new ParserStream("a"));
+	it("zeroOrMore", () => {
+		const parser = zeroOrMore(char("a"));
+		zero: {
+			const result = parser.run("b");
 
-		assert.ok(isParseSuccess(result));
-		const { value, stream } = result;
+			assert.ok(isParseSuccess(result));
+			const { value } = result;
 
-		assert.ok(stream.isEmpty);
-		assertEqual(value, "a");
+			assertEqual(value, []);
+		}
+		more: {
+			const result = parser.run("aaa");
+
+			assert.ok(isParseSuccess(result));
+			const { value } = result;
+
+			assertEqual(value, ["a", "a", "a"]);
+		}
 	});
 
-	it("maybe unsuccessful", () => {
-		const result = maybe(char("a")).run(new ParserStream("b"));
+	it.skip("oneOrMore");
 
-		assert.ok(isParseSuccess(result));
-		const { value, stream } = result;
+	it.skip("str");
 
-		assert.ok(!stream.isEmpty);
-		assertEqual(value, undefined);
+	it.skip("between");
+
+	it.skip("prefix");
+
+	describe("line", () => {
+		it("works", () => {
+			const result = line.run("a sentence\n");
+
+			assert.ok(isParseSuccess(result));
+			const { value } = result;
+
+			assertEqual(value, "a sentence");
+		});
+
+		it("multiple sentences", () => {
+			let result = line.run("a sentence\na second sentence\n");
+
+			assert.ok(isParseSuccess(result));
+			assertEqual(result.value, "a sentence");
+
+			result = line.run(result.stream);
+
+			assert.ok(isParseSuccess(result));
+
+			assertEqual(result.value, "a second sentence");
+		});
 	});
 });

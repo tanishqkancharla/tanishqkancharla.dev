@@ -1,14 +1,16 @@
-import { ParseResult } from "./ParseResult";
+import { ParseFailure, ParseResult } from "./ParseResult";
 import { ParserStream } from "./ParserStream";
 
 export class Parser<K> {
 	constructor(private parseFn: (stream: ParserStream) => ParseResult<K>) {}
 
 	run(stream: ParserStream | string) {
-		if (stream instanceof ParserStream) {
-			return this.parseFn(stream);
-		} else {
-			return this.parseFn(new ParserStream(stream));
+		const parserStream =
+			stream instanceof ParserStream ? stream : new ParserStream(stream);
+		try {
+			return this.parseFn(parserStream);
+		} catch (e) {
+			return new ParseFailure(`Unexpected parse failure: ${e}`, parserStream);
 		}
 	}
 
@@ -26,5 +28,12 @@ export class Parser<K> {
 		return new Parser((stream) =>
 			this.parseFn(stream).chain((val, stream) => fn(val).run(stream))
 		);
+	}
+
+	fold<S>(
+		successFn: (val: K, stream: ParserStream) => ParseResult<S>,
+		failFn: (val: K, stream: ParserStream) => ParseResult<S>
+	) {
+		return new Parser((stream) => this.parseFn(stream).fold(successFn, failFn));
 	}
 }
