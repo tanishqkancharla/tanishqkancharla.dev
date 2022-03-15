@@ -5,7 +5,7 @@
 	"main": "src/index.ts",
 	"scripts": {
 		"clear": "mkdir -p dist && rm -rf dist/* && cp public/* dist",
-		"dev": "ts-node dev.ts",
+		"dev": "npm run clear && ts-node dev.ts",
 		"deploy": "npx vercel deploy",
 		"test": "mocha -r ts-node/register './src/**/*.test.ts' --verbose"
 	},

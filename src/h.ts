@@ -55,10 +55,10 @@ function isSelfClosing(tag: ElementTag) {
 	return tag === "hr";
 }
 
-export function Fragment(...content: Element[]) {
+export function Fragment(content: { children: Element[] }) {
 	return {
 		type: FRAGMENT_ELEMENT,
-		content,
+		content: content.children,
 	};
 }
 
@@ -71,9 +71,9 @@ function createElement(
 		type,
 		props: {
 			...attrs,
-			children: children.map((child) =>
-				is.object(child) ? child : createTextElement(child)
-			),
+			children: children
+				.map((child) => (is.object(child) ? child : createTextElement(child)))
+				.flat(1),
 		},
 	};
 }
@@ -110,9 +110,10 @@ export function render(element: Element): string {
 		const content = props.children.map(render).join("");
 		const closingTag = `</${type}>`;
 		return [openingTag, content, closingTag].join("");
-	} else {
-		console.log({ element });
+	} else if (is.function_(type)) {
 		return render(type(element.props));
+	} else {
+		throw new Error(`Unknown type ${type}`);
 	}
 }
 

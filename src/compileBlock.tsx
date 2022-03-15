@@ -1,12 +1,21 @@
 import { Element, Fragment, h, render } from "./h";
 import { TKBlock } from "./parser";
 
+function escapeHTML(unsafeHTML: string): string {
+	return unsafeHTML
+		.replaceAll("&", "&amp;")
+		.replaceAll("<", "&lt;")
+		.replaceAll(">", "&gt;")
+		.replaceAll('"', "&quot;")
+		.replaceAll("'", "&#039;");
+}
+
 function compileBlockToJSX(block: TKBlock): Element {
 	switch (block.type) {
 		case "codeBlock": {
 			return (
 				<pre lang={block.lang}>
-					<code>{block.content}</code>
+					<code>{escapeHTML(block.content)}</code>
 				</pre>
 			);
 		}
@@ -32,7 +41,7 @@ function compileBlockToJSX(block: TKBlock): Element {
 			);
 		}
 		case "newLine": {
-			return <>""</>;
+			return <></>;
 		}
 		case "twitter": {
 			return <p>{block.url}</p>;
@@ -48,6 +57,5 @@ function compileBlockToJSX(block: TKBlock): Element {
 
 export function compileBlock(block: TKBlock): string {
 	const blockJsx = compileBlockToJSX(block);
-
 	return render(blockJsx);
 }

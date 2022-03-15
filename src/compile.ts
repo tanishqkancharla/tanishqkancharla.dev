@@ -9,11 +9,19 @@ export async function compile(args: { postsDir: string; outDir: string }) {
 
 	const posts = dirItems.filter((path) => path.endsWith(".tk"));
 
-	for (const postName of posts) {
-		const contents = await fs.readFile(path.join(postsDir, postName), "utf8");
+	for (const postFileName of posts) {
+		const contents = await fs.readFile(
+			path.join(postsDir, postFileName),
+			"utf8"
+		);
 		const ast = parseTK(contents);
 		const compiledPost = compileTKDoc({ ast });
-		await fs.writeFile(path.join(outDir, postName), compiledPost, "utf8");
+		const postName = path.parse(postFileName).name;
+		await fs.writeFile(
+			path.join(outDir, `${postName}.html`),
+			compiledPost,
+			"utf8"
+		);
 	}
 }
 
