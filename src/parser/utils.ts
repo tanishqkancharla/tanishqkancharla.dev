@@ -1,6 +1,19 @@
 import { Parser } from "./Parser";
-import { ParseFailure, ParseSuccess } from "./ParseResult";
-import { isParseFailure, isParseSuccess } from "./utils.test";
+import { ParseFailure, ParseResult, ParseSuccess } from "./ParseResult";
+
+export const identity = <T>(arg: T) => arg;
+
+export function isParseSuccess<T>(
+	result: ParseResult<T>
+): result is ParseSuccess<T> {
+	return result instanceof ParseSuccess;
+}
+
+export function isParseFailure(
+	result: ParseResult<any>
+): result is ParseFailure {
+	return result instanceof ParseFailure;
+}
 
 // Helper types
 // Hover over the declare const to get a sense of what they do
@@ -26,30 +39,11 @@ export const char = <Char extends string>(c: Char): Parser<Char> =>
 	new Parser((stream) => {
 		const value = stream.head() as Char | undefined;
 
-		if (!value) {
-			return new ParseFailure("Stream was empty", stream);
-		}
-
 		if (value === c) {
 			return new ParseSuccess(value, stream.move(1));
 		}
 
 		return new ParseFailure(`Char did not match ${c}`, stream);
-	});
-
-export const notChar = <Char extends string>(c: Char): Parser<string> =>
-	new Parser((stream) => {
-		const value = stream.head();
-
-		if (!value) {
-			return new ParseFailure("Stream was empty", stream);
-		}
-
-		if (value !== c) {
-			return new ParseSuccess(value, stream.move(1));
-		}
-
-		return new ParseFailure(`Char matched ${c}`, stream);
 	});
 
 export const notChars = (chars: string[]): Parser<string> =>
@@ -58,14 +52,18 @@ export const notChars = (chars: string[]): Parser<string> =>
 export const zeroOrMore = <T>(parser: Parser<T>): Parser<T[]> =>
 	new Parser((stream) => {
 		const values: T[] = [];
-		let result = parser.run(stream);
 
-		while (isParseSuccess(result)) {
-			values.push(result.value);
-			result = parser.run(result.stream);
+		while (true) {
+			let result = parser.run(stream);
+			if (isParseSuccess(result)) {
+				values.push(result.value);
+				stream = result.stream;
+			} else {
+				break;
+			}
 		}
 
-		return new ParseSuccess(values, result.stream);
+		return new ParseSuccess(values, stream);
 	});
 
 export const oneOrMore = <T>(parser: Parser<T>): Parser<T[]> =>
@@ -151,20 +149,19 @@ export const suffix = <S, T>(parser: Parser<T>, suffix: Parser<S>): Parser<T> =>
 
 export const not = <T>(parser: Parser<T>): Parser<string> =>
 	new Parser((stream) => {
+		if (stream.isEmpty) {
+			return new ParseFailure("stream was emptied", stream);
+		}
 		const result = parser.run(stream);
 
 		if (isParseFailure(result)) {
 			return new ParseSuccess(stream.head(), stream.move(1));
 		} else {
-			return new ParseFailure("not failed", stream);
+			return new ParseFailure("not failed", result.stream);
 		}
 	});
 
-export const line = suffix(zeroOrMore(notChar("\n")), char("\n")).map(
-	(chars) => {
-		return chars.join("");
-	}
-);
-
 export const takeUntil = <T>(parser: Parser<T>): Parser<string> =>
 	suffix(zeroOrMore(not(parser)), parser).map((chars) => chars.join(""));
+
+export const line = takeUntil(char("\n"));

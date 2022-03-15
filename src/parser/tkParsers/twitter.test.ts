@@ -1,5 +1,5 @@
 import { assert, assertEqual } from "../assertUtils";
-import { isParseSuccess } from "../utils.test";
+import { isParseSuccess } from "../utils";
 import { twitterParser } from "./twitter";
 
 describe("twitter", () => {
@@ -8,6 +8,7 @@ describe("twitter", () => {
 			"[twitter:https://twitter.com/joeyabanks/status/1417505963272249346?s=21]\n"
 		);
 		assert.ok(isParseSuccess(result));
+		assert.ok(result.stream.isEmpty);
 
 		assertEqual(
 			result.value.url,

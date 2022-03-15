@@ -1,14 +1,14 @@
-import { TKParseToken } from "..";
+import { TKBlock } from "..";
 import { Parser } from "../Parser";
 import { line } from "../utils";
 
 declare module ".." {
-	interface TKParseTokenMap {
+	interface TKBlockMap {
 		paragraph: { content: string };
 	}
 }
 
-type ParagraphToken = TKParseToken<"paragraph">;
+type ParagraphToken = TKBlock<"paragraph">;
 
 export const paragraphParser: Parser<ParagraphToken> = line //
 	.map((content) => ({

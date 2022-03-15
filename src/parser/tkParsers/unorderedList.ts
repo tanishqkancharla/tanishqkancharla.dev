@@ -1,4 +1,4 @@
-import { TKParseToken } from "..";
+import { TKBlock } from "..";
 import { Parser } from "../Parser";
 import { oneOrMore } from "../utils";
 import { listItemParser } from "./listItem";
@@ -6,12 +6,12 @@ import { listItemParser } from "./listItem";
 const blockType = "unorderedList";
 
 declare module ".." {
-	interface TKParseTokenMap {
+	interface TKBlockMap {
 		[blockType]: { listItems: string[] };
 	}
 }
 
-type UnorderedListToken = TKParseToken<typeof blockType>;
+type UnorderedListToken = TKBlock<typeof blockType>;
 
 export const unorderedListParser: Parser<UnorderedListToken> = oneOrMore(
 	listItemParser

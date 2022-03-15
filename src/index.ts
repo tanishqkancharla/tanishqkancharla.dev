@@ -1,1 +1,3 @@
-throw new Error("Boo");
+import { compile } from "./compile";
+
+compile({ postsDir: "./posts/", outDir: "./dist/" });

@@ -1,18 +1,15 @@
-import { TKParseToken } from "..";
+import { TKBlock } from "..";
 import { Parser } from "../Parser";
-import { notChar, prefix, str, zeroOrMore } from "../utils";
+import { line, prefix, str } from "../utils";
 
 declare module ".." {
-	interface TKParseTokenMap {
+	interface TKBlockMap {
 		h3: { content: string };
 	}
 }
 
-type H3Token = TKParseToken<"h3">;
+type H3Token = TKBlock<"h3">;
 
-export const h3Parser: Parser<H3Token> = prefix(
-	str("### "),
-	zeroOrMore(notChar("\n"))
-)
-	.map((chars) => chars.join(""))
-	.map((content) => ({ type: "h3", content }));
+export const h3Parser: Parser<H3Token> = prefix(str("### "), line).map(
+	(content) => ({ type: "h3", content })
+);

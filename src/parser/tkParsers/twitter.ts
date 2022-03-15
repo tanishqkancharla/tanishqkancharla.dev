@@ -1,19 +1,17 @@
-import { TKParseToken } from "..";
+import { TKBlock } from "..";
 import { Parser } from "../Parser";
-import { between, char, notChars, prefix, str, zeroOrMore } from "../utils";
+import { prefix, str, takeUntil } from "../utils";
 
 declare module ".." {
-	interface TKParseTokenMap {
+	interface TKBlockMap {
 		twitter: { url: string };
 	}
 }
 
-type TwitterToken = TKParseToken<"twitter">;
+type TwitterToken = TKBlock<"twitter">;
 
-export const twitterParser: Parser<TwitterToken> = between(
-	char("["),
-	prefix(str("twitter:"), zeroOrMore(notChars(["\n", "]"]))),
-	char("]")
-)
-	.map((chars) => chars.join(""))
+export const twitterParser: Parser<TwitterToken> = prefix(
+	str("[twitter:"),
+	takeUntil(str("]\n"))
+) //
 	.map((url) => ({ type: "twitter", url }));

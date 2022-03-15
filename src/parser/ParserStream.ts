@@ -3,17 +3,17 @@ export class ParserStream {
 	private length: number;
 
 	get isEmpty() {
-		return this.index === this.length;
+		return this.length === 0;
 	}
 
 	constructor(private content: string, index?: number, length?: number) {
-		this.index = index || 0;
-		this.length = length || content.length;
+		this.index = index === undefined ? 0 : index;
+		this.length = length === undefined ? content.length : length;
 	}
 
 	// Get the first value from the iterable.
 	head() {
-		if (this.length <= 0) {
+		if (this.isEmpty) {
 			throw new TypeError("Stream was emptied");
 		}
 		return this.content[this.index];

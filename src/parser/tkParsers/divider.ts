@@ -4,12 +4,12 @@ import { str } from "../utils";
 
 declare module ".." {
 	interface TKBlockMap {
-		newLine: {};
+		divider: {};
 	}
 }
 
-type NewLineToken = TKBlock<"newLine">;
+type DividerToken = TKBlock<"divider">;
 
-export const newLineParser: Parser<NewLineToken> = str("\n\n").map((char) => ({
-	type: "newLine",
+export const dividerParser: Parser<DividerToken> = str("---\n").map(() => ({
+	type: "divider",
 }));

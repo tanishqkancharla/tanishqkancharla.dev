@@ -1,5 +1,5 @@
 import { assert, assertEqual } from "../assertUtils";
-import { isParseSuccess } from "../utils.test";
+import { isParseSuccess } from "../utils";
 import { unorderedListParser } from "./unorderedList";
 
 describe("unorderedList", () => {
@@ -7,7 +7,7 @@ describe("unorderedList", () => {
 		const result = unorderedListParser.run("- list item 1\n");
 
 		assert.ok(isParseSuccess(result));
-
+		assert.ok(result.stream.isEmpty);
 		assertEqual(result.value.listItems, ["list item 1"]);
 	});
 
@@ -17,6 +17,7 @@ describe("unorderedList", () => {
 		);
 
 		assert.ok(isParseSuccess(result));
+		assert.ok(result.stream.isEmpty);
 
 		assertEqual(result.value.listItems, [
 			"list item 1",
