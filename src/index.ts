@@ -1,3 +1,3 @@
-import { compile } from "./compile";
+import { compile } from "./compiler/compile";
 
 compile({ postsDir: "./posts/", outDir: "./dist/" });

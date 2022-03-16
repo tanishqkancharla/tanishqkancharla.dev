@@ -1,7 +1,7 @@
 import * as fs from "fs/promises";
 import path from "path";
+import { parseTK } from ".";
 import { compileBlock } from "./compileBlock";
-import { parseTK } from "./parser";
 
 export async function compile(args: { postsDir: string; outDir: string }) {
 	const { postsDir, outDir } = args;

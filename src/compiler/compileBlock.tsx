@@ -1,5 +1,5 @@
+import { TKBlock } from ".";
 import { Element, Fragment, h, render } from "./h";
-import { TKBlock } from "./parser";
 
 function escapeHTML(unsafeHTML: string): string {
 	return unsafeHTML

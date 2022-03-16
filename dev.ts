@@ -14,5 +14,6 @@ build({
 	jsxFragment: "Fragment",
 	sourcemap: "inline",
 	sourcesContent: true,
+
 	run: "node dist/index.js",
 });
