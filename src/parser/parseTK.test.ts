@@ -1,6 +1,6 @@
-import { block, parseTK } from ".";
-import { assert, assertEqual } from "./assertUtils";
-import { isParseSuccess } from "./utils";
+import { assert, assertEqual } from "../assertUtils";
+import { block, parseTK } from "./parseTK";
+import { isParseSuccess } from "./parseUtils";
 
 describe("Parser", () => {
 	it("Parsing block works", () => {
@@ -42,7 +42,7 @@ describe("Parser", () => {
 			metadata: {
 				title: "Heading",
 				description: "Description",
-				date: { type: "date", year: 2021, month: 7 },
+				date: { year: 2021, month: 7 },
 			},
 			blocks: [{ type: "paragraph", content: "Whoa a block" }],
 		});

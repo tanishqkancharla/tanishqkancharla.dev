@@ -1,6 +1,6 @@
 import { assert, assertEqual } from "../assertUtils";
-import { isParseSuccess } from "../utils";
 import { h1Parser } from "./h1";
+import { isParseSuccess } from "./parseUtils";
 
 describe("h1", () => {
 	it("works", () => {

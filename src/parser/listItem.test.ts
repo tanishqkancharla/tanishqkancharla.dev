@@ -1,6 +1,6 @@
 import { assert, assertEqual } from "../assertUtils";
-import { isParseSuccess } from "../utils";
 import { listItemParser } from "./listItem";
+import { isParseSuccess } from "./parseUtils";
 
 describe("listItem", () => {
 	it("works", () => {

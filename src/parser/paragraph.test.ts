@@ -1,6 +1,6 @@
 import { assert, assertEqual } from "../assertUtils";
-import { isParseSuccess } from "../utils";
 import { paragraphParser } from "./paragraph";
+import { isParseSuccess } from "./parseUtils";
 
 describe("paragraph", () => {
 	it("works", () => {

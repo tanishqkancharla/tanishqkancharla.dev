@@ -1,6 +1,6 @@
 import { assert, assertEqual } from "../assertUtils";
-import { isParseSuccess } from "../utils";
 import { dateParser } from "./date";
+import { isParseSuccess } from "./parseUtils";
 
 describe("Date", () => {
 	it("works", () => {

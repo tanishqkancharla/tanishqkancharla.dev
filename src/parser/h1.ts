@@ -1,8 +1,8 @@
-import { TKBlock } from "..";
-import { Parser } from "../Parser";
-import { line, prefix, str } from "../utils";
+import { Parser } from "./Parser";
+import { TKBlock } from "./parseTK";
+import { line, prefix, str } from "./parseUtils";
 
-declare module ".." {
+declare module "./parseTK" {
 	interface TKBlockMap {
 		h1: { content: string };
 	}

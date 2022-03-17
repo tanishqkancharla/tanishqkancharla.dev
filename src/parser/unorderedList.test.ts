@@ -1,5 +1,5 @@
 import { assert, assertEqual } from "../assertUtils";
-import { isParseSuccess } from "../utils";
+import { isParseSuccess } from "./parseUtils";
 import { unorderedListParser } from "./unorderedList";
 
 describe("unorderedList", () => {

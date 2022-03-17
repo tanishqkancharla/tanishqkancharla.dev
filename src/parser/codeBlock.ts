@@ -1,10 +1,10 @@
-import { TKBlock } from "..";
-import { Parser } from "../Parser";
-import { line, maybe, prefix, sequence, str, takeUntil } from "../utils";
+import { Parser } from "./Parser";
+import { TKBlock } from "./parseTK";
+import { line, maybe, prefix, sequence, str, takeUntil } from "./parseUtils";
 
 const blockType = "codeBlock";
 
-declare module ".." {
+declare module "./parseTK" {
 	interface TKBlockMap {
 		[blockType]: { lang?: string; content: string };
 	}
@@ -18,8 +18,6 @@ export const langParser = prefix(str("```"), maybe(line)) //
 export const codeBlockParser: Parser<CodeBlockToken> = sequence([
 	langParser,
 	takeUntil(str("\n```\n")),
-	// zeroOrMore(not(str("\n```"))),
-	// str("\n```"),
 ] as const) //
 	.map(([lang, content]) => ({
 		type: "codeBlock",

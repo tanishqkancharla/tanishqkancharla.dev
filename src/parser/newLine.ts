@@ -1,8 +1,8 @@
-import { TKBlock } from "..";
-import { Parser } from "../Parser";
-import { str } from "../utils";
+import { Parser } from "./Parser";
+import { TKBlock } from "./parseTK";
+import { str } from "./parseUtils";
 
-declare module ".." {
+declare module "./parseTK" {
 	interface TKBlockMap {
 		newLine: {};
 	}

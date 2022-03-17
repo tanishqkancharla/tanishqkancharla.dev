@@ -1,6 +1,6 @@
 import { assert, assertEqual } from "../assertUtils";
-import { isParseSuccess } from "../utils";
 import { codeBlockParser, langParser } from "./codeBlock";
+import { isParseSuccess } from "./parseUtils";
 
 describe("codeBlock", () => {
 	it("lang parser", () => {

@@ -10,8 +10,8 @@ build({
 	platform: "node",
 
 	tslint: "on",
-	jsxFactory: "h",
-	jsxFragment: "Fragment",
+	// jsxFactory: "h",
+	// jsxFragment: "Fragment",
 	sourcemap: "inline",
 	sourcesContent: true,
 

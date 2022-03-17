@@ -1,8 +1,8 @@
-import { TKBlock } from "..";
-import { Parser } from "../Parser";
-import { prefix, str, takeUntil } from "../utils";
+import { Parser } from "./Parser";
+import { TKBlock } from "./parseTK";
+import { prefix, str, takeUntil } from "./parseUtils";
 
-declare module ".." {
+declare module "./parseTK" {
 	interface TKBlockMap {
 		twitter: { url: string };
 	}

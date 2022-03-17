@@ -1,4 +1,4 @@
-import { assert, assertEqual } from "./assertUtils";
+import { assert, assertEqual } from "../assertUtils";
 import { ParseSuccess } from "./ParseResult";
 import {
 	char,
@@ -9,7 +9,7 @@ import {
 	notChars,
 	sequence,
 	zeroOrMore,
-} from "./utils";
+} from "./parseUtils";
 
 // describe("Parse utils", () => {
 describe("char", () => {

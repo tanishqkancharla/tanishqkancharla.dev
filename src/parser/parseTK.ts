@@ -1,14 +1,14 @@
-import { codeBlockParser as codeBlock } from "./tkParsers/codeBlock";
-import { dateParser as date } from "./tkParsers/date";
-import { dividerParser as divider } from "./tkParsers/divider";
-import { h1Parser as h1 } from "./tkParsers/h1";
-import { h2Parser as h2 } from "./tkParsers/h2";
-import { h3Parser as h3 } from "./tkParsers/h3";
-import { newLineParser as newLine } from "./tkParsers/newLine";
-import { paragraphParser as paragraph } from "./tkParsers/paragraph";
-import { twitterParser as twitter } from "./tkParsers/twitter";
-import { unorderedListParser as unorderedList } from "./tkParsers/unorderedList";
-import { isParseFailure, oneOf, sequence, zeroOrMore } from "./utils";
+import { codeBlockParser as codeBlock } from "./codeBlock";
+import { dateParser as date } from "./date";
+import { dividerParser as divider } from "./divider";
+import { h1Parser as h1 } from "./h1";
+import { h2Parser as h2 } from "./h2";
+import { h3Parser as h3 } from "./h3";
+import { newLineParser as newLine } from "./newLine";
+import { paragraphParser as paragraph } from "./paragraph";
+import { isParseFailure, oneOf, sequence, zeroOrMore } from "./parseUtils";
+import { twitterParser as twitter } from "./twitter";
+import { unorderedListParser as unorderedList } from "./unorderedList";
 
 export interface TKBlockMap {}
 
@@ -40,12 +40,21 @@ export const header = sequence([h1, divider, paragraph, divider, date] as const)
 	.map(([h1, paragraph, date]) => ({
 		title: h1.content,
 		description: paragraph.content,
-		date,
+		date: { year: date.year, month: date.month },
 	}));
 
 export const document = sequence([header, zeroOrMore(block)] as const);
 
-export function parseTK(contents: string) {
+export type TKDoc = {
+	metadata: {
+		title: string;
+		description: string;
+		date: { year: number; month: number };
+	};
+	blocks: TKBlock[];
+};
+
+export function parseTK(contents: string): TKDoc {
 	const result = document.run(contents);
 
 	if (isParseFailure(result)) {

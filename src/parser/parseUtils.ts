@@ -121,6 +121,17 @@ export const sequence = <ParserArray extends readonly Parser<any>[]>(
 		return new ParseSuccess(seqValues, stream);
 	});
 
+export const lookahead = <T>(parser: Parser<T>): Parser<T> =>
+	new Parser((stream) => {
+		const result = parser.run(stream);
+
+		if (isParseFailure(result)) {
+			return new ParseFailure(result.value, stream);
+		} else {
+			return new ParseSuccess(result.value, stream);
+		}
+	});
+
 export const maybe = <T>(parser: Parser<T>): Parser<T | undefined> =>
 	new Parser((stream) => {
 		const result = parser.run(stream);

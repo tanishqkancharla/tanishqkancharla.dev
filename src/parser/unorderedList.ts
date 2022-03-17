@@ -1,11 +1,11 @@
-import { TKBlock } from "..";
-import { Parser } from "../Parser";
-import { oneOrMore } from "../utils";
 import { listItemParser } from "./listItem";
+import { Parser } from "./Parser";
+import { TKBlock } from "./parseTK";
+import { oneOrMore } from "./parseUtils";
 
 const blockType = "unorderedList";
 
-declare module ".." {
+declare module "./parseTK" {
 	interface TKBlockMap {
 		[blockType]: { listItems: string[] };
 	}

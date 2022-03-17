@@ -1,6 +1,6 @@
 import { assert } from "../assertUtils";
-import { isParseSuccess } from "../utils";
 import { newLineParser } from "./newLine";
+import { isParseSuccess } from "./parseUtils";
 
 describe("newLine", () => {
 	it("works", () => {

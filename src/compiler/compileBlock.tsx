@@ -1,5 +1,6 @@
-import { TKBlock } from ".";
-import { Element, Fragment, h, render } from "./h";
+import React, { ReactElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { TKBlock } from "../parser/parseTK";
 
 function escapeHTML(unsafeHTML: string): string {
 	return unsafeHTML
@@ -10,7 +11,7 @@ function escapeHTML(unsafeHTML: string): string {
 		.replaceAll("'", "&#039;");
 }
 
-function compileBlockToJSX(block: TKBlock): Element {
+function compileBlockToJSX(block: TKBlock): ReactElement {
 	switch (block.type) {
 		case "codeBlock": {
 			return (
@@ -57,5 +58,5 @@ function compileBlockToJSX(block: TKBlock): Element {
 
 export function compileBlock(block: TKBlock): string {
 	const blockJsx = compileBlockToJSX(block);
-	return render(blockJsx);
+	return renderToStaticMarkup(blockJsx);
 }

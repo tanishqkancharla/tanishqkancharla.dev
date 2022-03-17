@@ -1,9 +1,9 @@
-import { TKBlock } from "..";
-import { Parser } from "../Parser";
-import { ParseFailure, ParseSuccess } from "../ParseResult";
-import { char, identity, sequence, takeUntil } from "../utils";
+import { Parser } from "./Parser";
+import { ParseFailure, ParseSuccess } from "./ParseResult";
+import { TKBlock } from "./parseTK";
+import { char, identity, sequence, takeUntil } from "./parseUtils";
 
-declare module ".." {
+declare module "./parseTK" {
 	interface TKBlockMap {
 		date: { year: number; month: number };
 	}
