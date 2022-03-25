@@ -1,4 +1,4 @@
-import { assert, assertEqual } from "../assertUtils";
+import { assert, assertEqual } from "../utils/assertUtils";
 import { isParseSuccess } from "./parseUtils";
 import { twitterParser } from "./twitter";
 

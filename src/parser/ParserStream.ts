@@ -1,12 +1,12 @@
 export class ParserStream {
-	private index: number;
+	index: number;
 	private length: number;
 
 	get isEmpty() {
 		return this.length === 0;
 	}
 
-	constructor(private content: string, index?: number, length?: number) {
+	constructor(public content: string, index?: number, length?: number) {
 		this.index = index === undefined ? 0 : index;
 		this.length = length === undefined ? content.length : length;
 	}
@@ -44,7 +44,6 @@ export class ParserStream {
 
 	log() {
 		const marker = " ".repeat(this.index) + "^";
-
-		console.log(`${this.content.replaceAll("\n", "\\n")}\n${marker}\n`);
+		return { content: this.content.replaceAll("\n", "\\n"), marker };
 	}
 }

@@ -1,14 +1,15 @@
 import React from "react";
 
 export function Header(props: {
-	accentColor: string;
+	// accentColor: string;
 	title: string;
-	headerImageURL: string;
+	// headerImageURL: string;
 }) {
-	const { accentColor, title, headerImageURL } = props;
+	const { title } = props;
+
 	return (
 		<div className="header" style={{ minHeight: "250px" }}>
-			<Image
+			{/* <Image
 				src={newyork}
 				alt={"New York City"}
 				layout="fill"
@@ -16,9 +17,9 @@ export function Header(props: {
 				objectPosition="center 60%"
 				objectFit="cover"
 				className={home ? "home" : ""}
-			/>
+			/> */}
 			<a
-				className={`img-credits ${home ? "home" : ""}`}
+				className={`img-credits`}
 				target="_blank"
 				rel="noreferrer"
 				href="https://www.432parkavenue.com/views/"
@@ -28,11 +29,9 @@ export function Header(props: {
 				</span>
 			</a>
 
-			{text && (
-				<div className="banner">
-					<h1 className={`h1 ${home ? "home" : ""}`}>{text}</h1>
-				</div>
-			)}
+			<div className="banner">
+				<h1 className={`h1`}>{title}</h1>
+			</div>
 		</div>
 	);
 }

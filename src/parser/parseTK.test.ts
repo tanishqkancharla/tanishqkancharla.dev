@@ -1,4 +1,4 @@
-import { assert, assertEqual } from "../assertUtils";
+import { assert, assertEqual } from "../utils/assertUtils";
 import { block, parseTK } from "./parseTK";
 import { isParseSuccess } from "./parseUtils";
 

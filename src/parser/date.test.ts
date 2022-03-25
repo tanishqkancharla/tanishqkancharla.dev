@@ -1,4 +1,4 @@
-import { assert, assertEqual } from "../assertUtils";
+import { assert, assertEqual } from "../utils/assertUtils";
 import { dateParser } from "./date";
 import { isParseSuccess } from "./parseUtils";
 

@@ -1,4 +1,19 @@
 // import is from "@sindresorhus/is";
+// import ReactReconciler from "react-reconciler";
+// import Reconciler from "react-reconciler";
+
+// const hostConfig: ReactReconciler.HostConfig = {
+// 	supportsMutation: false,
+
+// 	supportsPersistence: true,
+
+//     createInstance(type, props) {
+
+//     }
+
+// };
+
+// export const SSRWithHooks = Reconciler(hostConfig);
 
 // declare global {
 // 	namespace JSX {

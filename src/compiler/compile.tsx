@@ -1,7 +1,9 @@
 import * as fs from "fs/promises";
 import path from "path";
-import { parseTK, TKDoc } from "../parser/parseTK";
-import { compileBlock } from "./compileBlock";
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { Page } from "../components/Page";
+import { parseTK } from "../parser/parseTK";
 
 export async function compile(args: { postsDir: string; outDir: string }) {
 	const { postsDir, outDir } = args;
@@ -15,17 +17,15 @@ export async function compile(args: { postsDir: string; outDir: string }) {
 			"utf8"
 		);
 		const ast = parseTK(contents);
-		const compiledPost = compileTKDoc({ ast });
+
+		const renderedPost = renderToStaticMarkup(<Page ast={ast} />);
 
 		const postName = path.parse(postFileName).name;
+
 		await fs.writeFile(
 			path.join(outDir, `${postName}.html`),
-			compiledPost,
+			renderedPost,
 			"utf8"
 		);
 	}
-}
-
-function compileTKDoc(args: { ast: TKDoc }): string {
-	return args.ast.blocks.map(compileBlock).join("\n");
 }

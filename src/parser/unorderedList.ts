@@ -1,7 +1,7 @@
 import { listItemParser } from "./listItem";
 import { Parser } from "./Parser";
 import { TKBlock } from "./parseTK";
-import { oneOrMore } from "./parseUtils";
+import { nOrMore } from "./parseUtils";
 
 const blockType = "unorderedList";
 
@@ -13,7 +13,8 @@ declare module "./parseTK" {
 
 type UnorderedListToken = TKBlock<typeof blockType>;
 
-export const unorderedListParser: Parser<UnorderedListToken> = oneOrMore(
+export const unorderedListParser: Parser<UnorderedListToken> = nOrMore(
+	1,
 	listItemParser
 )
 	.map((listItems) => listItems.map((listItem) => listItem.content))

@@ -14,9 +14,9 @@ It wasn't a perfect solution though -- the more I worked with using Notion, the 
 
 [twitter:https://twitter.com/moonrisetk/status/1275263735184199681?s=21]
 
-(this was before I was working on the website, but its a good example of just the confusing garbage Notion's internal API was sending). 
+(this was before I was working on the website, but its a good example of just the confusing garbage Notion's internal API was sending).
 
-> I also became pretty disillusioned with Tailwind. 
+> I also became pretty disillusioned with Tailwind.
 | I got annoyed with how long my class names ended up being, and that there wasn't a good first-class solution for it. I also just wanted my html to be hella clean and semantic (look at the source of this website!). So I ejected Tailwind and just rebuilt it in CSS.
 
 Regarding the Notion issue, I'm still working on it, but I've also ripped it out for now. I'd love to use Notion's official API, but they don't support non-text blocks yet.
@@ -31,7 +31,7 @@ MarkdownOuter {
   block =  blank | h3 | h2 | h1 | divider | image | block_link | toggle | bullet_list | code | blockquote | para | endline
   h3 = "### " rest
   h2 = "## " rest
-  h1 = "# " rest  
+  h1 = "# " rest
   divider = ("---" nl) | ("***" nl)
   block_link = "[" (~"]" ~nl any)+ "]" nl
   blockquote = inner_block+

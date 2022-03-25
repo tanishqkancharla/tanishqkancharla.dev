@@ -15,6 +15,28 @@ export function isParseFailure(
 	return result instanceof ParseFailure;
 }
 
+export function logResult(result: ParseResult<any>) {
+	if (isParseFailure(result)) {
+		const { content, marker } = result.stream.log();
+		console.log(
+			`
+Parse Failure
+|
+| ${content}
+| ${marker}
+Failed at index ${result.stream.index}: ${result.value}
+`
+		);
+	} else {
+		console.log(
+			`
+Parse Success
+"${result.stream.content}" ==> ${JSON.stringify(result.value, undefined, "  ")}
+`
+		);
+	}
+}
+
 // Helper types
 // Hover over the declare const to get a sense of what they do
 
@@ -66,21 +88,28 @@ export const zeroOrMore = <T>(parser: Parser<T>): Parser<T[]> =>
 		return new ParseSuccess(values, stream);
 	});
 
-export const oneOrMore = <T>(parser: Parser<T>): Parser<T[]> =>
+export const nOrMore = <T>(n: number, parser: Parser<T>): Parser<T[]> =>
 	new Parser((stream) => {
 		const values: T[] = [];
-		let result = parser.run(stream);
 
-		if (isParseFailure(result)) {
-			return new ParseFailure("oneOrMore failed", result.stream);
+		while (true) {
+			let result = parser.run(stream);
+			if (isParseSuccess(result)) {
+				values.push(result.value);
+				stream = result.stream;
+			} else {
+				break;
+			}
 		}
 
-		while (isParseSuccess(result)) {
-			values.push(result.value);
-			result = parser.run(result.stream);
+		if (values.length < n) {
+			return new ParseFailure(
+				`nOrMore failed: only matched ${values.length} tokens`,
+				stream
+			);
 		}
 
-		return new ParseSuccess(values, result.stream);
+		return new ParseSuccess(values, stream);
 	});
 
 export const oneOf = <ParserArray extends readonly Parser<any>[]>(

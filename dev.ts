@@ -1,19 +1,20 @@
 #!/usr/bin/env node
-import { build } from "estrella";
 
-build({
-	entry: ["./src/index.ts", "./src/style.css"],
-	outdir: "dist",
-	sourceRoot: "src",
-	bundle: true,
-	minify: false,
-	platform: "node",
+// build({
+// 	entry: ["./src/index.ts", "./src/style.css"],
+// 	// outdir: "dist",
+// 	// sourceRoot: "src",
+// 	// bundle: true,
+// 	// minify: false,
+// 	watch: true,
 
-	tslint: "on",
-	// jsxFactory: "h",
-	// jsxFragment: "Fragment",
-	sourcemap: "inline",
-	sourcesContent: true,
+// 	platform: "node",
 
-	run: "node dist/index.js",
-});
+// 	tslint: "on",
+// 	// jsxFactory: "h",
+// 	// jsxFragment: "Fragment",
+// 	// sourcemap: "inline",
+// 	// sourcesContent: true,
+
+// 	run: "ts-node src/index.ts",
+// });

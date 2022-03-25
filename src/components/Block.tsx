@@ -1,5 +1,4 @@
-import React, { ReactElement } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
+import React from "react";
 import { TKBlock } from "../parser/parseTK";
 
 function escapeHTML(unsafeHTML: string): string {
@@ -11,7 +10,9 @@ function escapeHTML(unsafeHTML: string): string {
 		.replaceAll("'", "&#039;");
 }
 
-function compileBlockToJSX(block: TKBlock): ReactElement {
+export function Block(props: { block: TKBlock }): JSX.Element | null {
+	const block = props.block;
+
 	switch (block.type) {
 		case "codeBlock": {
 			return (
@@ -35,14 +36,14 @@ function compileBlockToJSX(block: TKBlock): ReactElement {
 		case "unorderedList": {
 			return (
 				<ul>
-					{block.listItems.map((listItem) => (
-						<li>{listItem}</li>
+					{block.listItems.map((listItem, index) => (
+						<li key={index}>{listItem}</li>
 					))}
 				</ul>
 			);
 		}
 		case "newLine": {
-			return <></>;
+			return null;
 		}
 		case "twitter": {
 			return <p>{block.url}</p>;
@@ -54,9 +55,4 @@ function compileBlockToJSX(block: TKBlock): ReactElement {
 			throw new Error(`Unknown block: ${block}`);
 		}
 	}
-}
-
-export function compileBlock(block: TKBlock): string {
-	const blockJsx = compileBlockToJSX(block);
-	return renderToStaticMarkup(blockJsx);
 }

@@ -1,4 +1,4 @@
-import { assert } from "../assertUtils";
+import { assert } from "../utils/assertUtils";
 import { newLineParser } from "./newLine";
 import { isParseSuccess } from "./parseUtils";
 
