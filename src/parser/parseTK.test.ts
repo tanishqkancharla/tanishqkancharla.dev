@@ -1,6 +1,6 @@
 import { assert, assertEqual } from "../utils/assertUtils";
 import { block, parseTK } from "./parseTK";
-import { isParseSuccess } from "./parseUtils";
+import { isParseSuccess, zeroOrMore } from "./parseUtils";
 
 describe("Parser", () => {
 	it("Parsing block works", () => {
@@ -12,10 +12,10 @@ describe("Parser", () => {
 			"[twitter:https://twitter.com/joeyabanks/status/1417505963272249346?s=21]\n";
 		const divider = "---\n";
 		const codeBlock = "```\nconst code = runCode();\n```\n";
-		const newLine = "\n\n";
+		const newLine = "\n";
 		const paragraph = "paragraph\n";
 
-		const possibleBlocks = [
+		const exampleBlocks = [
 			heading1,
 			heading2,
 			heading3,
@@ -27,10 +27,13 @@ describe("Parser", () => {
 			paragraph,
 		];
 
-		for (const possibleBlock of possibleBlocks) {
+		for (const possibleBlock of exampleBlocks) {
 			const result = block.run(possibleBlock);
 			assert.ok(isParseSuccess(result));
-			assert.ok(result.stream.isEmpty, "Stream wasn't consumed");
+			assert.ok(
+				result.stream.isEmpty,
+				"Stream wasn't consumed" + possibleBlock
+			);
 		}
 	});
 
@@ -46,5 +49,53 @@ describe("Parser", () => {
 			},
 			blocks: [{ type: "paragraph", content: "Whoa a block" }],
 		});
+	});
+
+	it("Correct parses spaces between paragraphs", () => {
+		const tk = `
+Hey! 🙋🏾‍♂️ I'm Tanishq. Moonrise is my personal website. I mostly use it as a space to express myself.
+
+I love thinking about rich text editors, extensible programming languages, and just expressive, fun, robust interfaces to software.
+
+I recently graduated from Carnegie Mellon University majoring in physics and computer science, and I'm currently looking for my next opportunity.
+        `;
+
+		// let result: ParseResult<any> = newLineParser.run(tk);
+
+		// result = paragraphParser.run(result.stream);
+
+		// result = newLineParser.run(result.stream);
+
+		// result = paragraphParser.run(result.stream);
+
+		// result = newLineParser.run(result.stream);
+
+		// result = paragraphParser.run(result.stream);
+
+		// logResult(result);
+
+		const result = zeroOrMore(block).run(tk);
+
+		assert(result.stream);
+		assertEqual(result.value, [
+			{ type: "newLine" },
+			{
+				type: "paragraph",
+				content:
+					"Hey! 🙋🏾‍♂️ I'm Tanishq. Moonrise is my personal website. I mostly use it as a space to express myself.",
+			},
+			{ type: "newLine" },
+			{
+				type: "paragraph",
+				content:
+					"I love thinking about rich text editors, extensible programming languages, and just expressive, fun, robust interfaces to software.",
+			},
+			{ type: "newLine" },
+			{
+				type: "paragraph",
+				content:
+					"I recently graduated from Carnegie Mellon University majoring in physics and computer science, and I'm currently looking for my next opportunity.",
+			},
+		]);
 	});
 });

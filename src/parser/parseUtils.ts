@@ -57,6 +57,13 @@ type ParserArrayType<ParserArray extends readonly Parser<any>[]> =
 
 declare const type: ParserArrayType<typeof parsers>;
 
+type FixedSizeArray<N extends number, T> = N extends 0
+	? never[]
+	: {
+			0: T;
+			length: N;
+	  } & ReadonlyArray<T>;
+
 export const char = <Char extends string>(c: Char): Parser<Char> =>
 	new Parser((stream) => {
 		const value = stream.head() as Char | undefined;
@@ -65,28 +72,11 @@ export const char = <Char extends string>(c: Char): Parser<Char> =>
 			return new ParseSuccess(value, stream.move(1));
 		}
 
-		return new ParseFailure(`Char did not match ${c}`, stream);
+		return new ParseFailure(`Char did not match ${JSON.stringify(c)}`, stream);
 	});
 
 export const notChars = (chars: string[]): Parser<string> =>
 	not(oneOf(chars.map((charV) => char(charV))));
-
-export const zeroOrMore = <T>(parser: Parser<T>): Parser<T[]> =>
-	new Parser((stream) => {
-		const values: T[] = [];
-
-		while (true) {
-			let result = parser.run(stream);
-			if (isParseSuccess(result)) {
-				values.push(result.value);
-				stream = result.stream;
-			} else {
-				break;
-			}
-		}
-
-		return new ParseSuccess(values, stream);
-	});
 
 export const nOrMore = <T>(n: number, parser: Parser<T>): Parser<T[]> =>
 	new Parser((stream) => {
@@ -112,9 +102,11 @@ export const nOrMore = <T>(n: number, parser: Parser<T>): Parser<T[]> =>
 		return new ParseSuccess(values, stream);
 	});
 
+export const zeroOrMore = <T>(parser: Parser<T>) => nOrMore(0, parser);
+
 export const oneOf = <ParserArray extends readonly Parser<any>[]>(
 	parsers: ParserArray
-): Parser<ParserArrayType<ParserArray>> =>
+): Parser<ParserToken<ParserArray[number]>> =>
 	new Parser((stream) => {
 		for (const parser of parsers) {
 			const result = parser.run(stream);
@@ -127,10 +119,20 @@ export const oneOf = <ParserArray extends readonly Parser<any>[]>(
 		return new ParseFailure("oneOf failed", stream);
 	});
 
-export const sequence = <ParserArray extends readonly Parser<any>[]>(
+export function sequence<
+	N extends number,
+	ParserArray extends FixedSizeArray<N, Parser<any>>
+>(parsers: ParserArray): Parser<ParserTokenArray<ParserArray>>;
+
+export function sequence<N extends number, ParserArray extends Parser<any>[]>(
 	parsers: ParserArray
-): Parser<ParserTokenArray<ParserArray>> =>
-	new Parser((stream) => {
+): Parser<ParserTokenArray<ParserArray>>;
+
+export function sequence<
+	N extends number,
+	ParserArray extends FixedSizeArray<N, Parser<any>>
+>(parsers: ParserArray): Parser<ParserTokenArray<ParserArray>> {
+	return new Parser((stream) => {
 		// type SeqParserTokenArray = ParserTokenArray<ParserArray>;
 		// type SeqParserToken = SeqParserTokenArray[keyof SeqParserTokenArray];
 		const seqValues = [] as any;
@@ -149,6 +151,7 @@ export const sequence = <ParserArray extends readonly Parser<any>[]>(
 
 		return new ParseSuccess(seqValues, stream);
 	});
+}
 
 export const lookahead = <T>(parser: Parser<T>): Parser<T> =>
 	new Parser((stream) => {
@@ -173,7 +176,9 @@ export const maybe = <T>(parser: Parser<T>): Parser<T | undefined> =>
 	});
 
 export const str = (str: string): Parser<string> =>
-	sequence(str.split("").map(char)).map((tokens) => tokens.join(""));
+	sequence(str.split("").map(char)).map(concat);
+
+export const concat = (strs: string[]) => strs.join("");
 
 export const between = <L, T, R>(
 	left: Parser<L>,
@@ -184,7 +189,7 @@ export const between = <L, T, R>(
 export const prefix = <P, T>(prefix: Parser<P>, parser: Parser<T>): Parser<T> =>
 	sequence([prefix, parser] as const).map((v) => v[1]);
 
-export const suffix = <S, T>(parser: Parser<T>, suffix: Parser<S>): Parser<T> =>
+export const suffix = <T, S>(parser: Parser<T>, suffix: Parser<S>): Parser<T> =>
 	sequence([parser, suffix] as const).map((v) => v[0]);
 
 export const not = <T>(parser: Parser<T>): Parser<string> =>
@@ -201,7 +206,7 @@ export const not = <T>(parser: Parser<T>): Parser<string> =>
 		}
 	});
 
-export const takeUntil = <T>(parser: Parser<T>): Parser<string> =>
-	suffix(zeroOrMore(not(parser)), parser).map((chars) => chars.join(""));
+export const takeUntil = <T>(parser: Parser<T>): Parser<string[]> =>
+	suffix(zeroOrMore(not(parser)), parser);
 
-export const line = takeUntil(char("\n"));
+export const line = takeUntil(char("\n")).map(concat);

@@ -1,6 +1,8 @@
 import React from "react";
 import { TKDoc } from "../parser/parseTK";
 import { Article } from "./Article";
+import { Body } from "./blocks/Body";
+import { Font } from "./Font";
 import { Head } from "./Head";
 import { Header } from "./Header";
 
@@ -16,10 +18,11 @@ export function Page(props: PageProps) {
 	return (
 		<html>
 			<Head />
-			<body>
+			<Font />
+			<Body>
 				<Header title={metadata.title} />
 				<Article blocks={blocks} />
-			</body>
+			</Body>
 		</html>
 	);
 }

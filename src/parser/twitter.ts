@@ -1,6 +1,6 @@
 import { Parser } from "./Parser";
 import { TKBlock } from "./parseTK";
-import { prefix, str, takeUntil } from "./parseUtils";
+import { concat, prefix, str, takeUntil } from "./parseUtils";
 
 declare module "./parseTK" {
 	interface TKBlockMap {
@@ -14,4 +14,5 @@ export const twitterParser: Parser<TwitterToken> = prefix(
 	str("[twitter:"),
 	takeUntil(str("]\n"))
 ) //
+	.map(concat)
 	.map((url) => ({ type: "twitter", url }));

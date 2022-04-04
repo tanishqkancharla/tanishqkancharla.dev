@@ -1,7 +1,7 @@
 import { Parser } from "./Parser";
 import { ParseFailure, ParseSuccess } from "./ParseResult";
 import { TKBlock } from "./parseTK";
-import { char, identity, sequence, takeUntil } from "./parseUtils";
+import { char, concat, sequence, takeUntil } from "./parseUtils";
 
 declare module "./parseTK" {
 	interface TKBlockMap {
@@ -13,9 +13,9 @@ type DateToken = TKBlock<"date">;
 
 /** Parse [year]-[month] */
 export const dateParser: Parser<DateToken> = sequence([
-	takeUntil(char("-")).bimap(identity, (error) => `Expected year`),
-	takeUntil(char("\n")),
-] as const).chain(
+	takeUntil(char("-")).map(concat),
+	takeUntil(char("\n")).map(concat),
+]).chain(
 	([yearStr, monthStr]) =>
 		new Parser((stream) => {
 			const year = Number(yearStr);

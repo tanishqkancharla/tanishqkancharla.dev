@@ -32,7 +32,7 @@ export const block = oneOf([
 	paragraph,
 ]);
 
-export const header = sequence([h1, divider, paragraph, divider, date] as const)
+export const header = sequence([h1, divider, paragraph, divider, date])
 	.map(
 		([h1, divider1, paragraph, divider2, date]) =>
 			[h1, paragraph, date] as const

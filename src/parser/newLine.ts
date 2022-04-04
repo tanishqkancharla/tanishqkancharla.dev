@@ -1,6 +1,6 @@
 import { Parser } from "./Parser";
 import { TKBlock } from "./parseTK";
-import { str } from "./parseUtils";
+import { char } from "./parseUtils";
 
 declare module "./parseTK" {
 	interface TKBlockMap {
@@ -10,6 +10,6 @@ declare module "./parseTK" {
 
 type NewLineToken = TKBlock<"newLine">;
 
-export const newLineParser: Parser<NewLineToken> = str("\n\n").map((char) => ({
+export const newLineParser: Parser<NewLineToken> = char("\n").map((char) => ({
 	type: "newLine",
 }));

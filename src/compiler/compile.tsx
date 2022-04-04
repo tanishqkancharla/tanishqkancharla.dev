@@ -1,31 +1,33 @@
-import * as fs from "fs/promises";
-import path from "path";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 import { Page } from "../components/Page";
 import { parseTK } from "../parser/parseTK";
 
-export async function compile(args: { postsDir: string; outDir: string }) {
-	const { postsDir, outDir } = args;
-	const dirItems = await fs.readdir(postsDir);
+export function compilePost(contents: string): string {
+	const ast = parseTK(contents);
 
-	const posts = dirItems.filter((path) => path.endsWith(".tk"));
-
-	for (const postFileName of posts) {
-		const contents = await fs.readFile(
-			path.join(postsDir, postFileName),
-			"utf8"
+	const sheet = new ServerStyleSheet();
+	try {
+		let renderedPost = renderToStaticMarkup(
+			<StyleSheetManager sheet={sheet.instance}>
+				<Page ast={ast} />
+			</StyleSheetManager>
 		);
-		const ast = parseTK(contents);
 
-		const renderedPost = renderToStaticMarkup(<Page ast={ast} />);
+		const styleTags = sheet.getStyleTags();
 
-		const postName = path.parse(postFileName).name;
+		const bodyIndex = renderedPost.indexOf("<body");
+		renderedPost =
+			renderedPost.slice(0, bodyIndex) +
+			styleTags +
+			renderedPost.slice(bodyIndex, undefined);
 
-		await fs.writeFile(
-			path.join(outDir, `${postName}.html`),
-			renderedPost,
-			"utf8"
-		);
+		sheet.seal();
+
+		return renderedPost;
+	} catch (e) {
+		sheet.seal();
+		throw e;
 	}
 }

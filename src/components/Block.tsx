@@ -1,55 +1,47 @@
 import React from "react";
 import { TKBlock } from "../parser/parseTK";
-
-function escapeHTML(unsafeHTML: string): string {
-	return unsafeHTML
-		.replaceAll("&", "&amp;")
-		.replaceAll("<", "&lt;")
-		.replaceAll(">", "&gt;")
-		.replaceAll('"', "&quot;")
-		.replaceAll("'", "&#039;");
-}
+import { CodeBlock } from "./blocks/CodeBlock";
+import { Divider } from "./blocks/Divider";
+import { H1, H2, H3 } from "./blocks/Heading";
+import { Li, Ul } from "./blocks/List";
+import { P } from "./blocks/Paragraph";
 
 export function Block(props: { block: TKBlock }): JSX.Element | null {
 	const block = props.block;
 
 	switch (block.type) {
 		case "codeBlock": {
-			return (
-				<pre lang={block.lang}>
-					<code>{escapeHTML(block.content)}</code>
-				</pre>
-			);
+			return <CodeBlock lang={block.lang} content={block.content} />;
 		}
 		case "divider": {
-			return <hr />;
+			return <Divider />;
 		}
 		case "h1": {
-			return <h1>{block.content}</h1>;
+			return <H1>{block.content}</H1>;
 		}
 		case "h2": {
-			return <h2>{block.content}</h2>;
+			return <H2>{block.content}</H2>;
 		}
 		case "h3": {
-			return <h3>{block.content}</h3>;
+			return <H3>{block.content}</H3>;
 		}
 		case "unorderedList": {
 			return (
-				<ul>
+				<Ul>
 					{block.listItems.map((listItem, index) => (
-						<li key={index}>{listItem}</li>
+						<Li key={index}>{listItem}</Li>
 					))}
-				</ul>
+				</Ul>
 			);
 		}
 		case "newLine": {
 			return null;
 		}
 		case "twitter": {
-			return <p>{block.url}</p>;
+			return <P>{block.url}</P>;
 		}
 		case "paragraph": {
-			return <p>{block.content}</p>;
+			return <P>{block.content}</P>;
 		}
 		default: {
 			throw new Error(`Unknown block: ${block}`);

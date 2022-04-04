@@ -1,6 +1,14 @@
 import { Parser } from "./Parser";
 import { TKBlock } from "./parseTK";
-import { line, maybe, prefix, sequence, str, takeUntil } from "./parseUtils";
+import {
+	concat,
+	line,
+	maybe,
+	prefix,
+	sequence,
+	str,
+	takeUntil,
+} from "./parseUtils";
 
 const blockType = "codeBlock";
 
@@ -17,8 +25,8 @@ export const langParser = prefix(str("```"), maybe(line)) //
 
 export const codeBlockParser: Parser<CodeBlockToken> = sequence([
 	langParser,
-	takeUntil(str("\n```\n")),
-] as const) //
+	takeUntil(str("\n```\n")).map(concat),
+]) //
 	.map(([lang, content]) => ({
 		type: "codeBlock",
 		lang,
