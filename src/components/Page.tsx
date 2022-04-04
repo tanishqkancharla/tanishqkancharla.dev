@@ -1,6 +1,6 @@
 import React from "react";
 import { TKDoc } from "../parser/parseTK";
-import { Article } from "./Article";
+import { TKArticle } from "./Article";
 import { Body } from "./blocks/Body";
 import { Font } from "./Font";
 import { Head } from "./Head";
@@ -21,7 +21,7 @@ export function Page(props: PageProps) {
 			<Font />
 			<Body>
 				<Header title={metadata.title} />
-				<Article blocks={blocks} />
+				<TKArticle blocks={blocks} />
 			</Body>
 		</html>
 	);

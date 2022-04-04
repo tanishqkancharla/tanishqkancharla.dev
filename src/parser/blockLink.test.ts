@@ -4,7 +4,7 @@ import { isParseSuccess } from "./parseUtils";
 
 describe("blockLink", () => {
 	it("works", () => {
-		const result = blockLinkParser.run("[Gem:https://gem.moonrise.tk]");
+		const result = blockLinkParser.run("[Gem](https://gem.moonrise.tk)\n");
 
 		assert.ok(isParseSuccess(result));
 		assert.ok(result.stream.isEmpty);

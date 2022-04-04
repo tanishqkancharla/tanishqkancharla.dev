@@ -1,5 +1,6 @@
 import React from "react";
 import { TKBlock } from "../parser/parseTK";
+import { BlockLink } from "./blocks/BlockLink";
 import { CodeBlock } from "./blocks/CodeBlock";
 import { Divider } from "./blocks/Divider";
 import { H1, H2, H3 } from "./blocks/Heading";
@@ -36,6 +37,9 @@ export function Block(props: { block: TKBlock }): JSX.Element | null {
 		}
 		case "newLine": {
 			return null;
+		}
+		case "blockLink": {
+			return <BlockLink block={block} />;
 		}
 		case "twitter": {
 			return <P>{block.url}</P>;

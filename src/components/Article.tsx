@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { TKBlock } from "../parser/parseTK";
 import { bodyTextColor, width } from "../styles/vars";
 import { Block } from "./Block";
+import { Footer } from "./Footer";
 
-const _Article = styled.article`
+const Article = styled.article`
 	display: flex;
 	flex-direction: column;
 	margin-left: auto;
@@ -14,12 +15,13 @@ const _Article = styled.article`
 	width: ${width};
 `;
 
-export function Article(props: { blocks: TKBlock[] }) {
+export function TKArticle(props: { blocks: TKBlock[] }) {
 	return (
-		<_Article>
+		<Article>
 			{props.blocks.map((block, index) => (
 				<Block key={index} block={block} />
 			))}
-		</_Article>
+			<Footer />
+		</Article>
 	);
 }

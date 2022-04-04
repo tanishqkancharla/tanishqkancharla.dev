@@ -1,6 +1,6 @@
 import { assert } from "../utils/assertUtils";
 import { newLineParser } from "./newLine";
-import { isParseSuccess, logResult } from "./parseUtils";
+import { isParseSuccess } from "./parseUtils";
 
 describe("newLine", () => {
 	it("works", () => {
@@ -9,7 +9,6 @@ describe("newLine", () => {
 `
 		);
 
-		logResult(result);
 		assert.ok(isParseSuccess(result));
 		assert.ok(result.stream.isEmpty);
 	});
@@ -20,7 +19,6 @@ describe("newLine", () => {
 Content`
 		);
 
-		logResult(result);
 		assert.ok(isParseSuccess(result));
 	});
 });

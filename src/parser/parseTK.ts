@@ -1,3 +1,4 @@
+import { blockLinkParser as blockLink } from "./blockLink";
 import { codeBlockParser as codeBlock } from "./codeBlock";
 import { dateParser as date } from "./date";
 import { dividerParser as divider } from "./divider";
@@ -28,6 +29,7 @@ export const block = oneOf([
 	divider,
 	twitter,
 	codeBlock,
+	blockLink,
 	newLine,
 	paragraph,
 ]);
