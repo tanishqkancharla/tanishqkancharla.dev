@@ -1,6 +1,7 @@
 export const accentColor = "#e68058";
-export const backgroundColor = "rgba(36, 36, 36, 1)";
-// --transparent-background: rgba(36, 36, 36, 0.15);
+export const backgroundColor = "rgba(32, 32, 32, 1)";
+export const secondaryBackgroundColor = "rgba(57, 57, 57, 1)";
+export const transparentBackground = "rgba(36, 36, 36, 0.15)";
 
 export const headingTextColor = "rgba(250, 250, 250, 1)";
 export const bodyTextColor = "rgba(171, 171, 171, 1)";

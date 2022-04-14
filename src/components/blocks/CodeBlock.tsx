@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { bodyTextColor, borderColor } from "../../styles/vars";
+import { accentColor, bodyTextColor } from "../../styles/vars";
 
 const monospaceFont = `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 "Liberation Mono", "Courier New", monospace;`;
@@ -9,11 +9,11 @@ const Pre = styled.pre`
 	background-color: rgba(25, 25, 25, 1);
 	color: ${bodyTextColor};
 
-	border-color: ${borderColor};
+	border-style: solid;
+	border-color: ${accentColor};
 	border-radius: 0.25rem;
-	border-width: 2.5px;
+	border-width: 1.5px;
 
-	font-size: 85%;
 	font-family: ${monospaceFont};
 
 	line-height: 1.25rem;
@@ -94,21 +94,12 @@ const Code = styled.code`
 	white-space: pre-wrap;
 `;
 
-function escapeHTML(unsafeHTML: string): string {
-	return unsafeHTML
-		.replaceAll("&", "&amp;")
-		.replaceAll("<", "&lt;")
-		.replaceAll(">", "&gt;")
-		.replaceAll('"', "&quot;")
-		.replaceAll("'", "&#039;");
-}
-
 export function CodeBlock(props: { lang?: string; content: string }) {
 	const { content, lang } = props;
 
 	return (
 		<Pre className={`lang-${lang}`}>
-			<Code>{escapeHTML(content)}</Code>
+			<Code>{content}</Code>
 		</Pre>
 	);
 }

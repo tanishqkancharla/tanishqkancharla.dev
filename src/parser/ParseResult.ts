@@ -15,8 +15,8 @@ interface ParseResultI<T> {
 	): ParseResult<S>;
 
 	fold<S>(
-		successFn: (val: T, stream: ParserStream) => S,
-		failFn: (val: T, stream: ParserStream) => S
+		successFn: (res: ParseSuccess<T>) => S,
+		failFn: (res: ParseFailure) => S
 	): S;
 }
 
@@ -36,10 +36,10 @@ export class ParseSuccess<T> implements ParseResultI<T> {
 	}
 
 	fold<S>(
-		successFn: (val: T, stream: ParserStream) => S,
-		failFn: (val: T, stream: ParserStream) => S
+		successFn: (res: ParseSuccess<T>) => S,
+		failFn: (res: ParseFailure) => S
 	) {
-		return successFn(this.value, this.stream);
+		return successFn(this);
 	}
 }
 
@@ -59,9 +59,9 @@ export class ParseFailure implements ParseResultI<string> {
 	}
 
 	fold<S>(
-		successFn: (val: any, stream: ParserStream) => S,
-		failFn: (val: any, stream: ParserStream) => S
+		successFn: (res: ParseSuccess<any>) => S,
+		failFn: (res: ParseFailure) => S
 	) {
-		return failFn(this.value, this.stream);
+		return failFn(this);
 	}
 }

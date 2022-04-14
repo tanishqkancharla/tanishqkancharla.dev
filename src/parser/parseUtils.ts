@@ -82,7 +82,7 @@ export const nOrMore = <T>(n: number, parser: Parser<T>): Parser<T[]> =>
 	new Parser((stream) => {
 		const values: T[] = [];
 
-		while (true) {
+		while (true || stream.isEmpty) {
 			let result = parser.run(stream);
 			if (isParseSuccess(result)) {
 				values.push(result.value);
@@ -121,17 +121,30 @@ export const oneOf = <ParserArray extends readonly Parser<any>[]>(
 
 export function sequence<
 	N extends number,
-	ParserArray extends FixedSizeArray<N, Parser<any>>
->(parsers: ParserArray): Parser<ParserTokenArray<ParserArray>>;
-
-export function sequence<N extends number, ParserArray extends Parser<any>[]>(
-	parsers: ParserArray
+	ParserArray extends FixedSizeArray<N, Parser<any>>,
+	Delimiter
+>(
+	parsers: ParserArray,
+	delimiter?: Parser<Delimiter>
 ): Parser<ParserTokenArray<ParserArray>>;
 
 export function sequence<
 	N extends number,
-	ParserArray extends FixedSizeArray<N, Parser<any>>
->(parsers: ParserArray): Parser<ParserTokenArray<ParserArray>> {
+	ParserArray extends Parser<any>[],
+	Delimiter
+>(
+	parsers: ParserArray,
+	delimiter?: Parser<Delimiter>
+): Parser<ParserTokenArray<ParserArray>>;
+
+export function sequence<
+	N extends number,
+	ParserArray extends FixedSizeArray<N, Parser<any>>,
+	Delimiter
+>(
+	parsers: ParserArray,
+	delimiter?: Parser<Delimiter>
+): Parser<ParserTokenArray<ParserArray>> {
 	return new Parser((stream) => {
 		// type SeqParserTokenArray = ParserTokenArray<ParserArray>;
 		// type SeqParserToken = SeqParserTokenArray[keyof SeqParserTokenArray];
@@ -144,6 +157,18 @@ export function sequence<
 				const { value, stream: newStream } = result;
 				seqValues.push(value);
 				stream = newStream;
+
+				const notAtEnd = seqValues.length < parsers.length;
+
+				if (delimiter && notAtEnd) {
+					const { stream: afterDelimStream } = delimiter.run(newStream);
+
+					if (result instanceof ParseSuccess) {
+						stream = afterDelimStream;
+					} else {
+						return result;
+					}
+				}
 			} else {
 				return result;
 			}
@@ -184,7 +209,7 @@ export const between = <L, T, R>(
 	left: Parser<L>,
 	parser: Parser<T>,
 	right: Parser<R>
-): Parser<T> => sequence([left, parser, right] as const).map((v) => v[1]);
+): Parser<T> => sequence([left, parser, right]).map((v) => v[1]);
 
 export const prefix = <P, T>(prefix: Parser<P>, parser: Parser<T>): Parser<T> =>
 	sequence([prefix, parser] as const).map((v) => v[1]);

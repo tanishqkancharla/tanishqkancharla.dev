@@ -47,7 +47,12 @@ describe("Parser", () => {
 				description: "Description",
 				date: { year: 2021, month: 7 },
 			},
-			blocks: [{ type: "paragraph", content: "Whoa a block" }],
+			blocks: [
+				{
+					type: "paragraph",
+					content: [{ type: "plain", content: "Whoa a block" }],
+				},
+			],
 		});
 	});
 
@@ -81,20 +86,35 @@ I recently graduated from Carnegie Mellon University majoring in physics and com
 			{ type: "newLine" },
 			{
 				type: "paragraph",
-				content:
-					"Hey! 🙋🏾‍♂️ I'm Tanishq. Moonrise is my personal website. I mostly use it as a space to express myself.",
+				content: [
+					{
+						type: "plain",
+						content:
+							"Hey! 🙋🏾‍♂️ I'm Tanishq. Moonrise is my personal website. I mostly use it as a space to express myself.",
+					},
+				],
 			},
 			{ type: "newLine" },
 			{
 				type: "paragraph",
-				content:
-					"I love thinking about rich text editors, extensible programming languages, and just expressive, fun, robust interfaces to software.",
+				content: [
+					{
+						type: "plain",
+						content:
+							"I love thinking about rich text editors, extensible programming languages, and just expressive, fun, robust interfaces to software.",
+					},
+				],
 			},
 			{ type: "newLine" },
 			{
 				type: "paragraph",
-				content:
-					"I recently graduated from Carnegie Mellon University majoring in physics and computer science, and I'm currently looking for my next opportunity.",
+				content: [
+					{
+						type: "plain",
+						content:
+							"I recently graduated from Carnegie Mellon University majoring in physics and computer science, and I'm currently looking for my next opportunity.",
+					},
+				],
 			},
 		]);
 	});

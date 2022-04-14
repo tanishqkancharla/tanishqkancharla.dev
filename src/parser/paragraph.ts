@@ -1,17 +1,20 @@
 import { Parser } from "./Parser";
 import { TKBlock } from "./parseTK";
-import { line } from "./parseUtils";
+import { char, suffix } from "./parseUtils";
+import { richTextParser, RichTextToken } from "./richText";
 
 declare module "./parseTK" {
 	interface TKBlockMap {
-		paragraph: { content: string };
+		paragraph: { content: RichTextToken[] };
 	}
 }
 
 type ParagraphToken = TKBlock<"paragraph">;
 
-export const paragraphParser: Parser<ParagraphToken> = line //
-	.map((content) => ({
-		type: "paragraph",
-		content,
-	}));
+export const paragraphParser: Parser<ParagraphToken> = suffix(
+	richTextParser,
+	char("\n")
+).map((content) => ({
+	type: "paragraph",
+	content,
+}));

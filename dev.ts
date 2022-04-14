@@ -16,7 +16,7 @@ const buildSteps: BuildStep[] = [
 			postsDir: "./posts/",
 			outDir: "./dist/",
 			accentColor: "#e68058",
-			headerImageURL: "public/newyork.webp",
+			headerImageURL: "./newyork.webp",
 		});
 	},
 ];
@@ -39,7 +39,7 @@ async function buildAndServe() {
 		try {
 			await build();
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 	});
 }

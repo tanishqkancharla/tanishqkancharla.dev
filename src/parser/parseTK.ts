@@ -7,7 +7,13 @@ import { h2Parser as h2 } from "./h2";
 import { h3Parser as h3 } from "./h3";
 import { newLineParser as newLine } from "./newLine";
 import { paragraphParser as paragraph } from "./paragraph";
-import { isParseFailure, oneOf, sequence, zeroOrMore } from "./parseUtils";
+import {
+	isParseFailure,
+	line,
+	oneOf,
+	sequence,
+	zeroOrMore,
+} from "./parseUtils";
 import { twitterParser as twitter } from "./twitter";
 import { unorderedListParser as unorderedList } from "./unorderedList";
 
@@ -34,18 +40,15 @@ export const block = oneOf([
 	paragraph,
 ]);
 
-export const header = sequence([h1, divider, paragraph, divider, date])
-	.map(
-		([h1, divider1, paragraph, divider2, date]) =>
-			[h1, paragraph, date] as const
-	)
-	.map(([h1, paragraph, date]) => ({
+export const header = sequence([h1, divider, line, divider, date])
+	.map(([h1, divider1, line, divider2, date]) => [h1, line, date] as const)
+	.map(([h1, line, date]) => ({
 		title: h1.content,
-		description: paragraph.content,
+		description: line,
 		date: { year: date.year, month: date.month },
 	}));
 
-export const document = sequence([header, zeroOrMore(block)] as const);
+export const document = sequence([header, zeroOrMore(block)]);
 
 export type TKDoc = {
 	metadata: {

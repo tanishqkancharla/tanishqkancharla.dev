@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { backgroundColor } from "../../styles/vars";
+import { backgroundColor } from "../styles/vars";
 
 export const Body = styled.body`
 	font-family: "Source Sans Pro", ui-sans-serif, system-ui, -apple-system,
@@ -10,4 +10,5 @@ export const Body = styled.body`
 	background-color: ${backgroundColor};
 	height: 100%;
 	width: 100%;
+	margin: 0;
 `;

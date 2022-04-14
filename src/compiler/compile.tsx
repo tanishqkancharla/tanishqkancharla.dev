@@ -1,17 +1,18 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
+import { WebsiteContext } from "..";
 import { Page } from "../components/Page";
 import { parseTK } from "../parser/parseTK";
 
-export function compilePost(contents: string): string {
+export function compilePost(contents: string, context: WebsiteContext): string {
 	const ast = parseTK(contents);
 
 	const sheet = new ServerStyleSheet();
 	try {
 		let renderedPost = renderToStaticMarkup(
 			<StyleSheetManager sheet={sheet.instance}>
-				<Page ast={ast} />
+				<Page ast={ast} context={context} />
 			</StyleSheetManager>
 		);
 

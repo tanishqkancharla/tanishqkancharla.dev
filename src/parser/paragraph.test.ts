@@ -8,6 +8,11 @@ describe("paragraph", () => {
 		assert.ok(isParseSuccess(result));
 		assert.ok(result.stream.isEmpty);
 
-		assertEqual(result.value.content, "paragraph");
+		assertEqual(result.value.content, [
+			{
+				type: "plain",
+				content: "paragraph",
+			},
+		]);
 	});
 });

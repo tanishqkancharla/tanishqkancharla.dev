@@ -115,8 +115,6 @@ it("zeroOrMore", () => {
 	});
 });
 
-it.skip("oneOrMore");
-
 it.skip("str");
 
 it.skip("between");

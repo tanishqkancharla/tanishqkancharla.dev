@@ -6,6 +6,7 @@ import { Divider } from "./blocks/Divider";
 import { H1, H2, H3 } from "./blocks/Heading";
 import { Li, Ul } from "./blocks/List";
 import { P } from "./blocks/Paragraph";
+import { RichTextParagraph } from "./blocks/RichText";
 
 export function Block(props: { block: TKBlock }): JSX.Element | null {
 	const block = props.block;
@@ -45,7 +46,7 @@ export function Block(props: { block: TKBlock }): JSX.Element | null {
 			return <P>{block.url}</P>;
 		}
 		case "paragraph": {
-			return <P>{block.content}</P>;
+			return <RichTextParagraph>{block.content}</RichTextParagraph>;
 		}
 		default: {
 			throw new Error(`Unknown block: ${block}`);

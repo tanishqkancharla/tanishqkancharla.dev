@@ -12,11 +12,6 @@ export type WebsiteContext = {
 export async function buildWebsite(context: WebsiteContext) {
 	const { postsDir, outDir } = context;
 	const dirItems = await fs.readdir(postsDir);
-	const oldDirItems = await fs.readdir(outDir);
-
-	for (const oldDirItem of oldDirItems) {
-		await fs.rm(path.join(outDir, oldDirItem), { recursive: true });
-	}
 
 	const pageNames = dirItems
 		.filter((path) => path.endsWith(".tk"))
@@ -30,7 +25,7 @@ export async function buildWebsite(context: WebsiteContext) {
 			"utf8"
 		);
 
-		const compiledContents = compilePost(rawContents);
+		const compiledContents = compilePost(rawContents, context);
 
 		await fs.writeFile(
 			path.join(outDir, `${pageName}.html`),

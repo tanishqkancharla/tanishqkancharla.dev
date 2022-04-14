@@ -20,9 +20,7 @@ const BlockLinkA = styled.a`
 	margin-top: 0.3rem;
 	margin-bottom: 0.3rem;
 
-	padding-left: 0.25rem;
-	padding-right: 0.25rem;
-	padding-bottom: 0.125rem;
+	padding: 0.25rem;
 
 	text-decoration: none;
 

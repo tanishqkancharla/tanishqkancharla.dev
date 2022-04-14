@@ -1,14 +1,79 @@
 import React from "react";
+import styled from "styled-components";
+import { transparentBackground, width } from "../styles/vars";
+import { H1 } from "./blocks/Heading";
 
-export function Header(props: {
+export const Header = styled.div`
+	height: 18rem;
+	min-height: 250px;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	z-index: 1;
+`;
+
+const HeaderImage = styled.div`
+	width: 100%;
+	height: 100%;
+
+	& img {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+	}
+`;
+
+const HeaderImageCredits = styled.a`
+	position: absolute;
+	bottom: 0;
+	right: 0.25rem;
+	z-index: 2;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: none;
+	}
+`;
+
+const Banner = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: auto;
+	position: absolute;
+	bottom: 0;
+
+	box-shadow: 1;
+	width: 100%;
+
+	/* Fallback color */
+	background-color: rgb(0, 0, 0);
+	/* White w/opacity/see-through */
+	background-color: ${transparentBackground};
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+
+	& h1 {
+		display: block;
+		margin-top: 0;
+		margin-bottom: 0;
+		color: rgba(250, 250, 250, 1);
+		width: ${width};
+	}
+`;
+
+export function TKHeader(props: {
 	// accentColor: string;
 	title: string;
-	// headerImageURL: string;
+	headerImageURL: string;
 }) {
-	const { title } = props;
+	const { title, headerImageURL } = props;
 
 	return (
-		<div className="header" style={{ minHeight: "250px" }}>
+		<Header>
+			<HeaderImage>
+				<img src={headerImageURL} alt="New York City" />
+			</HeaderImage>
 			{/* <Image
 				src={newyork}
 				alt={"New York City"}
@@ -18,7 +83,7 @@ export function Header(props: {
 				objectFit="cover"
 				className={home ? "home" : ""}
 			/> */}
-			<a
+			<HeaderImageCredits
 				className={`img-credits`}
 				target="_blank"
 				rel="noreferrer"
@@ -27,11 +92,11 @@ export function Header(props: {
 				<span role="img" aria-label="Camera">
 					📸
 				</span>
-			</a>
+			</HeaderImageCredits>
 
-			<div className="banner">
-				<h1 className={`h1`}>{title}</h1>
-			</div>
-		</div>
+			<Banner>
+				<H1>{title}</H1>
+			</Banner>
+		</Header>
 	);
 }

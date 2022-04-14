@@ -1,4 +1,4 @@
-import { ParseFailure, ParseResult } from "./ParseResult";
+import { ParseFailure, ParseResult, ParseSuccess } from "./ParseResult";
 import { ParserStream } from "./ParserStream";
 
 export class Parser<K> {
@@ -31,9 +31,14 @@ export class Parser<K> {
 	}
 
 	fold<S>(
-		successFn: (val: K, stream: ParserStream) => ParseResult<S>,
-		failFn: (val: K, stream: ParserStream) => ParseResult<S>
+		successFn: (res: ParseSuccess<K>) => ParseResult<S>,
+		failFn: (res: ParseFailure) => ParseResult<S>
 	) {
-		return new Parser((stream) => this.parseFn(stream).fold(successFn, failFn));
+		return new Parser((stream) =>
+			this.parseFn(stream).fold(
+				(res) => successFn(res as ParseSuccess<K>),
+				(res) => failFn(res as ParseFailure)
+			)
+		);
 	}
 }
