@@ -1,8 +1,12 @@
 import { Parser } from "./Parser";
+import { ParseFailure, ParseSuccess } from "./ParseResult";
 import {
 	between,
 	char,
 	concat,
+	identity,
+	isParseSuccess,
+	line,
 	nOrMore,
 	not,
 	oneOf,
@@ -66,6 +70,16 @@ export type RichTextToken =
 	| LinkToken
 	| PlainToken;
 
-export const richTextParser: Parser<RichTextToken[]> = zeroOrMore(
-	oneOf([italicParser, boldParser, codeParser, linkParser, plainParser])
-);
+export type RichTextContent = RichTextToken[];
+
+export const richTextParser: Parser<RichTextToken[]> = line.fold((result) => {
+	const richText = zeroOrMore(
+		oneOf([italicParser, boldParser, codeParser, linkParser, plainParser])
+	).run(result.value);
+	// We want to parse the line but keep the rest of the stream.
+	if (isParseSuccess(richText)) {
+		return new ParseSuccess(richText.value, result.stream);
+	} else {
+		return new ParseFailure(richText.value, result.stream);
+	}
+}, identity);

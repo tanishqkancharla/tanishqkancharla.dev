@@ -9,6 +9,8 @@ const Pre = styled.pre`
 	background-color: rgba(25, 25, 25, 1);
 	color: ${bodyTextColor};
 
+	margin: 0.3rem;
+
 	border-style: solid;
 	border-color: ${accentColor};
 	border-radius: 0.25rem;

@@ -24,6 +24,7 @@ export class Parser<K> {
 		);
 	}
 
+	/** Combine parsers together in sequence */
 	chain<T>(fn: (val: K) => Parser<T>) {
 		return new Parser((stream) =>
 			this.parseFn(stream).chain((val, stream) => fn(val).run(stream))
@@ -34,11 +35,6 @@ export class Parser<K> {
 		successFn: (res: ParseSuccess<K>) => ParseResult<S>,
 		failFn: (res: ParseFailure) => ParseResult<S>
 	) {
-		return new Parser((stream) =>
-			this.parseFn(stream).fold(
-				(res) => successFn(res as ParseSuccess<K>),
-				(res) => failFn(res as ParseFailure)
-			)
-		);
+		return new Parser((stream) => this.parseFn(stream).fold(successFn, failFn));
 	}
 }

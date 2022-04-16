@@ -26,6 +26,10 @@ export function isError<T>(result: Result<T>): result is Error {
 	return result.type === "error";
 }
 
+export function isDefined<T>(val: T): val is Exclude<T, undefined> {
+	return val !== undefined;
+}
+
 export function map<T, S>(result: Result<T>, fn: (arg: T) => S): Result<S> {
 	if (result.type === "error") return result;
 	return success(fn(result.value));

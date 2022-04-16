@@ -4,6 +4,5 @@ import { buildWebsite } from "./src";
 	await buildWebsite({
 		postsDir: "./posts/",
 		outDir: "./dist/",
-		accentColor: "#e68058",
 		headerImageURL: "./newyork.webp",
 	}))();

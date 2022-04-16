@@ -24,6 +24,7 @@ export const H3 = styled.h3`
 	font-weight: 600;
 	font-size: 1.125rem;
 	margin-top: 1rem;
+	margin-bottom: 0.3rem;
 	line-height: 1.75rem;
 	color: ${headingTextColor};
 `;

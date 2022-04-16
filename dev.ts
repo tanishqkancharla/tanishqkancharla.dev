@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import chokidar from "chokidar";
 import decache from "decache";
+import { rootPath } from "./src/tools/rootPath";
 import { spawn } from "./src/tools/spawn";
 
 type BuildStep = () => void | Promise<void>;
@@ -13,9 +14,8 @@ const buildSteps: BuildStep[] = [
 			throw new Error("Expected to find `buildWebsite` in ./src/index");
 		}
 		module.buildWebsite({
-			postsDir: "./posts/",
-			outDir: "./dist/",
-			accentColor: "#e68058",
+			postsDir: rootPath("posts/"),
+			outDir: rootPath("dist/"),
 			headerImageURL: "./newyork.webp",
 		});
 	},

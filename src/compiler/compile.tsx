@@ -32,3 +32,32 @@ export function compilePost(contents: string, context: WebsiteContext): string {
 		throw e;
 	}
 }
+
+export function compileReactComponent(
+	Component: React.JSXElementConstructor<{}>,
+	context: WebsiteContext
+): string {
+	const sheet = new ServerStyleSheet();
+	try {
+		let renderedPost = renderToStaticMarkup(
+			<StyleSheetManager sheet={sheet.instance}>
+				<Component />
+			</StyleSheetManager>
+		);
+
+		const styleTags = sheet.getStyleTags();
+
+		const bodyIndex = renderedPost.indexOf("<body");
+		renderedPost =
+			renderedPost.slice(0, bodyIndex) +
+			styleTags +
+			renderedPost.slice(bodyIndex, undefined);
+
+		sheet.seal();
+
+		return renderedPost;
+	} catch (e) {
+		sheet.seal();
+		throw e;
+	}
+}

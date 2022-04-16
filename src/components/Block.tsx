@@ -7,6 +7,7 @@ import { H1, H2, H3 } from "./blocks/Heading";
 import { Li, Ul } from "./blocks/List";
 import { P } from "./blocks/Paragraph";
 import { RichTextParagraph } from "./blocks/RichText";
+import { Toggle } from "./blocks/Toggle";
 
 export function Block(props: { block: TKBlock }): JSX.Element | null {
 	const block = props.block;
@@ -42,14 +43,24 @@ export function Block(props: { block: TKBlock }): JSX.Element | null {
 		case "blockLink": {
 			return <BlockLink block={block} />;
 		}
+		case "toggle": {
+			return <Toggle block={block} />;
+		}
 		case "twitter": {
 			return <P>{block.url}</P>;
+		}
+		case "bookmark": {
+			return (
+				<P>
+					<a href={block.href}>{block.title}</a>
+				</P>
+			);
 		}
 		case "paragraph": {
 			return <RichTextParagraph>{block.content}</RichTextParagraph>;
 		}
 		default: {
-			throw new Error(`Unknown block: ${block}`);
+			throw new Error(`Unknown block: ${JSON.stringify(block, null, 2)}`);
 		}
 	}
 }

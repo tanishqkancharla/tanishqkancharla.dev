@@ -12,13 +12,9 @@ type PageProps = {
 	context: WebsiteContext;
 };
 
-export function Page(props: PageProps) {
-	const {
-		ast: { metadata, blocks },
-		context,
-	} = props;
-
+export function Page({ ast, context }: PageProps) {
 	const { headerImageURL } = context;
+	const { metadata, blocks } = ast;
 
 	return (
 		<html>

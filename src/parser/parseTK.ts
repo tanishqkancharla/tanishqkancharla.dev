@@ -1,4 +1,5 @@
 import { blockLinkParser as blockLink } from "./blockLink";
+import { bookmarkParser } from "./bookmark";
 import { codeBlockParser as codeBlock } from "./codeBlock";
 import { dateParser as date } from "./date";
 import { dividerParser as divider } from "./divider";
@@ -14,6 +15,7 @@ import {
 	sequence,
 	zeroOrMore,
 } from "./parseUtils";
+import { toggleParser } from "./toggle";
 import { twitterParser as twitter } from "./twitter";
 import { unorderedListParser as unorderedList } from "./unorderedList";
 
@@ -36,6 +38,8 @@ export const block = oneOf([
 	twitter,
 	codeBlock,
 	blockLink,
+	toggleParser,
+	bookmarkParser,
 	newLine,
 	paragraph,
 ]);

@@ -66,6 +66,9 @@ type FixedSizeArray<N extends number, T> = N extends 0
 
 export const char = <Char extends string>(c: Char): Parser<Char> =>
 	new Parser((stream) => {
+		if (c.length !== 1) {
+			throw new Error(`char invoked with non-char object "${c}"`);
+		}
 		const value = stream.head() as Char | undefined;
 
 		if (value === c) {

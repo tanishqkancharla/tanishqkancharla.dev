@@ -31,7 +31,9 @@ export class ParseSuccess<T> implements ParseResultI<T> {
 		return new ParseSuccess(successFn(this.value), this.stream);
 	}
 
-	chain<S>(fn: (val: T, stream: ParserStream) => S) {
+	chain<S>(
+		fn: (val: T, stream: ParserStream) => ParseResult<S>
+	): ParseResult<S> {
 		return fn(this.value, this.stream);
 	}
 
@@ -54,7 +56,9 @@ export class ParseFailure implements ParseResultI<string> {
 		return new ParseFailure(failFn(this.value), this.stream);
 	}
 
-	chain<S>(fn: (val: any, stream: ParserStream) => S) {
+	chain<S>(
+		fn: (val: any, stream: ParserStream) => ParseResult<S>
+	): ParseResult<any> {
 		return this;
 	}
 

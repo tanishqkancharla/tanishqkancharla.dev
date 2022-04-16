@@ -12,8 +12,8 @@ import { P } from "./Paragraph";
 const Code = styled.code`
 	border-radius: 0.125rem;
 	display: inline-block;
-	padding-left: 0.125rem;
-	padding-right: 0.125rem;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
 
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 		"Liberation Mono", "Courier New", monospace;
@@ -44,13 +44,17 @@ export function RichTextParagraph(props: { children: RichTextToken[] }) {
 	const content = props.children.map((token) => {
 		switch (token.type) {
 			case "bold":
-				return <b>{token.content}</b>;
+				return <b key={token.content}>{token.content}</b>;
 			case "italic":
-				return <i>{token.content}</i>;
+				return <i key={token.content}>{token.content}</i>;
 			case "code":
-				return <Code>{token.content}</Code>;
+				return <Code key={token.content}>{token.content}</Code>;
 			case "link":
-				return <A href={token.href}>{token.content}</A>;
+				return (
+					<A href={token.href} key={token.content}>
+						{token.content}
+					</A>
+				);
 			case "plain":
 				return token.content;
 		}

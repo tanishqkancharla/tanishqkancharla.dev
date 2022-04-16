@@ -63,7 +63,7 @@ describe("Rich Text", () => {
 
 	describe("Rich Text", () => {
 		it("works", () => {
-			const result = richTextParser.run("*bold* to _italic_ to `code`");
+			const result = richTextParser.run("*bold* to _italic_ to `code`\n");
 
 			assert.ok(isParseSuccess(result));
 			assert.ok(result.stream.isEmpty);
