@@ -10,8 +10,9 @@ import {
 const BreadcrumbNav = styled.nav`
 	display: flex;
 	flex-direction: row;
-	gap: 2px;
+	gap: 3px;
 	margin-top: 0.25rem;
+	margin-bottom: 0.5rem;
 	align-items: flex-end;
 `;
 
@@ -21,7 +22,7 @@ const BreadcrumbNavA = styled.a`
 	line-height: 1.25rem;
 
 	color: ${secondaryBodyTextColor};
-	padding: 2px 4px;
+	padding: 0 3px;
 	border-radius: 2px;
 	text-decoration: none;
 	${transitionSm}
@@ -36,18 +37,17 @@ const BreadcrumbDivider = styled.span`
 	display: inline-block;
 	line-height: 1.25rem;
 
-	padding-bottom: 4px;
+	padding-bottom: 1px;
 `;
 
 const BreadcrumbNavIcon = styled(BreadcrumbNavA)`
 	padding: 3px 3px;
 	margin-right: 2px;
-	margin-bottom: 2px;
 `;
 
 const Icon = styled.svg`
-	height: 1rem;
-	width: 1rem;
+	height: 0.9rem;
+	width: 0.9rem;
 	fill: ${secondaryBodyTextColor};
 	${transitionSm}
 

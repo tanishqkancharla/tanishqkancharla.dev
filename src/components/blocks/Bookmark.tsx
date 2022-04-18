@@ -6,9 +6,18 @@ import {
 	secondaryBodyTextColor,
 	transitionDurationSm,
 } from "../../styles/vars";
-import { H3 } from "./Heading";
 import { P } from "./Paragraph";
 import { A } from "./RichText";
+
+const BookmarkTitle = styled.h4`
+	color: white;
+	margin-top: 0px;
+	margin-bottom: 0.5rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-weight: bold;
+`;
 
 const _Bookmark = styled.a`
 	border-style: solid;
@@ -48,13 +57,6 @@ const _Bookmark = styled.a`
 		margin-bottom: 0.25rem;
 	}
 
-	${H3} {
-		margin-top: 0px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
 	.block-link-lg .favicon {
 		margin-right: 0.5rem;
 		position: relative;
@@ -84,7 +86,7 @@ export function Bookmark(props: {
 }) {
 	return (
 		<_Bookmark href={props.href}>
-			<H3>{props.title}</H3>
+			<BookmarkTitle>{props.title}</BookmarkTitle>
 			{props.children}
 		</_Bookmark>
 	);
