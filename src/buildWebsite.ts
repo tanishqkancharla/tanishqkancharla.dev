@@ -1,13 +1,8 @@
-import * as fs from "fs/promises";
+import fs from "fs-extra";
 import path from "path";
 import { compilePost, compileReactComponent } from "./compiler/compile";
 import { crawlDirectory } from "./tools/crawlDirectory";
-
-export type WebsiteContext = {
-	headerImageURL: string;
-	postsDir: string;
-	outDir: string;
-};
+import { defaultWebsiteContext, WebsiteContext } from "./WebsiteContext";
 
 async function buildPost(context: WebsiteContext, postFilePath: string) {
 	const { dir, name } = path.parse(postFilePath);
@@ -16,15 +11,17 @@ async function buildPost(context: WebsiteContext, postFilePath: string) {
 
 	const rawContents = await fs.readFile(postFilePath, "utf8");
 
-	const compiledContents = compilePost(rawContents, context);
-
 	const relativePostDir = path.relative(context.postsDir, dir);
 	const outPostPath = path.join(
 		context.outDir,
 		relativePostDir,
 		`${name}.html`
 	);
+	const href = path.join(relativePostDir, name);
 
+	const compiledContents = compilePost(rawContents, context, href);
+
+	await fs.ensureFile(outPostPath);
 	await fs.writeFile(outPostPath, compiledContents, "utf8");
 }
 
@@ -33,9 +30,12 @@ async function buildReactPage(context: WebsiteContext, postFilePath: string) {
 
 	console.log(`${name}.tsx => ${name}.html`);
 
-	const Component = (await import(postFilePath)).default;
+	const { default: Component, getStaticProps } = await import(postFilePath);
 
-	const compiledContents = compileReactComponent(Component, context);
+	let props = {};
+	if (getStaticProps) {
+		props = await getStaticProps(context);
+	}
 
 	const relativePostDir = path.relative(context.postsDir, dir);
 	const outPostPath = path.join(
@@ -43,11 +43,20 @@ async function buildReactPage(context: WebsiteContext, postFilePath: string) {
 		relativePostDir,
 		`${name}.html`
 	);
+	const href = path.join(relativePostDir, name);
+
+	const compiledContents = compileReactComponent(
+		Component,
+		props,
+		context,
+		href
+	);
 
 	await fs.writeFile(outPostPath, compiledContents, "utf8");
 }
 
-export async function buildWebsite(context: WebsiteContext) {
+export async function buildWebsite() {
+	const context = defaultWebsiteContext;
 	const { postsDir } = context;
 
 	for await (const postFilePath of crawlDirectory(postsDir)) {

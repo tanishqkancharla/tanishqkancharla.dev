@@ -1,18 +1,30 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
-import { WebsiteContext } from "..";
+import { TKArticle } from "../components/Article";
 import { Page } from "../components/Page";
+import { PageContextProvider } from "../PageContext";
 import { parseTK } from "../parser/parseTK";
+import { WebsiteContext, WebsiteContextProvider } from "../WebsiteContext";
 
-export function compilePost(contents: string, context: WebsiteContext): string {
+export function compilePost(
+	contents: string,
+	context: WebsiteContext,
+	href: string
+): string {
 	const ast = parseTK(contents);
 
 	const sheet = new ServerStyleSheet();
 	try {
 		let renderedPost = renderToStaticMarkup(
 			<StyleSheetManager sheet={sheet.instance}>
-				<Page ast={ast} context={context} />
+				<WebsiteContextProvider value={context}>
+					<PageContextProvider value={{ href }}>
+						<Page title={ast.metadata.title}>
+							<TKArticle blocks={ast.blocks} />
+						</Page>
+					</PageContextProvider>
+				</WebsiteContextProvider>
 			</StyleSheetManager>
 		);
 
@@ -33,15 +45,21 @@ export function compilePost(contents: string, context: WebsiteContext): string {
 	}
 }
 
-export function compileReactComponent(
-	Component: React.JSXElementConstructor<{}>,
-	context: WebsiteContext
+export function compileReactComponent<P>(
+	Component: React.JSXElementConstructor<P>,
+	props: P,
+	context: WebsiteContext,
+	href: string
 ): string {
 	const sheet = new ServerStyleSheet();
 	try {
 		let renderedPost = renderToStaticMarkup(
 			<StyleSheetManager sheet={sheet.instance}>
-				<Component />
+				<WebsiteContextProvider value={context}>
+					<PageContextProvider value={{ href }}>
+						<Component {...props} />
+					</PageContextProvider>
+				</WebsiteContextProvider>
 			</StyleSheetManager>
 		);
 

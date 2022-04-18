@@ -1,8 +1,3 @@
-import { buildWebsite } from "./src";
+import { buildWebsite } from "./src/buildWebsite";
 
-(async () =>
-	await buildWebsite({
-		postsDir: "./posts/",
-		outDir: "./dist/",
-		headerImageURL: "./newyork.webp",
-	}))();
+(async () => await buildWebsite())();

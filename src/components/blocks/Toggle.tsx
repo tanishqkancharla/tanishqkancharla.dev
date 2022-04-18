@@ -16,6 +16,9 @@ const Summary = styled.summary`
 `;
 
 const Details = styled.details`
+	margin-top: 0.3rem;
+	margin-bottom: 0.3rem;
+
 	${P} {
 		margin-top: 6px;
 		margin-left: 4px;

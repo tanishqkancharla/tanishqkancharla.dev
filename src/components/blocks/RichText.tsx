@@ -9,7 +9,7 @@ import {
 } from "../../styles/vars";
 import { P } from "./Paragraph";
 
-const Code = styled.code`
+export const Code = styled.code`
 	border-radius: 0.125rem;
 	display: inline-block;
 	padding-left: 0.25rem;
@@ -26,7 +26,7 @@ const Code = styled.code`
 	overflow-wrap: break-word;
 `;
 
-const A = styled.a`
+export const A = styled.a`
 	cursor: pointer;
 	color: ${secondaryBodyTextColor};
 	text-decoration: underline;

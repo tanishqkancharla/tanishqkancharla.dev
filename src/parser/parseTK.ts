@@ -11,6 +11,7 @@ import { paragraphParser as paragraph } from "./paragraph";
 import {
 	isParseFailure,
 	line,
+	logResult,
 	oneOf,
 	sequence,
 	zeroOrMore,
@@ -54,12 +55,14 @@ export const header = sequence([h1, divider, line, divider, date])
 
 export const document = sequence([header, zeroOrMore(block)]);
 
+export type TKMetadata = {
+	title: string;
+	description: string;
+	date: { year: number; month: number };
+};
+
 export type TKDoc = {
-	metadata: {
-		title: string;
-		description: string;
-		date: { year: number; month: number };
-	};
+	metadata: TKMetadata;
 	blocks: TKBlock[];
 };
 
@@ -67,6 +70,7 @@ export function parseTK(contents: string): TKDoc {
 	const result = document.run(contents);
 
 	if (isParseFailure(result)) {
+		logResult(result);
 		throw new Error(result.value);
 	}
 

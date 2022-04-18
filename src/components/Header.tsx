@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { transparentBackground, width } from "../styles/vars";
+import { pageWidth, transparentBackground } from "../styles/vars";
+import { useWebsiteContext } from "../WebsiteContext";
 import { H1 } from "./blocks/Heading";
 
-export const Header = styled.div`
+export const _Header = styled.div`
 	height: 18rem;
 	min-height: 250px;
 	overflow: hidden;
@@ -58,31 +59,19 @@ const Banner = styled.div`
 		margin-top: 0;
 		margin-bottom: 0;
 		color: rgba(250, 250, 250, 1);
-		width: ${width};
+		width: ${pageWidth};
 	}
 `;
 
-export function TKHeader(props: {
-	// accentColor: string;
-	title: string;
-	headerImageURL: string;
-}) {
-	const { title, headerImageURL } = props;
+export function Header(props: { title: string }) {
+	const { headerImageURL } = useWebsiteContext();
+	const { title } = props;
 
 	return (
-		<Header>
+		<_Header>
 			<HeaderImage>
 				<img src={headerImageURL} alt="New York City" />
 			</HeaderImage>
-			{/* <Image
-				src={newyork}
-				alt={"New York City"}
-				layout="fill"
-				priority={true}
-				objectPosition="center 60%"
-				objectFit="cover"
-				className={home ? "home" : ""}
-			/> */}
 			<HeaderImageCredits
 				className={`img-credits`}
 				target="_blank"
@@ -97,6 +86,6 @@ export function TKHeader(props: {
 			<Banner>
 				<H1>{title}</H1>
 			</Banner>
-		</Header>
+		</_Header>
 	);
 }

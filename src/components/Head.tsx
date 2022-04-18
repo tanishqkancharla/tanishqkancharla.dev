@@ -18,6 +18,12 @@ export function Head() {
 
 			<meta name="author" content="Tanishq Kancharla" />
 			<meta name="og:url" content="https://moonrise.tk" />
+
+			<link
+				rel="preconnect"
+				href="https://fonts.gstatic.com/"
+				crossOrigin="anonymous"
+			/>
 		</head>
 	);
 }

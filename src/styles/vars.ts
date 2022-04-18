@@ -10,7 +10,7 @@ export const secondaryBodyTextColor = "rgba(135, 135, 135, 1)";
 export const borderColor = "rgb(82, 82, 82)";
 export const secondaryBorderColor = "white";
 
-export const width = "clamp(40%, 540px, 83.33333%)";
+export const pageWidth = "clamp(40%, 540px, 83.33333%)";
 
 // --sm-width: 83.33333%;
 // --md-width: max(75%, 450px);
@@ -19,3 +19,9 @@ export const width = "clamp(40%, 540px, 83.33333%)";
 
 export const transitionDurationSm = "110ms";
 export const transitionDurationLg = "450ms";
+
+export const transitionSm = `
+transition-property: background-color, border-color, color, fill, stroke,
+opacity, box-shadow, transform;
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+transition-duration: ${transitionDurationSm};`;

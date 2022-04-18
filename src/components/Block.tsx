@@ -1,6 +1,7 @@
 import React from "react";
 import { TKBlock } from "../parser/parseTK";
 import { BlockLink } from "./blocks/BlockLink";
+import { Bookmark } from "./blocks/Bookmark";
 import { CodeBlock } from "./blocks/CodeBlock";
 import { Divider } from "./blocks/Divider";
 import { H1, H2, H3 } from "./blocks/Heading";
@@ -51,9 +52,9 @@ export function Block(props: { block: TKBlock }): JSX.Element | null {
 		}
 		case "bookmark": {
 			return (
-				<P>
-					<a href={block.href}>{block.title}</a>
-				</P>
+				<Bookmark title={block.title} href={block.href}>
+					<P>{block.href}</P>
+				</Bookmark>
 			);
 		}
 		case "paragraph": {
