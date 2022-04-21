@@ -1,8 +1,8 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
-import { TKArticle } from "../components/Article";
 import { Page } from "../components/Page";
+import { TKArticle } from "../components/TKArticle";
 import { PageContext, PageContextProvider } from "../PageContext";
 import { parseTK, TKDoc } from "../parser/parseTK";
 import { WebsiteContext, WebsiteContextProvider } from "../WebsiteContext";
@@ -20,7 +20,7 @@ export type TransformedBlock = TypeTransformedBlocks<
 	LoadedCodeBlock
 >;
 
-type TransformedDoc = {
+export type TransformedDoc = {
 	metadata: TKDoc["metadata"];
 	blocks: TransformedBlock[];
 };
@@ -47,7 +47,7 @@ export async function compilePost(
 		})
 	);
 
-	const transformedAst: TransformedDoc = {
+	const transformedDoc: TransformedDoc = {
 		metadata: ast.metadata,
 		blocks: transformedBlocks,
 	};
@@ -58,8 +58,8 @@ export async function compilePost(
 			<StyleSheetManager sheet={sheet.instance}>
 				<WebsiteContextProvider value={websiteContext}>
 					<PageContextProvider value={pageContext}>
-						<Page title={transformedAst.metadata.title}>
-							<TKArticle blocks={transformedAst.blocks} />
+						<Page title={transformedDoc.metadata?.title || "Moonrise"}>
+							<TKArticle doc={transformedDoc} />
 						</Page>
 					</PageContextProvider>
 				</WebsiteContextProvider>

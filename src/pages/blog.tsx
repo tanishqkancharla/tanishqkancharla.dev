@@ -27,6 +27,7 @@ export async function getStaticProps(
 			const blogPostPath = path.join(blogPostsDirPath, result.name);
 			const rawContents = await fs.readFile(blogPostPath, "utf8");
 			const { metadata } = parseTK(rawContents);
+			if (!metadata) return undefined;
 
 			return { ...metadata, href: `/blog/${result.name.slice(0, -3)}` };
 		})
@@ -42,12 +43,13 @@ function Blog(props: PropsType) {
 		<Page title="Blog">
 			<Article>
 				<P>
-					Moonrise is my personal blog. It&apos;s still small...but I talk about
+					This is my personal blog. It&apos;s still small...but I talk about
 					computers, programming, interfaces and myself.
 				</P>
 				<Divider />
 				{postMetadatas
 					.sort((a, b) => {
+						// sort from most recent to least recent
 						if (a.date.year !== b.date.year) return b.date.year - a.date.year;
 						else return b.date.month - a.date.month;
 					})

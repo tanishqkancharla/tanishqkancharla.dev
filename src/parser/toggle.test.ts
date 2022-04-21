@@ -9,6 +9,8 @@ describe("toggle", () => {
 		assert.ok(result.stream.isEmpty);
 
 		assertEqual(result.value.label, "Toggle");
-		assertEqual(result.value.content, [{ type: "plain", content: "Content" }]);
+		assertEqual(result.value.content, [
+			[{ type: "plain", content: "Content" }],
+		]);
 	});
 });

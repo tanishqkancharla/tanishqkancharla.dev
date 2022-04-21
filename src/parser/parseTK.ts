@@ -14,6 +14,7 @@ import {
 	isParseFailure,
 	line,
 	logResult,
+	maybe,
 	oneOf,
 	sequence,
 	zeroOrMore,
@@ -51,22 +52,22 @@ export const block = oneOf([
 
 export const header = sequence([h1, divider, line, divider, date])
 	.map(([h1, divider1, line, divider2, date]) => [h1, line, date] as const)
-	.map(([h1, line, date]) => ({
+	.map(([h1, description, date]) => ({
 		title: h1.content,
-		description: line,
+		description,
 		date: { year: date.year, month: date.month },
 	}));
 
-export const document = sequence([header, zeroOrMore(block)]);
+export const document = sequence([maybe(header), zeroOrMore(block)]);
 
 export type TKMetadata = {
 	title: string;
-	description: string;
+	description?: string;
 	date: { year: number; month: number };
 };
 
 export type TKDoc = {
-	metadata: TKMetadata;
+	metadata?: TKMetadata;
 	blocks: TKBlock[];
 };
 

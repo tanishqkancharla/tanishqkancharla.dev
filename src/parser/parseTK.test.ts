@@ -56,6 +56,21 @@ describe("Parser", () => {
 		});
 	});
 
+	it("works without meta", () => {
+		const tk = `Whoa a block\n`;
+		const result = parseTK(tk);
+
+		assertEqual(result, {
+			metadata: undefined,
+			blocks: [
+				{
+					type: "paragraph",
+					content: [{ type: "plain", content: "Whoa a block" }],
+				},
+			],
+		});
+	});
+
 	it("Correct parses spaces between paragraphs", () => {
 		const tk = `
 Hey! 🙋🏾‍♂️ I'm Tanishq. Moonrise is my personal website. I mostly use it as a space to express myself.
