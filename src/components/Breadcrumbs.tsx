@@ -31,6 +31,11 @@ const BreadcrumbNavA = styled.a`
 		background-color: ${secondaryBackgroundColor};
 		color: ${accentColor};
 	}
+
+	&:focus {
+		outline: 0;
+		background-color: ${secondaryBackgroundColor};
+	}
 `;
 
 const BreadcrumbDivider = styled.span`
@@ -88,7 +93,9 @@ export function Breadcrumbs(props: { navItems: BreadcrumbNavItem[] }) {
 				return (
 					<>
 						<BreadcrumbDivider>/</BreadcrumbDivider>
-						<BreadcrumbNavA href={navItem.href}>{navItem.name}</BreadcrumbNavA>
+						<BreadcrumbNavA key={navItem.href} href={navItem.href}>
+							{navItem.name}
+						</BreadcrumbNavA>
 					</>
 				);
 			})}

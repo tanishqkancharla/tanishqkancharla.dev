@@ -19,7 +19,7 @@ async function buildPost(context: WebsiteContext, postFilePath: string) {
 	);
 	const href = path.join(relativePostDir, name);
 
-	const compiledContents = compilePost(rawContents, context, href);
+	const compiledContents = await compilePost(rawContents, context, href);
 
 	await fs.ensureFile(outPostPath);
 	await fs.writeFile(outPostPath, compiledContents, "utf8");

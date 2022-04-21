@@ -1,3 +1,4 @@
+import { Date } from "../utils/typeUtils";
 import { Parser } from "./Parser";
 import { ParseFailure, ParseSuccess } from "./ParseResult";
 import { TKBlock } from "./parseTK";
@@ -5,7 +6,7 @@ import { char, concat, sequence, takeUntil } from "./parseUtils";
 
 declare module "./parseTK" {
 	interface TKBlockMap {
-		date: { year: number; month: number };
+		date: Date;
 	}
 }
 

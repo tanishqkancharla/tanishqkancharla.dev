@@ -10,6 +10,7 @@ import {
 	nOrMore,
 	not,
 	oneOf,
+	oneOrMore,
 	sequence,
 	takeUntil,
 	zeroOrMore,
@@ -73,7 +74,7 @@ export type RichTextToken =
 export type RichTextContent = RichTextToken[];
 
 export const richTextParser: Parser<RichTextToken[]> = line.fold((result) => {
-	const richText = zeroOrMore(
+	const richText = oneOrMore(
 		oneOf([italicParser, boldParser, codeParser, linkParser, plainParser])
 	).run(result.value);
 	// We want to parse the line but keep the rest of the stream.

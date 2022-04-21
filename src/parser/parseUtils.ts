@@ -40,7 +40,7 @@ Parse Success
 // Helper types
 // Hover over the declare const to get a sense of what they do
 
-type ParserToken<T> = T extends Parser<infer U> ? U : never;
+export type ParserToken<T> = T extends Parser<infer U> ? U : never;
 
 declare const aParser: Parser<"a">;
 declare const tokenX: ParserToken<typeof aParser>;
@@ -106,6 +106,7 @@ export const nOrMore = <T>(n: number, parser: Parser<T>): Parser<T[]> =>
 	});
 
 export const zeroOrMore = <T>(parser: Parser<T>) => nOrMore(0, parser);
+export const oneOrMore = <T>(parser: Parser<T>) => nOrMore(1, parser);
 
 export const oneOf = <ParserArray extends readonly Parser<any>[]>(
 	parsers: ParserArray

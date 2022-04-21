@@ -1,4 +1,5 @@
 import { blockLinkParser as blockLink } from "./blockLink";
+import { blockquoteParser } from "./blockQuote";
 import { bookmarkParser } from "./bookmark";
 import { codeBlockParser as codeBlock } from "./codeBlock";
 import { dateParser as date } from "./date";
@@ -6,6 +7,7 @@ import { dividerParser as divider } from "./divider";
 import { h1Parser as h1 } from "./h1";
 import { h2Parser as h2 } from "./h2";
 import { h3Parser as h3 } from "./h3";
+import { imageParser } from "./image";
 import { newLineParser as newLine } from "./newLine";
 import { paragraphParser as paragraph } from "./paragraph";
 import {
@@ -17,7 +19,7 @@ import {
 	zeroOrMore,
 } from "./parseUtils";
 import { toggleParser } from "./toggle";
-import { twitterParser as twitter } from "./twitter";
+import { tweetParser } from "./twitter";
 import { unorderedListParser as unorderedList } from "./unorderedList";
 
 export interface TKBlockMap {}
@@ -36,7 +38,9 @@ export const block = oneOf([
 	h3,
 	unorderedList,
 	divider,
-	twitter,
+	tweetParser,
+	blockquoteParser,
+	imageParser,
 	codeBlock,
 	blockLink,
 	toggleParser,

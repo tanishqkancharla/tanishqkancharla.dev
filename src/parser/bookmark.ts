@@ -2,23 +2,21 @@ import { Parser } from "./Parser";
 import { TKBlock } from "./parseTK";
 import { char, concat, sequence, str, takeUntil } from "./parseUtils";
 
-// [[Gem]](https://moonrise.tk)
+// [bookmark:https://moonrise.tk]
 const blockType = "bookmark";
 
 declare module "./parseTK" {
 	interface TKBlockMap {
-		[blockType]: { title: string; href: string };
+		[blockType]: { url: string };
 	}
 }
 
 type BlockLinkToken = TKBlock<typeof blockType>;
 
 export const bookmarkParser: Parser<BlockLinkToken> = sequence([
-	str("[["),
-	takeUntil(str("]]")),
-	char("("),
-	takeUntil(char(")")),
+	str("[bookmark:"),
+	takeUntil(str("]")),
 	char("\n"),
 ])
-	.map((seq) => [concat(seq[1]), concat(seq[3])])
-	.map(([title, href]) => ({ type: "bookmark", title, href }));
+	.map((seq) => concat(seq[1]))
+	.map((url) => ({ type: "bookmark", url }));

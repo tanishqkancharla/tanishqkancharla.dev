@@ -29,6 +29,7 @@
 	"dependencies": {
 		"@sindresorhus/is": "^4.6.0",
 		"@types/fs-extra": "^9.0.13",
+		"fetch-opengraph": "^1.0.35",
 		"fs-extra": "^10.1.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",

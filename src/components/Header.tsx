@@ -21,6 +21,7 @@ const HeaderImage = styled.div`
 		height: 100%;
 		width: 100%;
 		object-fit: cover;
+		aspect-ratio: 1024 / 569;
 	}
 `;
 

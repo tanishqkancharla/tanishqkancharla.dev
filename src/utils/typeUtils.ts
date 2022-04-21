@@ -43,3 +43,5 @@ export function bimap<T, S>(
 	if (result.type === "error") return error(errorFn(result.error));
 	return success(successFn(result.value));
 }
+
+export type Date = { year: number; month: number };

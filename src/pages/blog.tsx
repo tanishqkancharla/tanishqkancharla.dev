@@ -46,11 +46,21 @@ function Blog(props: PropsType) {
 					computers, programming, interfaces and myself.
 				</P>
 				<Divider />
-				{postMetadatas.map((post, i) => (
-					<Bookmark title={post.title} href={post.href} key={post.href}>
-						<P>{post.description}</P>
-					</Bookmark>
-				))}
+				{postMetadatas
+					.sort((a, b) => {
+						if (a.date.year !== b.date.year) return b.date.year - a.date.year;
+						else return b.date.month - a.date.month;
+					})
+					.map((post, i) => (
+						<Bookmark
+							title={post.title}
+							url={post.href}
+							date={post.date}
+							key={post.href}
+						>
+							<P>{post.description}</P>
+						</Bookmark>
+					))}
 			</Article>
 		</Page>
 	);

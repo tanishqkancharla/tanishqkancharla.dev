@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { TKBlock } from "../parser/parseTK";
+import { TransformedBlock } from "../compiler/compile";
 import { Block } from "./Block";
 
 export const Article = styled.article`
@@ -8,7 +8,7 @@ export const Article = styled.article`
 	flex-direction: column;
 `;
 
-export function TKArticle(props: { blocks: TKBlock[] }) {
+export function TKArticle(props: { blocks: TransformedBlock[] }) {
 	const ref = useRef<HTMLElement>(null);
 
 	useEffect(() => {

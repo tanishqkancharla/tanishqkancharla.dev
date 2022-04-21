@@ -8,7 +8,7 @@ export type WebsiteContext = {
 };
 
 export const defaultWebsiteContext: WebsiteContext = {
-	postsDir: rootPath("/src/pages//"),
+	postsDir: rootPath("/src/pages/"),
 	outDir: rootPath("/dist/"),
 	headerImageURL: "/newyork.webp",
 };

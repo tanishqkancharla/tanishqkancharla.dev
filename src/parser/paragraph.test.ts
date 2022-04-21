@@ -1,11 +1,10 @@
 import { assert, assertEqual } from "../utils/assertUtils";
 import { paragraphParser } from "./paragraph";
-import { isParseSuccess, logResult } from "./parseUtils";
+import { isParseSuccess } from "./parseUtils";
 
 describe("paragraph", () => {
 	it("works", () => {
 		const result = paragraphParser.run("paragraph\n");
-		logResult(result);
 		assert.ok(isParseSuccess(result));
 		assert.ok(result.stream.isEmpty);
 

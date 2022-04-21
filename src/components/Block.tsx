@@ -1,6 +1,8 @@
 import React from "react";
-import { TKBlock } from "../parser/parseTK";
+import { randomString } from "remeda";
+import { TransformedBlock } from "../compiler/compile";
 import { BlockLink } from "./blocks/BlockLink";
+import { Blockquote } from "./blocks/Blockquote";
 import { Bookmark } from "./blocks/Bookmark";
 import { CodeBlock } from "./blocks/CodeBlock";
 import { Divider } from "./blocks/Divider";
@@ -9,8 +11,9 @@ import { Li, Ul } from "./blocks/List";
 import { P } from "./blocks/Paragraph";
 import { RichTextParagraph } from "./blocks/RichText";
 import { Toggle } from "./blocks/Toggle";
+import { Tweet } from "./blocks/Tweet";
 
-export function Block(props: { block: TKBlock }): JSX.Element | null {
+export function Block(props: { block: TransformedBlock }): JSX.Element | null {
 	const block = props.block;
 
 	switch (block.type) {
@@ -47,15 +50,24 @@ export function Block(props: { block: TKBlock }): JSX.Element | null {
 		case "toggle": {
 			return <Toggle block={block} />;
 		}
-		case "twitter": {
-			return <P>{block.url}</P>;
+		case "tweet": {
+			return <Tweet html={block.html} />;
 		}
 		case "bookmark": {
 			return (
-				<Bookmark title={block.title} href={block.href}>
-					<P>{block.href}</P>
+				<Bookmark title={block.title} url={block.url}>
+					<P>{block.description}</P>
 				</Bookmark>
 			);
+		}
+		case "blockquote": {
+			const content = block.content.map((richTextTokens) => (
+				<RichTextParagraph key={randomString(10)}>
+					{richTextTokens}
+				</RichTextParagraph>
+			));
+
+			return <Blockquote content={content} />;
 		}
 		case "paragraph": {
 			return <RichTextParagraph>{block.content}</RichTextParagraph>;

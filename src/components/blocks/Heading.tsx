@@ -28,3 +28,11 @@ export const H3 = styled.h3`
 	line-height: 1.75rem;
 	color: ${headingTextColor};
 `;
+
+export const H4 = styled.h4`
+	font-size: 1.125rem;
+	margin-top: 1rem;
+	margin-bottom: 0.3rem;
+	line-height: 1.75rem;
+	color: ${headingTextColor};
+`;

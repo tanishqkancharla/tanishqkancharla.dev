@@ -4,15 +4,41 @@ import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 import { TKArticle } from "../components/Article";
 import { Page } from "../components/Page";
 import { PageContextProvider } from "../PageContext";
-import { parseTK } from "../parser/parseTK";
+import { parseTK, TKBlock, TKDoc } from "../parser/parseTK";
 import { WebsiteContext, WebsiteContextProvider } from "../WebsiteContext";
+import { bookmarkLoader, LoadedBookmark } from "./bookmarkLoader";
+import { LoadedTweet, tweetLoader } from "./tweetLoader";
 
-export function compilePost(
+export type TransformedBlock =
+	| Exclude<TKBlock, { type: "tweet" } | { type: "bookmark" }>
+	| LoadedTweet
+	| LoadedBookmark;
+
+type TransformedDoc = {
+	metadata: TKDoc["metadata"];
+	blocks: TransformedBlock[];
+};
+
+export async function compilePost(
 	contents: string,
 	context: WebsiteContext,
 	href: string
-): string {
+): Promise<string> {
 	const ast = parseTK(contents);
+
+	const transformedBlocks = await Promise.all(
+		ast.blocks.map(
+			async (block) =>
+				(await bookmarkLoader(
+					(await tweetLoader(block)) as TKBlock
+				)) as TransformedBlock
+		)
+	);
+
+	const transformedAst: TransformedDoc = {
+		metadata: ast.metadata,
+		blocks: transformedBlocks,
+	};
 
 	const sheet = new ServerStyleSheet();
 	try {
@@ -20,8 +46,8 @@ export function compilePost(
 			<StyleSheetManager sheet={sheet.instance}>
 				<WebsiteContextProvider value={context}>
 					<PageContextProvider value={{ href }}>
-						<Page title={ast.metadata.title}>
-							<TKArticle blocks={ast.blocks} />
+						<Page title={transformedAst.metadata.title}>
+							<TKArticle blocks={transformedAst.blocks} />
 						</Page>
 					</PageContextProvider>
 				</WebsiteContextProvider>

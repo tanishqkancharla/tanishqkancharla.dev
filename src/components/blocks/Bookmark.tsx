@@ -3,11 +3,13 @@ import styled from "styled-components";
 import {
 	accentColor,
 	borderColor,
+	fontSm,
 	secondaryBodyTextColor,
+	tertiaryBodyTextColor,
 	transitionDurationSm,
 } from "../../styles/vars";
+import { Date } from "../../utils/typeUtils";
 import { P } from "./Paragraph";
-import { A } from "./RichText";
 
 const BookmarkTitle = styled.h4`
 	color: white;
@@ -16,7 +18,7 @@ const BookmarkTitle = styled.h4`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	font-weight: bold;
+	font-weight: normal;
 `;
 
 const _Bookmark = styled.a`
@@ -37,6 +39,11 @@ const _Bookmark = styled.a`
 	transition-duration: ${transitionDurationSm};
 
 	&:hover {
+		border-color: ${accentColor};
+	}
+
+	&:focus {
+		outline: 0;
 		border-color: ${accentColor};
 	}
 
@@ -65,29 +72,82 @@ const _Bookmark = styled.a`
 		display: inline;
 	}
 
-	${A} {
-		color: var(--body-text-color);
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		font-size: 85%;
-		max-width: 80%;
-	}
-
 	& :last-child {
 		margin-bottom: 0px;
 	}
 `;
 
+const BookmarkUrl = styled.span`
+	color: ${tertiaryBodyTextColor};
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: ${fontSm};
+	max-width: 80%;
+`;
+
+const Spacer = styled.div`
+	flex: 1 1 auto;
+`;
+
+const _BookmarkHeader = styled.div`
+	display: flex;
+	flex-direction: row;
+`;
+
+const _BookmarkDate = styled.div`
+	color: ${secondaryBodyTextColor};
+	font-size: ${fontSm};
+`;
+
+const monthAliases = [
+	"Jan",
+	"Feb",
+	"Mar",
+	"Apr",
+	"May",
+	"Jun",
+	"Jul",
+	"Aug",
+	"Sep",
+	"Oct",
+	"Nov",
+	"Dec",
+];
+
+function BookmarkDate(props: { date: Date }) {
+	return (
+		<_BookmarkDate>
+			{`${monthAliases[props.date.month]} ${props.date.year}`}
+		</_BookmarkDate>
+	);
+}
+
+function BookmarkHeader(props: { title: string; date?: Date }) {
+	return (
+		<_BookmarkHeader>
+			<BookmarkTitle>{props.title}</BookmarkTitle>
+			{props.date && (
+				<>
+					<Spacer />
+					<BookmarkDate date={props.date} />
+				</>
+			)}
+		</_BookmarkHeader>
+	);
+}
+
 export function Bookmark(props: {
 	title: string;
-	href: string;
-	children: React.ReactElement;
+	url: string;
+	date?: Date;
+	children: React.ReactElement | React.ReactElement[];
 }) {
 	return (
-		<_Bookmark href={props.href}>
-			<BookmarkTitle>{props.title}</BookmarkTitle>
+		<_Bookmark href={props.url}>
+			<BookmarkHeader {...props} />
 			{props.children}
+			<BookmarkUrl>{props.url}</BookmarkUrl>
 		</_Bookmark>
 	);
 }

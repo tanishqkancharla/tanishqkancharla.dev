@@ -2,7 +2,7 @@ import { Parser } from "./Parser";
 import { TKBlock } from "./parseTK";
 import { char, concat, sequence, takeUntil } from "./parseUtils";
 
-// [Gem:https://moonrise.tk]
+// [Gem](https://moonrise.tk)
 const blockType = "blockLink";
 
 declare module "./parseTK" {

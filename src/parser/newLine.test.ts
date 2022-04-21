@@ -4,20 +4,14 @@ import { isParseSuccess } from "./parseUtils";
 
 describe("newLine", () => {
 	it("works", () => {
-		const result = newLineParser.run(
-			`
-`
-		);
+		const result = newLineParser.run(`\n`);
 
 		assert.ok(isParseSuccess(result));
 		assert.ok(result.stream.isEmpty);
 	});
 
 	it("works when there's content after", () => {
-		const result = newLineParser.run(
-			`
-Content`
-		);
+		const result = newLineParser.run(`\nContent`);
 
 		assert.ok(isParseSuccess(result));
 	});
