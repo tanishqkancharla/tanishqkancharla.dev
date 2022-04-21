@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 export type PageContext = {
 	href: string;
+	title: string;
 };
 
 const PageContext = React.createContext<PageContext | undefined>(undefined);

@@ -3,7 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 import { TKArticle } from "../components/Article";
 import { Page } from "../components/Page";
-import { PageContextProvider } from "../PageContext";
+import { PageContext, PageContextProvider } from "../PageContext";
 import { parseTK, TKDoc } from "../parser/parseTK";
 import { WebsiteContext, WebsiteContextProvider } from "../WebsiteContext";
 import { bookmarkLoader, LoadedBookmark } from "./bookmarkLoader";
@@ -27,8 +27,8 @@ type TransformedDoc = {
 
 export async function compilePost(
 	contents: string,
-	context: WebsiteContext,
-	href: string
+	websiteContext: WebsiteContext,
+	pageContext: PageContext
 ): Promise<string> {
 	const ast = parseTK(contents);
 
@@ -56,8 +56,8 @@ export async function compilePost(
 	try {
 		let renderedPost = renderToStaticMarkup(
 			<StyleSheetManager sheet={sheet.instance}>
-				<WebsiteContextProvider value={context}>
-					<PageContextProvider value={{ href }}>
+				<WebsiteContextProvider value={websiteContext}>
+					<PageContextProvider value={pageContext}>
 						<Page title={transformedAst.metadata.title}>
 							<TKArticle blocks={transformedAst.blocks} />
 						</Page>
@@ -86,15 +86,16 @@ export async function compilePost(
 export function compileReactComponent<P>(
 	Component: React.JSXElementConstructor<P>,
 	props: P,
-	context: WebsiteContext,
-	href: string
+	websiteContext: WebsiteContext,
+	pageContext: PageContext
 ): string {
 	const sheet = new ServerStyleSheet();
+
 	try {
 		let renderedPost = renderToStaticMarkup(
 			<StyleSheetManager sheet={sheet.instance}>
-				<WebsiteContextProvider value={context}>
-					<PageContextProvider value={{ href }}>
+				<WebsiteContextProvider value={websiteContext}>
+					<PageContextProvider value={pageContext}>
 						<Component {...props} />
 					</PageContextProvider>
 				</WebsiteContextProvider>
