@@ -4,15 +4,21 @@ import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 import { TKArticle } from "../components/Article";
 import { Page } from "../components/Page";
 import { PageContextProvider } from "../PageContext";
-import { parseTK, TKBlock, TKDoc } from "../parser/parseTK";
+import { parseTK, TKDoc } from "../parser/parseTK";
 import { WebsiteContext, WebsiteContextProvider } from "../WebsiteContext";
 import { bookmarkLoader, LoadedBookmark } from "./bookmarkLoader";
+import { codeBlockLoader, LoadedCodeBlock } from "./codeblockLoader";
+import { TypeTransformedBlocks } from "./Transformer";
 import { LoadedTweet, tweetLoader } from "./tweetLoader";
 
-export type TransformedBlock =
-	| Exclude<TKBlock, { type: "tweet" } | { type: "bookmark" }>
-	| LoadedTweet
-	| LoadedBookmark;
+export type TransformedBlock = TypeTransformedBlocks<
+	"bookmark",
+	LoadedBookmark,
+	"tweet",
+	LoadedTweet,
+	"codeBlock",
+	LoadedCodeBlock
+>;
 
 type TransformedDoc = {
 	metadata: TKDoc["metadata"];
@@ -26,13 +32,19 @@ export async function compilePost(
 ): Promise<string> {
 	const ast = parseTK(contents);
 
-	const transformedBlocks = await Promise.all(
-		ast.blocks.map(
-			async (block) =>
-				(await bookmarkLoader(
-					(await tweetLoader(block)) as TKBlock
-				)) as TransformedBlock
-		)
+	const transformedBlocks: TransformedBlock[] = await Promise.all(
+		ast.blocks.map(async (block) => {
+			switch (block.type) {
+				case "tweet":
+					return await tweetLoader(block);
+				case "bookmark":
+					return await bookmarkLoader(block);
+				case "codeBlock":
+					return await codeBlockLoader(block);
+				default:
+					return block;
+			}
+		})
 	);
 
 	const transformedAst: TransformedDoc = {

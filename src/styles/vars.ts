@@ -14,6 +14,7 @@ export const borderColor = "rgb(82, 82, 82)";
 export const secondaryBorderColor = "white";
 
 export const pageWidth = "clamp(40%, 540px, 83.33333%)";
+export const articleItemMargin = "0.3rem";
 
 export const transitionDurationSm = "110ms";
 export const transitionDurationLg = "450ms";

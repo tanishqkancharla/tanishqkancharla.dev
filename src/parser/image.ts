@@ -17,7 +17,7 @@ const blockType = "image";
 
 declare module "./parseTK" {
 	interface TKBlockMap {
-		[blockType]: { href: string; caption: string | undefined };
+		[blockType]: { url: string; caption: string | undefined };
 	}
 }
 
@@ -30,4 +30,4 @@ export const imageParser: Parser<BlockLinkToken> = sequence([
 	char("\n"),
 ])
 	.map((seq) => [concat(seq[1]), seq[2] ? concat(seq[2]) : undefined] as const)
-	.map(([href, caption]) => ({ type: "image", href, caption }));
+	.map(([url, caption]) => ({ type: "image", url, caption }));

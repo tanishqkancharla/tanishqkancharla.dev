@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { TKBlock } from "../../parser/parseTK";
 import {
 	accentColor,
 	bodyTextColor,
@@ -43,7 +42,7 @@ const BlockLinkA = styled.a`
 	}
 `;
 
-export function BlockLink(props: { block: TKBlock<"blockLink"> }) {
-	const { content, href } = props.block;
-	return <BlockLinkA href={href}>{content}</BlockLinkA>;
+export function BlockLink(props: { content: string; url: string }) {
+	const { content, url } = props;
+	return <BlockLinkA href={url}>{content}</BlockLinkA>;
 }

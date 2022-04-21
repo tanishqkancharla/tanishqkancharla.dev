@@ -12,13 +12,14 @@ import { P } from "./blocks/Paragraph";
 import { RichTextParagraph } from "./blocks/RichText";
 import { Toggle } from "./blocks/Toggle";
 import { Tweet } from "./blocks/Tweet";
+import { Image } from "./Image";
 
 export function Block(props: { block: TransformedBlock }): JSX.Element | null {
 	const block = props.block;
 
 	switch (block.type) {
 		case "codeBlock": {
-			return <CodeBlock lang={block.lang} content={block.content} />;
+			return <CodeBlock {...block} />;
 		}
 		case "divider": {
 			return <Divider />;
@@ -45,10 +46,10 @@ export function Block(props: { block: TransformedBlock }): JSX.Element | null {
 			return null;
 		}
 		case "blockLink": {
-			return <BlockLink block={block} />;
+			return <BlockLink content={block.content} url={block.href} />;
 		}
 		case "toggle": {
-			return <Toggle block={block} />;
+			return <Toggle {...block} />;
 		}
 		case "tweet": {
 			return <Tweet html={block.html} />;
@@ -68,6 +69,9 @@ export function Block(props: { block: TransformedBlock }): JSX.Element | null {
 			));
 
 			return <Blockquote content={content} />;
+		}
+		case "image": {
+			return <Image {...block} />;
 		}
 		case "paragraph": {
 			return <RichTextParagraph>{block.content}</RichTextParagraph>;

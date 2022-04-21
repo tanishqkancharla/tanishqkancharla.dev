@@ -1,6 +1,7 @@
 import React from "react";
+import { randomString } from "remeda";
 import styled from "styled-components";
-import { TKBlock } from "../../parser/parseTK";
+import { RichTextContent } from "../../parser/richText";
 import { accentColor } from "../../styles/vars";
 import { P } from "./Paragraph";
 import { RichTextParagraph } from "./RichText";
@@ -28,11 +29,13 @@ const Details = styled.details`
 	}
 `;
 
-export function Toggle(props: { block: TKBlock<"toggle"> }) {
+export function Toggle(props: { label: string; content: RichTextContent[] }) {
 	return (
 		<Details>
-			<Summary>{props.block.label}</Summary>
-			<RichTextParagraph>{props.block.content}</RichTextParagraph>
+			<Summary>{props.label}</Summary>
+			{props.content.map((content) => (
+				<RichTextParagraph key={randomString(10)}>{content}</RichTextParagraph>
+			))}
 		</Details>
 	);
 }

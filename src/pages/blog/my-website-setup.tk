@@ -6,13 +6,13 @@ Making my website has been like...a year-long endeavor. I guess it's never reall
 
 Originally, my site was built using [Fruition](https://fruitionsite.com). It was a quick way to get started with a website by directly connecting it to my notion. It was slow, and hard to customize though, so I eventually moved it away to using the unofficial notion API built by Splitbee (when Notion didn't have an API):
 
-[https://github.com/splitbee/notion-api-worker]
+[bookmark:https://github.com/splitbee/notion-api-worker]
 
 At that point, I was using Next.js with Tailwind. Honestly, when I was done, it felt like complete magic. It didn't take much time at all, and all my Notion pages rendered almost seamlessly in my own design language. And publishing a blog post was as easy as adding a new Notion page to a database.
 
 It wasn't a perfect solution though -- the more I worked with using Notion, the more flaws I saw it had.
 
-[twitter:https://twitter.com/moonrisetk/status/1275263735184199681?s=21]
+[tweet:https://twitter.com/moonrisetk/status/1275263735184199681]
 
 (this was before I was working on the website, but its a good example of just the confusing garbage Notion's internal API was sending).
 

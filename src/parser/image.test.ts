@@ -11,7 +11,7 @@ describe("image", () => {
 
 		assert.ok(result.stream.isEmpty);
 
-		assertEqual(result.value.href, "/posts/ui-as-an-api/spotify-console.png");
+		assertEqual(result.value.url, "/posts/ui-as-an-api/spotify-console.png");
 		assertEqual(result.value.caption, "The Spotify API Console");
 	});
 
@@ -23,6 +23,6 @@ describe("image", () => {
 
 		assert.ok(result.stream.isEmpty);
 
-		assertEqual(result.value.href, "/posts/ui-as-an-api/spotify-console.png");
+		assertEqual(result.value.url, "/posts/ui-as-an-api/spotify-console.png");
 	});
 });

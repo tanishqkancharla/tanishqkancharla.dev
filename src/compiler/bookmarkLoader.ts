@@ -1,5 +1,4 @@
 import { fetch as fetch_og } from "fetch-opengraph";
-import { TKBlock } from "../parser/parseTK";
 import { TKBlockTransformer } from "./Transformer";
 
 export type LoadedBookmark = {
@@ -11,9 +10,10 @@ export type LoadedBookmark = {
 
 type BookmarkLoader = TKBlockTransformer<"bookmark", LoadedBookmark>;
 
-export const bookmarkLoader: BookmarkLoader = async (block: TKBlock) => {
-	if (block.type !== "bookmark") return block;
-
+export const bookmarkLoader: BookmarkLoader = async (block: {
+	type: "bookmark";
+	url: string;
+}) => {
 	console.log("Loading bookmark", block.url);
 	const { description, title } = await fetch_og(block.url);
 

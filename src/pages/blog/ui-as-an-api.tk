@@ -45,17 +45,17 @@ These are pretty big tradeoffs! For most people, who don't interact with REST AP
 
 - Terminal "interpreter-style" concepts: lots of apps nowadays are introducing "command-line" ideas. Instead of having to click and find your way through menus, you can just write what you're looking for, or want to do. Gaby Goldberg has a great write-up about it here:
 
-[https://gabygoldberg.medium.com/the-command-line-comeback-9857b49c7423]
+[bookmark:https://gabygoldberg.medium.com/the-command-line-comeback-9857b49c7423]
 
-/ https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F53e613e2-18e5-4d0f-9044-21211c140e27%2FScreen_Shot_2021-06-24_at_10.31.44_PM.png?table=block&id=1776c757-d7d0-447d-9b67-8a6e36a203c8&cache=v2 / Here's an example from Figma
+[image:https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F53e613e2-18e5-4d0f-9044-21211c140e27%2FScreen_Shot_2021-06-24_at_10.31.44_PM.png?table=block&id=1776c757-d7d0-447d-9b67-8a6e36a203c8&cache=v2](Here's an example from Figma)
 
 - Type-system ideas: Paul Chiusano argues for type systems in UIs:
 
-[http://pchiusano.github.io/2013-09-10/type-systems-and-ux-example.html]
+[bookmark:http://pchiusano.github.io/2013-09-10/type-systems-and-ux-example.html]
 
 - Node-style graphs like in Unreal Blueprints or [Unity Shaders](https://unity.com/shader-graph) or [darklang](https://darklang.com/). These let you build and compose visually but they can get cluttered quickly.
 
-/ https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6ed83e0e-3f82-4307-96c2-9c2691f984b3%2Fshader_graph-1-1.jpg?table=block&id=b7fa9425-e9bb-4a1f-bc00-64cab5c096c3&cache=v2 / Unity Shader Graphs
+[image:https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6ed83e0e-3f82-4307-96c2-9c2691f984b3%2Fshader_graph-1-1.jpg?table=block&id=b7fa9425-e9bb-4a1f-bc00-64cab5c096c3&cache=v2](Unity Shader Graphs)
 
 - AR/VR!
 
@@ -77,9 +77,9 @@ But this can also get tough quickly. Imagine knowing the exact proper name for e
 
 How do we deal with this problem in real life? When we're talking to people, we're often saying things like "take **that** upstairs" or "move the **piano** downstairs". Words that take up contextual meaning. Context is important; it lets us do and communicate things through ambiguity: [Leveraging ambiguity can be more productive than exact syntax](https://thoughts-tk.notion.site/Leveraging-ambiguity-can-be-more-productive-than-exact-syntax-770a57159d4448bca8773823d9cb2c2c). This is something traditional UI gets right and REST APIs do not. A "new" button will make sense in a UI from the context but a REST API needs you to be more specific (far more specific).
 
-/ /posts/ui-as-an-api/github-new.png / The "New Repo" button on Github: noticeable and very clear about its purpose.
+[image:/posts/ui-as-an-api/github-new.png](The "New Repo" button on Github: noticeable and very clear about its purpose.)
 
-/ /posts/ui-as-an-api/github-api.png / The REST API docs for Github that tell you the endpoint for creating a new repo. You need to pass in all the data directly, and you can't use the guided UI workflow.
+[image:/posts/ui-as-an-api/github-api.png](The REST API docs for Github that tell you the endpoint for creating a new repo. You need to pass in all the data directly, and you can't use the guided UI workflow.)
 
 At this point, we've figured out that a good interaction framework with an API needs to be **keyboard-first**, and **context-aware**. I also think it should be a few other things:
 
@@ -104,9 +104,9 @@ To end off, here are some ways of interaction that "feel" closer to the right wa
 
 > API consoles
 | You know how lots of API docs include these consoles where you can call the endpoints:
-| / /posts/ui-as-an-api/spotify-console.png / The Spotify API Console
+| [image:/posts/ui-as-an-api/spotify-console.png](The Spotify API Console)
 | This checks so many boxes! Easy to understand and get started with, but also very powerful! Look at this beautiful interaction where if I forget to supply an OAuth Token, it helpfully lets me create a quick demo token with proper scopes:
-| / /posts/ui-as-an-api/scopes.png / Spotify scopes for API
+| [image:/posts/ui-as-an-api/scopes.png](Spotify scopes for API)
 | Of course, though, the endpoints aren't composable, and often the results aren't super helpful either: just a JSON dump. They're just meant as examples, but man would I love it if an app made it a dedicated way to interact.
 
 > The terminal-style ideas from before but context-aware

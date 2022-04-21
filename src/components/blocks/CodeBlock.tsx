@@ -22,35 +22,36 @@ const Pre = styled.pre`
 	padding: 0.5rem;
 	overflow-wrap: break-word;
 
-	.token.comment,
+	& .token.comment,
 	.token.prolog,
 	.token.doctype,
 	.token.cdata {
 		color: rgba(99, 99, 99, 1);
-	}
-
-	.token.comment,
-	.token.prolog,
-	.token.doctype,
-	.token.cdata {
 		font-style: italic;
 	}
 
-	.token.namespace {
+	& .token.namespace {
 		opacity: 0.7;
 	}
 
-	.token.string,
-	.token.attr-value {
-		color: #c9252d;
-	}
-
-	.token.punctuation,
+	& .token.punctuation,
 	.token.operator {
 		color: rgba(99, 99, 99, 1);
 	}
 
-	.token.entity,
+	& .token.atrule,
+	.token.keyword,
+	.token.attr-name,
+	.language-autohotkey .token.selector {
+		color: ${accentColor};
+	}
+
+	& .token.string,
+	.token.attr-value {
+		color: #f76d74;
+	}
+
+	& .token.entity,
 	.token.url,
 	.token.symbol,
 	.token.number,
@@ -60,34 +61,27 @@ const Pre = styled.pre`
 	.token.property,
 	.token.regex,
 	.token.inserted {
-		color: #095aba;
+		color: #5aa9fa;
 	}
 
-	.token.atrule,
-	.token.keyword,
-	.token.attr-name,
-	.language-autohotkey .token.selector {
-		color: var(--accent-color);
-	}
-
-	.token.function,
+	& .token.function,
 	.token.deleted,
 	.language-autohotkey .token.tag {
-		color: #2c2c2c;
+		color: #ffffff;
 	}
 
-	.token.tag,
+	& .token.tag,
 	.token.selector,
 	.language-autohotkey .token.keyword {
 		color: #2d9d78;
 	}
 
-	.token.important,
+	& .token.important,
 	.token.bold {
 		font-weight: bold;
 	}
 
-	.token.italic {
+	& .token.italic {
 		font-style: italic;
 	}
 `;
@@ -96,12 +90,12 @@ const Code = styled.code`
 	white-space: pre-wrap;
 `;
 
-export function CodeBlock(props: { lang?: string; content: string }) {
-	const { content, lang } = props;
+export function CodeBlock(props: { lang?: string; html: string }) {
+	const { html, lang } = props;
 
 	return (
 		<Pre className={`lang-${lang}`}>
-			<Code>{content}</Code>
+			<Code dangerouslySetInnerHTML={{ __html: html }}></Code>
 		</Pre>
 	);
 }
