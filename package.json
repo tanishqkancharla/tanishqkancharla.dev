@@ -5,7 +5,7 @@
 	"main": "src/index.ts",
 	"scripts": {
 		"clear": "mkdir -p dist && rm -rf dist/* && cp public/* dist",
-		"build": "ts-node build.ts",
+		"build": "npm run clear && ts-node build.ts",
 		"serve": "serve",
 		"dev": "npm run clear && ts-node dev.ts",
 		"deploy": "npx vercel deploy",
