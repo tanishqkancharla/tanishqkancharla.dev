@@ -1,8 +1,9 @@
 import fs from "fs-extra";
 import path from "path";
 import { compilePost, compileReactComponent } from "./compiler/compile";
+import { defaultWebsiteContext } from "./config";
 import { crawlDirectory } from "./tools/crawlDirectory";
-import { defaultWebsiteContext, WebsiteContext } from "./WebsiteContext";
+import { WebsiteContext } from "./WebsiteContext";
 
 async function buildPost(context: WebsiteContext, postFilePath: string) {
 	const { dir, name } = path.parse(postFilePath);

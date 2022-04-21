@@ -21,7 +21,6 @@ const HeaderImage = styled.div`
 		height: 100%;
 		width: 100%;
 		object-fit: cover;
-		aspect-ratio: 1024 / 569;
 	}
 `;
 
@@ -65,19 +64,20 @@ const Banner = styled.div`
 `;
 
 export function Header(props: { title: string }) {
-	const { headerImageURL } = useWebsiteContext();
+	const { headerImageURL, headerImageAlt, headerImageCredits } =
+		useWebsiteContext();
 	const { title } = props;
 
 	return (
 		<_Header>
 			<HeaderImage>
-				<img src={headerImageURL} alt="New York City" />
+				<img src={headerImageURL} alt={headerImageAlt} />
 			</HeaderImage>
 			<HeaderImageCredits
 				className={`img-credits`}
 				target="_blank"
 				rel="noreferrer"
-				href="https://www.432parkavenue.com/views/"
+				href={headerImageCredits}
 			>
 				<span role="img" aria-label="Camera">
 					📸

@@ -1,4 +1,4 @@
-export const accentColor = "#e68058";
+export const accentColor = "#da898f";
 export const backgroundColor = "rgba(32, 32, 32, 1)";
 export const secondaryBackgroundColor = "rgba(57, 57, 57, 1)";
 export const transparentBackground = "rgba(36, 36, 36, 0.15)";

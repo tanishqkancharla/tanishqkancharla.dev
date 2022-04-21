@@ -1,4 +1,5 @@
 import React from "react";
+import { randomString } from "remeda";
 import styled from "styled-components";
 import {
 	accentColor,
@@ -80,6 +81,18 @@ export type BreadcrumbNavItem = {
 	name: string;
 };
 
+function BreadcrumbItem(props: { navItem: BreadcrumbNavItem }) {
+	const { navItem } = props;
+	return (
+		<>
+			<BreadcrumbDivider>/</BreadcrumbDivider>
+			<BreadcrumbNavA key={navItem.href} href={navItem.href}>
+				{navItem.name}
+			</BreadcrumbNavA>
+		</>
+	);
+}
+
 export function Breadcrumbs(props: { navItems: BreadcrumbNavItem[] }) {
 	const { navItems } = props;
 	return (
@@ -89,16 +102,9 @@ export function Breadcrumbs(props: { navItems: BreadcrumbNavItem[] }) {
 					<HomeIcon />
 				</BreadcrumbNavIcon>
 			)}
-			{navItems.map((navItem) => {
-				return (
-					<>
-						<BreadcrumbDivider>/</BreadcrumbDivider>
-						<BreadcrumbNavA key={navItem.href} href={navItem.href}>
-							{navItem.name}
-						</BreadcrumbNavA>
-					</>
-				);
-			})}
+			{navItems.map((navItem) => (
+				<BreadcrumbItem key={randomString(10)} navItem={navItem} />
+			))}
 		</BreadcrumbNav>
 	);
 }

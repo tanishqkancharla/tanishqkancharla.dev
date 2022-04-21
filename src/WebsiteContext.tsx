@@ -1,16 +1,12 @@
 import React, { useContext } from "react";
-import { rootPath } from "./tools/rootPath";
+import { defaultWebsiteContext } from "./config";
 
 export type WebsiteContext = {
 	headerImageURL: string;
+	headerImageAlt: string;
+	headerImageCredits: string;
 	postsDir: string;
 	outDir: string;
-};
-
-export const defaultWebsiteContext: WebsiteContext = {
-	postsDir: rootPath("/src/pages/"),
-	outDir: rootPath("/dist/"),
-	headerImageURL: "/newyork.webp",
 };
 
 const WebsiteContext = React.createContext<WebsiteContext>(
