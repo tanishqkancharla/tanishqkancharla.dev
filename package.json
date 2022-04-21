@@ -6,6 +6,7 @@
 	"scripts": {
 		"clear": "mkdir -p dist && rm -rf dist/* && cp public/* dist",
 		"build": "ts-node build.ts",
+		"serve": "serve",
 		"dev": "npm run clear && ts-node dev.ts",
 		"deploy": "npx vercel deploy",
 		"test": "mocha -r ts-node/register './src/**/*.test.ts' --verbose"
@@ -29,8 +30,10 @@
 	"dependencies": {
 		"@sindresorhus/is": "^4.6.0",
 		"@types/fs-extra": "^9.0.13",
+		"@types/node-fetch": "^2.6.1",
 		"fetch-opengraph": "^1.0.35",
 		"fs-extra": "^10.1.0",
+		"node-fetch": "^3.2.3",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"remeda": "^0.0.32",
