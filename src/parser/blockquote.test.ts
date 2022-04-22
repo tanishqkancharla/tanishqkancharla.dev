@@ -1,6 +1,6 @@
 import { assert, assertEqual } from "../utils/assertUtils";
 import { blockquoteParser } from "./blockQuote";
-import { isParseSuccess, logResult } from "./parseUtils";
+import { isParseSuccess } from "./parseUtils";
 
 describe("blockQuote", () => {
 	it("works", () => {
@@ -9,7 +9,6 @@ describe("blockQuote", () => {
 | text
 `
 		);
-		logResult(result);
 		assert.ok(isParseSuccess(result));
 
 		assert.ok(result.stream.isEmpty);
