@@ -1,5 +1,5 @@
 import React from "react";
-import { randomString } from "remeda";
+import { isString, randomString } from "remeda";
 import { TransformedBlock } from "../compiler/compile";
 import { BlockLink } from "./blocks/BlockLink";
 import { Blockquote } from "./blocks/Blockquote";
@@ -36,9 +36,19 @@ export function Block(props: { block: TransformedBlock }): JSX.Element | null {
 		case "unorderedList": {
 			return (
 				<Ul>
-					{block.listItems.map((listItem, index) => (
-						<Li key={index}>{listItem}</Li>
-					))}
+					{block.listItems.map((listItemContent, index) => {
+						if (isString(listItemContent)) {
+							return <Li key={index}>{listItemContent}</Li>;
+						} else {
+							const [firstContent, indentedList] = listItemContent;
+							return (
+								<Li key={index}>
+									{firstContent}
+									<Block block={indentedList} />
+								</Li>
+							);
+						}
+					})}
 				</Ul>
 			);
 		}

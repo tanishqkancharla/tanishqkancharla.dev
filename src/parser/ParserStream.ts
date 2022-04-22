@@ -44,6 +44,10 @@ export class ParserStream {
 
 	log() {
 		const marker = " ".repeat(this.index) + "^";
-		return { content: this.content.replaceAll("\n", "\\n"), marker };
+		return { content: this.content.replace(/\n/g, "\\n"), marker };
+	}
+
+	get rest() {
+		return this.content.slice(this.index);
 	}
 }

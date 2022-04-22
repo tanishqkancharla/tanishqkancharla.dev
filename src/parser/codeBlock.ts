@@ -24,7 +24,7 @@ export const langParser = prefix(str("```"), maybe(line)) //
 	.map((lang) => (lang === "" ? undefined : lang));
 
 function cleanContent(content: string): string {
-	return content.replaceAll("\t", "    ");
+	return content.replace(/\t/g, "    ");
 }
 
 export const codeBlockParser: Parser<CodeBlockToken> = sequence([

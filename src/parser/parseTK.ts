@@ -75,7 +75,7 @@ export function parseTK(contents: string): TKDoc {
 	const result = document.run(contents);
 
 	if (isParseFailure(result)) {
-		logResult(result);
+		console.log(logResult(result));
 		throw new Error(result.value);
 	}
 

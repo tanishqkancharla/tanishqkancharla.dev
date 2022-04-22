@@ -1,5 +1,6 @@
 import { Parser } from "./Parser";
 import { ParseFailure, ParseResult, ParseSuccess } from "./ParseResult";
+import { ParserStream } from "./ParserStream";
 
 export const identity = <T>(arg: T) => arg;
 
@@ -15,25 +16,29 @@ export function isParseFailure(
 	return result instanceof ParseFailure;
 }
 
+export function logStream(stream: ParserStream) {
+	const { content, marker } = stream.log();
+	return `
+|
+| ${content}
+| ${marker}`;
+}
+
 export function logResult(result: ParseResult<any>) {
 	if (isParseFailure(result)) {
 		const { content, marker } = result.stream.log();
-		console.log(
-			`
+		return `
 Parse Failure
 |
 | ${content}
 | ${marker}
 Failed at index ${result.stream.index}: ${result.value}
-`
-		);
+`;
 	} else {
-		console.log(
-			`
+		return `
 Parse Success
 "${result.stream.content}" ==> ${JSON.stringify(result.value, undefined, "  ")}
-`
-		);
+`;
 	}
 }
 
@@ -84,6 +89,7 @@ export const notChars = (chars: string[]): Parser<string> =>
 export const nOrMore = <T>(n: number, parser: Parser<T>): Parser<T[]> =>
 	new Parser((stream) => {
 		const values: T[] = [];
+		let errVal: string;
 
 		while (true || stream.isEmpty) {
 			let result = parser.run(stream);
@@ -91,13 +97,15 @@ export const nOrMore = <T>(n: number, parser: Parser<T>): Parser<T[]> =>
 				values.push(result.value);
 				stream = result.stream;
 			} else {
+				errVal = result.value;
 				break;
 			}
 		}
 
 		if (values.length < n) {
 			return new ParseFailure(
-				`nOrMore failed: only matched ${values.length} tokens`,
+				`nOrMore failed: only matched ${values.length} tokens
+${errVal}`,
 				stream
 			);
 		}

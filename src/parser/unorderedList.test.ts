@@ -1,28 +1,49 @@
-import { assert, assertEqual } from "../utils/assertUtils";
-import { isParseSuccess } from "./parseUtils";
+import { testParser } from "./testParser";
 import { unorderedListParser } from "./unorderedList";
 
 describe("unorderedList", () => {
-	it("works", () => {
-		const result = unorderedListParser.run("- list item 1\n");
-
-		assert.ok(isParseSuccess(result));
-		assert.ok(result.stream.isEmpty);
-		assertEqual(result.value.listItems, ["list item 1"]);
+	testParser("works", unorderedListParser, `\n- list item 1\n`, {
+		type: "unorderedList",
+		listItems: ["list item 1"],
 	});
 
-	it("works with multiple list items", () => {
-		const result = unorderedListParser.run(
-			"- list item 1\n- list item 2\n- list item 3\n"
-		);
+	testParser(
+		"works with multiple list items",
+		unorderedListParser,
+		`
+- list item 1
+- list item 2
+- list item 3
+`,
+		{
+			type: "unorderedList",
+			listItems: ["list item 1", "list item 2", "list item 3"],
+		}
+	);
 
-		assert.ok(isParseSuccess(result));
-		assert.ok(result.stream.isEmpty);
-
-		assertEqual(result.value.listItems, [
-			"list item 1",
-			"list item 2",
-			"list item 3",
-		]);
-	});
+	testParser(
+		"works with indented list items",
+		unorderedListParser,
+		`
+- list item 1
+  - list item 1a
+  - list item 1b
+- list item 2
+- list item 3
+`,
+		{
+			type: "unorderedList",
+			listItems: [
+				[
+					"list item 1",
+					{
+						type: "unorderedList",
+						listItems: ["list item 1a", "list item 1b"],
+					},
+				],
+				"list item 2",
+				"list item 3",
+			],
+		}
+	);
 });
