@@ -28,7 +28,7 @@ export type TransformedDoc = {
 export async function compilePost(
 	contents: string,
 	websiteContext: WebsiteContext,
-	pageContext: PageContext
+	href: string
 ): Promise<string> {
 	const ast = parseTK(contents);
 
@@ -52,13 +52,18 @@ export async function compilePost(
 		blocks: transformedBlocks,
 	};
 
+	const pageContext: PageContext = {
+		href,
+		title: ast.metadata?.title || "Moonrise",
+	};
+
 	const sheet = new ServerStyleSheet();
 	try {
 		let renderedPost = renderToStaticMarkup(
 			<StyleSheetManager sheet={sheet.instance}>
 				<WebsiteContextProvider value={websiteContext}>
 					<PageContextProvider value={pageContext}>
-						<Page title={transformedDoc.metadata?.title || "Moonrise"}>
+						<Page>
 							<TKArticle doc={transformedDoc} />
 						</Page>
 					</PageContextProvider>

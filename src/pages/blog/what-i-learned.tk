@@ -12,7 +12,7 @@ Working with Chet has not only been a ton of fun, but also a tremendous learning
 
 I believe I am not only far more capable now as a full-stack developer, but also just generally as a programmer. I could compare and contrast this experience to my previous job, school, or previous internships, but that deserves a blog post of its own.
 
-I've split up what I learned roughly into 4 different sections, but they're all inter-related. All of the examples I use are real snippets of code from our project. Here's a quick minimap:
+I've split up what I learned roughly into 4 different sections, but they're all closely related. Occasionally, I'll place some comments Chet had in callouts. All of the examples I use are real snippets of code from our project. Here's a quick minimap:
 
 - Not shooting yourself in the foot
   - Verbose variable names, explanatory variables
@@ -35,7 +35,7 @@ I've split up what I learned roughly into 4 different sections, but they're all 
 
 I think the most important thing I've learned can be summarized as
 
-| Software development is mostly about not shooting yourself in the foot
+| Software architecture is mostly about not shooting yourself in the foot
 
 For example, it's really important for code to be readable ([we spend far more of our time reading and maintaining code than writing it](https://lepiter.io/feenk/developers-spend-most-of-their-time-figuri-9q25taswlbzjc5rsufndeu0py/)), maintainable, and well-tested.
 

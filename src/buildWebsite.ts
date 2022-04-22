@@ -13,10 +13,7 @@ async function buildPost(context: WebsiteContext, postFilePath: string) {
 	const relativePostDir = path.relative(context.postsDir, dir);
 	const href = path.join(relativePostDir, name);
 
-	const compiledContents = await compilePost(rawContents, context, {
-		href,
-		title: name,
-	});
+	const compiledContents = await compilePost(rawContents, context, href);
 
 	return compiledContents;
 }
@@ -24,19 +21,22 @@ async function buildPost(context: WebsiteContext, postFilePath: string) {
 async function buildReactPage(context: WebsiteContext, pageFilePath: string) {
 	const { dir, name } = path.parse(pageFilePath);
 
-	const { default: Component, getStaticProps } = await import(pageFilePath);
+	const imports = await import(pageFilePath);
+	const { default: Component, getStaticProps } = imports;
 
 	let props = {};
 	if (getStaticProps) {
 		props = await getStaticProps(context);
 	}
 
+	const title = imports.title || "Moonrise";
+
 	const relativePostDir = path.relative(context.postsDir, dir);
 	const href = path.join(relativePostDir, name);
 
 	const compiledContents = compileReactComponent(Component, props, context, {
 		href,
-		title: name,
+		title,
 	});
 
 	return compiledContents;

@@ -36,11 +36,13 @@ export async function getStaticProps(
 	return { postMetadatas: blogPostMetadatas.filter(isDefined) };
 }
 
+export const title = "Blog";
+
 function Blog(props: PropsType) {
 	const { postMetadatas } = props;
 
 	return (
-		<Page title="Blog">
+		<Page>
 			<Article>
 				<P>
 					This is my personal blog. It&apos;s still small...but I talk about

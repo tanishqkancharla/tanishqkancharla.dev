@@ -11,7 +11,6 @@ import { Head } from "./Head";
 import { Header } from "./Header";
 
 type PageProps = {
-	title: string;
 	children: React.ReactNode;
 };
 
@@ -23,8 +22,8 @@ const _Page = styled.div`
 	width: ${pageWidth};
 `;
 
-export function Page({ children, title }: PageProps) {
-	const { href } = usePageContext();
+export function Page({ children }: PageProps) {
+	const { href, title } = usePageContext();
 
 	const dirItems = href.split("/");
 
