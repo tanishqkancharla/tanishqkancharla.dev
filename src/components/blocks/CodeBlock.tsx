@@ -1,15 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-import { accentColor, bodyTextColor } from "../../styles/vars";
+import {
+	accentColor,
+	articleItemMargin,
+	bodyTextColor,
+	shadowMd,
+	tertiateBackgroundColor,
+} from "../../styles/vars";
 
 const monospaceFont = `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 "Liberation Mono", "Courier New", monospace;`;
 
 const Pre = styled.pre`
-	background-color: rgba(25, 25, 25, 1);
+	background-color: ${tertiateBackgroundColor};
 	color: ${bodyTextColor};
 
-	margin: 0.3rem;
+	margin-top: ${articleItemMargin};
+	margin-bottom: ${articleItemMargin};
 
 	border-style: solid;
 	border-color: ${accentColor};
@@ -17,6 +24,8 @@ const Pre = styled.pre`
 	border-width: 1.5px;
 
 	font-family: ${monospaceFont};
+
+	${shadowMd}
 
 	line-height: 1.25rem;
 	padding: 0.5rem;

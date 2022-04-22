@@ -1,5 +1,6 @@
 import React from "react";
 import { usePageContext } from "../PageContext";
+import { borderColor } from "../styles/vars";
 import { useWebsiteContext } from "../WebsiteContext";
 
 export function Head() {
@@ -26,6 +27,11 @@ export function Head() {
 				content="Tanishq Kancharla's personal website."
 			/>
 			<meta name="twitter:image" content={headerImageURL} />
+
+			{/* https://developer.twitter.com/en/docs/twitter-for-websites/webpage-properties */}
+			<meta name="twitter:widgets:theme" content="dark"></meta>
+			<meta name="twitter:widgets:border-color" content={borderColor}></meta>
+			<meta name="twitter:dnt" content="on"></meta>
 
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<meta httpEquiv="Content-Language" content="en" />

@@ -1,0 +1,425 @@
+# Working with a senior engineer as a new grad
+---
+A summary of what I learned about software development working with a senior software engineer with far more experience than me.
+---
+2022-04
+
+Over the past few months, I've been working on a new project with [Chet Corcos](www.chetcorcos.com), the first engineering hire at Notion. Chet has about 10 years of experience as a professional developer and helped build Notion from the ground up. For contrast, I graduated from school in May 2021. I've been programming for a while but have only used Javascript and React for about two and a half years, of which about a year has been professional.
+
+Chet is a great manager; we have insightful conversations, he provides detailed and thoughtful PR feedback, and gives me lots of opportunities to learn and grow.
+
+Working with Chet has not only been a ton of fun, but also a tremendous learning experience for me.
+
+I believe I am not only far more capable now as a full-stack developer, but also just generally as a programmer. I could compare and contrast this experience to my previous job, school, or previous internships, but that deserves a blog post of its own.
+
+I've split up what I learned roughly into 4 different sections, but they're all inter-related. All of the examples I use are real snippets of code from our project. Here's a quick minimap:
+
+- Not shooting yourself in the foot
+  - Verbose variable names, explanatory variables
+  - Declarative code
+  - Testing
+- Practice and craft
+  - Mindful practice
+  - Craft
+  - Dependencies
+- Technical concepts
+  - Clear and minimal abstraction
+  - Functional, declarative programming
+  - Decoupling, flexibility
+- Collaboration
+  - Video
+  - PRs and Git
+- Conclusion
+
+## Not shooting yourself in the foot
+
+I think the most important thing I've learned can be summarized as
+
+| Software development is mostly about not shooting yourself in the foot
+
+For example, it's really important for code to be readable ([we spend far more of our time reading and maintaining code than writing it](https://lepiter.io/feenk/developers-spend-most-of-their-time-figuri-9q25taswlbzjc5rsufndeu0py/)), maintainable, and well-tested.
+
+### Variable names
+
+Variable names are important because they communicate to the reader what’s happening. That’s their only job in code, so it’s important to name them well. Long verbose names don't cost anything:
+
+```ts
+// ❌
+function vDrops(drops: Drop[], y: number) {...}
+
+// ✅
+function filterClosestVerticalDrops(drops: Drop[], y: number) {...}
+```
+
+It is so nice as a reader to read code like
+```ts
+const drops = filterDropsInSelection(allDrops, selection)
+
+const closestY = filterClosestVerticalDrops(drops, currentScrollPoint.y)
+
+const closestXY = filterClosestHorizontalDrops(closestY, currentScrollPoint.x)
+```
+
+Even beyond the DX of readable names, it also acts like a type-checker. By reading the code, you can verify at least the semantics make sense.
+
+Another readability technique is to use intermediate variables with names that explain how you’re using them.
+
+```ts
+// ❌
+shadow.style.transform = `translate(${state.currentScreenPoint.x - state.initialScreenPoint.x}px, ${state.currentScreenPoint.y - state.initialScreenPoint.y + state.currentScrollTop - state.initialScrollTop}px)`
+
+// ✅
+const deltaX = state.currentScreenPoint.x - state.initialScreenPoint.x
+const deltaY = state.currentScreenPoint.y - state.initialScreenPoint.y
+const deltaScroll = state.currentScrollTop - state.initialScrollTop
+
+const translateX = deltaX
+const translateY = deltaY + deltaScroll
+
+shadow.style.transform = `translate(${translateX}px, ${translateY}px)`
+```
+
+I think for some reason, as programmers, we have this fetishization to batch as many intermediate steps together, to try and get the smallest piece of code. From a readability standpoint, this usually doesn’t work. By defining intermediate variables with semantic names, the reader is able to understand much better the intention of your code.
+
+| 💡 Uncle Bob calls these “explanatory variables”. Like the `translateX` variable simply ranames the other variable but conveys intention that is valuable to a reader.
+
+An even better option might be to declare helper utility functions:
+```ts
+const overlappingRects = blockRects.filter(({ rect }) =>
+    rectsOverlap(selectionRect, rect)
+)
+const tree = constructBlockRectTree(overlappingRects)
+const blocks = filterBlocksForSelection(selectionRect, tree)
+```
+
+That way you can get the benefits of small pieces of code and semantic meaning.
+
+### Declarative code
+
+Declarative code is great! It's easier to read and maintain. The tradeoff is it requires more work on the computer's part. But making complex apps is hard and computers are fast. So we can make that tradeoff all day long.
+
+One of the things that really impressed me about the project when first reading was Chet's setup for testing html document structures:
+```ts
+// Unit testing how the editor state changes when invoking the flattenBlock command
+flattenBlock(
+    `
+    <p>One</p>
+    <p>Two</p>
+    <ul>
+        [<li><p>Something</p></li>]
+        <li>
+            <p>Hello</p>
+            <p>World</p>
+        </li>
+    </ul>
+    `,
+    `
+    <p>One</p>
+    <p>Two</p>
+    [<p>Something</p>]
+    <ul>
+        <li>
+            <p>Hello</p>
+            <p>World</p>
+        </li>
+    </ul>
+    `
+)
+```
+
+For unit tests on the editor, it parses the html, creates a document tree, that is then used to create the Prosemirror editor state. It also parses the brackets to verify selections. Then it invokes the flattenBlock command, and verifies the resulting editor state is identical to the second.
+
+Note the imperative alternative:
+```ts
+const startEditorState = EditorState.create()
+
+const pOne = schema.nodes.p.create("One")
+startEditorState.push(pOne)
+
+const pTwo = schema.nodes.p.create("One")
+startEditorState.push(pTwo)
+
+// ...
+
+const endEditorState = EditorState.create()
+
+const pOne = schema.nodes.p.create("One")
+endEditorState.push(pOne)
+
+// ...
+
+assertEqual(startEditorState, endEditorState)
+```
+
+I omitted quite a bit of code, but its pretty clear this is gonna be a long and arduous process. You can refactor into functions, but it's not very clear how to pull a reusable function out of here.
+
+As a reader, its clearer and more concise to look at the html because that lets you know immediately what the editor state is, as opposed to creating the editor state imperatively and asking the reader to juggle a mental state of what the editor state looks like and should look like. It's also much easier to maintain.
+
+So declarative code! All the way.
+
+### Testing
+
+The other big aspect of not shooting yourself in the foot while programming is testing, so that code you write doesn't regress behavior. Tests should be easy to write, and very semantic and readable (since they might need to be read often if they get broken).
+
+To make this possible, its important to make your testing setup ergonomic. Chet wrote all of the parsing-declarative-editor-state code above only for testing purposes. It makes writing editor tests really quick and easy.
+
+| 💡 Uncle Bob says to spend half your engineering time writing tests or working on your testing setup!
+
+We have two kinds of tests in our app: unit tests and end-to-end tests. The end-to-end tests are very end-to-end: a separate test harness process connects to mouse drivers and simulates clicking and dragging interactions on the running app.
+
+| 💡 The intention is to write tests from the user’s perspective. e2e tests should read clearly in such a way that a non-technical person can manually walk through the tests.
+
+To have this level of readability, we have a dialect function in our code that abstracts out all the internal implementation of tests and creates a semantic DSL for writing tests:
+```ts
+e2eTest("Suggests recently opened file", async (harness) => {
+	const h = dialect(harness)
+
+	await h.createHtmlFile("test.html", "")
+
+	await h.openFile("test.html")
+	await h.executeCommand("Close Tab")
+
+	await h.executeCommand("Open Jump Prompt")
+
+	await waitForMenuItemsToContain(h, ["test.html"])
+})
+```
+
+It's also important to point out you might need testing for the testing setup! The parsing editor state from html logic is complex — so its another part of the app that's tested, even though it'll never actually be part of the build.
+
+Tests should also be as narrow and as specific as possible. Ideally, for each piece of functionality, there should be one test, and multiple tests shouldn’t break if that piece of functionality breaks. Practically speaking, this is a pipe dream, but it represents what to keep in mind while writing tests.
+
+Writing good tests also goes hand-in-hand with API development: if your unit tests are really hard to write or they seem fragile, it's a good sign the API needs to be reworked.
+
+## Practice and craft
+
+### Mindful Practice
+
+Programming is a skill, and like any other skill, to get better, it needs to be practiced. It's important to approach programming with a growth mindset, and realize that a lot of aspects of programming, such as writing clear, maintainable code and building good abstractions, require mindful practice.
+
+Everyone kinda gets the “practice” concept already, but what is less stressed is the “mindful” bit. When you write code, its important to keep some sort of meta-commentary going in the back of your head, asking yourself questions like
+
+“Is this readable? If I came back a month later, would I know what’s going on here?”,
+
+“Is the way I’m using this abstraction good? Is it easy to use, without a lot of decoration?”,
+
+“Is this scoped and encapsulated well?”
+
+This isn’t just applicable to code; its important to any sort of skill you practice. For example, with yoga, instructors often remind you to stay engaged with your body, thinking about what feels “off”, or what feels good, and adjusting as necessary. Treating practice like a mindless activity won’t lead to improvement as quickly or at all.
+
+### Craft
+
+Another thing to keep in mind is craft. Craft is defined as "skill in making things, especially with the hands". There can be elegant “hand-made” solutions to complex problems, but they won’t be found on the first try. Craftsmanship is about starting over and rinsing and repeating and rebuilding things yourself, and getting better each iteration.
+
+One of the PRs that took me longest to develop was adding colors to @mentions if they were broken. The PR was overhauled and rewritten probably 3 or 4 times, and took a month in total, and I wrote and deleted like over a thousand lines of code. It was one of the earlier PRs I started, and it was frustrating at first going through that, especially for what felt like a minor change. But each time, it got better and cleaner, and I got better at understanding the problem and the solution. So now, when I recognize the pattern of the problem in another part of the codebase, I’m able to iterate faster.
+
+I can also reuse the same utilities I built while solving other similar problems, such as a pluginDispatcher that lets me create an elm-like interface to Prosemirror plugins.
+```ts
+const mentionPluginDispatcher = new PluginDispatcher(
+	mentionPluginKey,
+	mentionPluginReducers
+)
+```
+
+The reason I was frustrated with the mention PR is because that I previously wasn’t as comfortable with deleting and rewriting code. And the reason for that was because I felt insecure about my impact, and I measured impact in how much code I wrote and committed to the codebase.
+
+| 💡 If you’re not deleting things at a reasonable rate, then your codebase is just going to explode. Refactoring and refining is undervalued because it’s harder to measure the impact even though it’s impact is compounding.
+
+Now, after that experience, I’m a whole lot more comfortable with deleting code because I know the PR will end up better. In fact, sometimes I’m trigger-happy and delete a bunch of code as soon as I think it might not need it (and then end up needing it later) 😅.
+
+### Being problem-oriented
+
+Another skill I struggled with (and still am struggling with, although I recognize it) is being problem-oriented. Basically, the situation is
+
+I need to do `A` → Oh I can do this, but I need to write it an ugly way because of how `B` is structured, so let me work on `B` first → Oh `B` is structured like this because of `C` so let me do that first...
+
+and it just turns into an endless rabbit-hole. For small enough `A`, `B`, `C`, this is fine and you may find the root fairly quickly, but for large `A`, `B`, `C`, its just not worth it.
+
+It’s a much better approach to fix the current problem in the existing infrastructure, and then work towards improving that infrastructure separately. It’s a method of working backwards from the problem, rather than working forwards from what you think might be the solution.
+
+The reason why we fall into the trap of the latter approach is because of the supposed time benefits. Why spend the time fixing `A` in the current infrastructure, if we’re going to be deleting and rewriting the code once we change `B` and `C`? Wouldn’t it make more sense to work on `C` first so we can work forwards and not have to delete any code we just wrote?
+
+And lemme tell you, that’s totally a trap. Like I said before, you won’t know the best way to fix `C` on the first try. So what’ll happen is you update `C`, update `B`, and then when you get to `A` that it doesn’t actually work, and you’ll restart the cycle again.
+
+If you start by fixing `A` thoroughly first, you’ll actually end up getting a much better idea of how `B` should be fixed. And then when you fix `B`, it’ll actually be very fast to update `A`, because you kept your fix for `A` in mind while fixing `B`. You’ll end up saving much more time in the end.
+
+So it’s important to work backwards from the problem, always.
+
+## Technical concepts
+
+Clear and minimal abstractions
+
+To contribute effectively to a codebase it needs to be easily understandable. Part of that is having deliberate and minimal abstraction where dependency relationships between entities are clear, and entities are composable, encapsulated, and decoupled. Abstractions should be tight, not leaky (at least as much as possible).
+
+| 💡 Abstractions have a cost. Fewer abstractions is better. Fewer layers to peer through to understand what’s going on and debug what’s wrong. “Dumb” code is better!
+
+As I’ve mentioned before, you can start with a design that works at first, but as your needs evolve and it’s not working, it needs to be redesigned from scratch to fit your new needs. Otherwise, you’ll just pay the cost of a leaky unmaintainable abstraction.
+
+| 💡 The whole shadow clone logic was a good example here. There was a small bug with nested bullets that was hard to debug because the whole flow of logic was tweaked so much the logic became unclear. So thinking from first principles again and writing clear logic. Basically, if you’re tweaking code and confused about what the outcome of your change will be, then you ought to refactor the whole thing so each tweak is deliberate, intentional, and understandable.
+
+It's hard to make this measurable in some quantifiable way, but I've learned to keep these principles in mind while I program:
+
+- Flexibility (how easily can your app mold to changing constraints?)
+- Decoupled (how reusable and separated are your entities?)
+- Maintainability (how straightforward is this code for a reader, and how much indirection is there?)
+- Simplicity (how simple is the API of this code?)
+
+These principles will clash with each other often too! So outline the tradeoffs and decide carefully.
+
+Some resources are Uncle Bob videos and old programming books like Object Oriented Design Patterns. Also, reading how experienced programmers structure large software programs.
+
+### Dependencies
+
+One of the aspects I wasn’t very good in before working with Chet was using dependencies correctly. I tended to design abstractions around the dependencies, rather than designing my abstractions first and treating dependencies as an implementation detail.
+
+Turns out that’s totally a trap! Open source libraries are great because everyone can use it but that also means they tend to bloat, and end up doing much more than what any one person needs. They also hide a lot of code away in some deep, dark corner of `node_modules`, and its not always accessible for you to peer in and inspect. So its important to wrap around your usage of dependencies with only the functionality that your app needs (unless its a utility library like `lodash`).
+
+Another detail here is just having the confidence to write your own code. As a beginner, it's easy to feel like using dependencies are a good idea because they're probably written by people with more experience and better understanding of the problem. So why write your own code if you can merely adopt better code that'll have already addressed all the nuances of the problem?
+
+For one, its good practice. Most of these isolated problems won't be that difficult; it just requires trial and error and the courage to tackle it. And dependencies usually won't be the silver bullet, no-maintenance solution you hoped for. They'll end up requiring more effort down the line, and might put you in a tricky spot if you need to do something the package doesn't support.
+
+Getting something working yourself and evolving that code as you run into issues with it is better than installing dependencies believing that they will have already dealt with all of the issues you might run into in the future.
+
+6 months ago, I would not have even considered the idea of building my own web drag and drop functionality, and would have immediately jumped to Google to find packages. But I ended up tackling it myself in the app, and ended up creating something that worked and that I was proud of.
+
+You can become better as a programmer and spend much more of your time writing code rather than debugging if you treat dependencies as a scoped implementation detail.
+
+### Declarative programming
+
+Declarative programming is so important, it shows up twice in this post. Although some people would argue the following ideas are functional, not declarative.
+
+The way I’ve always thought of declarative programming is that it allows `O(n)` mental effort scaling rather than `O(n^2)`. Taking a simplified imperative model, suppose there’s n pieces to our code that each control some behavior. Each piece of code has some side effect (since its imperative). That side effect can interact with the side effects of all the other pieces of code, in potentially unexpected and conflicting behavior. That means the number of possible interactions you’d have to think about/deal with is `nC2 = O(n^2)`.
+
+With declarative programming, at least in the Elm-style approach, we keep track of a state object. Reducers are actions that run on the state object and return a new state object. Then the important bit is a render function that correctly shows/renders the new state somehow. The update function is the only side effect in the setup.
+
+Each new piece of behavior to the app essentially becomes an extra bit of state and another reducer, and a modification to the update function to correctly show the new kind of state. As long as those three pieces are implemented, your new behavior is done! This means the number of interactions with your app are only your reducers, which scale linearly with the behaviors you want to implement.
+
+We use this architecture all over the app:
+
+- Managing electron windows is done declaratively with state specifying window ids and their positions on the screen. Reducers add or delete windows from the state, and the update function is responsible for actually realizing the change.
+- We build most of the Prosemirror plugins declaratively as well. For example, for drag and drop, this is the simplified state and reducers
+```ts
+export type DraggingState = {
+	initialScrollTop: number
+	currentScrollTop: number
+	initialScreenPoint: Point
+	currentScreenPoint: Point
+	shadow: HTMLElement
+	hint: HTMLElement
+	allPossibleDrops: Drop[]
+}
+
+type DragAndDropState = null | DraggingState
+
+const dragAndDropReducers = {
+	startDrag(..., ...): DragAndDropState,
+	updateScrollTop(..., ...): DragAndDropState,
+	updateCurrentPoint(..., ...): DragAndDropState,
+	endDrag(..., ...): DragAndDropState,
+}
+```
+
+And then a single update function updates the drag and drop shadow and hints according to the state.
+```ts
+update(prevState, state) {
+    const state = this.getState(view.state)
+    const prevState = this.getState(prevEditorState)
+    if (state) {
+        if (!prevState) {
+            // Init
+            this.attachListeners()
+            this.updateHint(state)
+            this.updateShadow(state)
+        } else {
+            // Update
+            this.updateShadow(state)
+            this.updateHint(state)
+        }
+    } else if (prevState) {
+        // Destroy
+        this.deattachListeners()
+    }
+}
+```
+
+In terms of tradeoffs, the declarative programming approach is significantly easier to reason about because you don’t have to think about side effects colliding with other side effects. All it requires is a little bit of thinking up-front about how to integrate new behavior into your state, and a little bit of compute time that involves going through the abstraction of running your reducer and re-rendering, rather than applying the modifications directly as you might imperatively.
+
+But computers are fast, so this is very beneficial tradeoff.
+
+### Decoupling and flexibility
+
+One of the concepts I really underestimated before working with Chet was the idea of decoupling. You want to loosely couple your objects and abstractions as much as possible, and keep the connections between them as minimal as possible.
+
+Decoupling has a couple benefits. The first is testability. Being able to mount pieces of your app in isolation makes unit testing their logic a lot easier.
+
+The second is modularity. You can replace pieces of the system with other equivalent pieces without too much trouble.
+
+The third is extensibility. Adding new modules with new behavior into the system is easier when modules are less tightly coupled.
+
+| The strategy behind [decoupling] is to leave as many options open as possible, for as long as possible. - Uncle Bob
+
+Uncle Bob advocates for something called the plugin architecture, where essentially anything with behavior is treated like a plugin to the main app rather than being coupled to it.
+
+Note that React hooks are actually a decoupling anti-pattern. Hooks tightly couple state to the view, and might have business logic in them as well if you use effects to run async calls etc. It makes it impossible to test logic without mounting the whole React app.
+
+Another perhaps surprising example is static typing. Truly decoupled abstractions have to, by nature, be less type-safe. The reason is because once objects are decoupled enough, they can’t even rely on the other’s existence.
+
+In VSCode, here is how they define a "command" or an operation on the state of the app:
+```ts
+export interface ICommandHandler {
+	(accessor: ServicesAccessor, ...args: any[]): void;
+}
+
+export interface ICommand {
+	id: string;
+	handler: ICommandHandler;
+	description?: ICommandHandlerDescription | null;
+}
+```
+Very type-unsafe! But it's what enables extensions to dynamically register new commands at runtime.
+
+> Late binding
+| There’s actually a rich history in the concept of decoupling, and how it inspired late-binding in languages like Smalltalk, Objective-C, and Erlang.
+| Late-binding, advocated for by Alan Kay, is when objects communicate by passing messages rather than direct function invokation.
+| "Extreme late-binding is important because Kay argues that it permits you to not commit too early to the "one true way" of solving an issue (and thus makes it easier to change those decisions), but can also allow you to build systems that you can change while they are still running."
+| [https://ovid.github.io/articles/alan-kay-and-oo-programming.html](https://ovid.github.io/articles/alan-kay-and-oo-programming.html)
+
+Decoupling allows flexibility to adapt your code to changing demands. Suppose in the future you need to change the sidebar state drastically. Or maybe even remove it altogether to run a headless version of the app in a different environment (like a CLI). That wouldn’t be possible in a tightly coupled architecture.
+
+Decoupling is a fundamental tradeoff any sufficiently complicated application will need to make eventually. Otherwise, the code can’t be as flexible or accommodate changing constraints.
+
+Note this again emphasizes how important testing is. Static typing is really a form of testing, and you lose some of that through decoupling. Therefore it’s important to make it up through explicit tests.
+
+## Collaboration and feedback
+
+I’ve been working remotely with Chet, and we also have a 3 hour time difference between us. Therefore, effective collaboration and clear communication have been important.
+
+### Video
+
+Video (we use Loom) has honestly been pretty important for collaboration. At some point, we started questioning the nature of PRs and reviews. There were a lot of instances where we’d have long back and forth comments on PRs, as I explained why I built something a certain way or Chet explaining why I shouldn’t build it that way. It wasn’t uncommon to have hundreds of comments.
+
+The truth is, Github reviews just suck in terms of showing the process of how a PR developed. Text, ironically, is just not a good medium to communicate about code.
+
+Sidenote on why text may be bad for communicating about this: We haven't quite figured out how to generate visualizations of higher level concepts in code. We can make one-off diagrams for blog posts, but there's a need for explaining concepts auto-generated from a codebase.
+
+We tried video, and it’s worked for us. I can explain my process, what I tried, and ask for opinions on ideas, and Chet can reply with questions, answers, and comments. Its much easier to explain process when I can step through the different files, talk about how it connects together, and show process, rather than if its just laid out for you in some arbitrary order on Github.
+
+### PRs and Git
+
+Regardless of video, PRs still require work and vetting. A conflated PR that does 5 different things can be difficult to understand, so keeping them scoped and tight has been something I’ve learned to prioritize. Here’s a trick I learned:
+
+That `A->B->C` problem I mentioned before is really common. It can be tough to figure out when the change to `B` is big enough to warrant its own PR. When I brought this up to Chet, he actually told me he keeps two copies of the codebase. That’s been really helpful. So if you’re working on `A`, but then realize the changes to `B` is worth its own PR, you go to your copy codebase, check out a new branch, copy the changes to `B` over from the original, and push. Then in your original branch, rebase/merge from the other branch, so only the changes to `A` remain. Voila! Your PRs are clean.
+
+If you’re a git master, you can do this in one codebase no problem. I am not. Also this way, you can have your changes open right next to each other.
+
+Another thing that has been really helpful is self-reviews. Going through the PR yourself from a “review” mind will help you catch a lot of mistakes, and rethink how you built it.
+
+## Conclusion
+
+I think the biggest thing I've gained working with a senior engineer is confidence. In school, I was taught data structures and algorithms but never actually learned about higher level architecture or had conversations about the right way to design a feature and trade-offs with an experienced programmer. Having that has given me a much better intuitive sense of what I'm doing, what directions to try, and that in turn has given me more confidence to write my own code and try something.
+
+Seeing a complex app or problem can be really daunting, but programming is beautiful because it lets us split up our work into tiny understandable parts that can be tackled one by one, and build something bigger than we can keep in mind at any one time.
+
+[tweet:https://twitter.com/dan_abramov/status/1466244400732946437?s=20&t=iBUihQbCaRbN-RIsbi4feg]
+
+I hope at least one person finds this post helpful in some way, and if that's you, please reach out! I'd love to talk with people about points they agreed, disagreed or found interesting in some way.

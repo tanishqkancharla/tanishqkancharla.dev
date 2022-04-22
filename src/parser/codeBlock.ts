@@ -23,12 +23,16 @@ type CodeBlockToken = TKBlock<typeof blockType>;
 export const langParser = prefix(str("```"), maybe(line)) //
 	.map((lang) => (lang === "" ? undefined : lang));
 
+function cleanContent(content: string): string {
+	return content.replaceAll("\t", "    ");
+}
+
 export const codeBlockParser: Parser<CodeBlockToken> = sequence([
 	langParser,
 	takeUntil(str("\n```\n")).map(concat),
 ]) //
-	.map(([lang, content]) => ({
+	.map(([lang, rawContent]) => ({
 		type: "codeBlock",
 		lang,
-		content,
+		content: cleanContent(rawContent),
 	}));
