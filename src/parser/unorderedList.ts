@@ -13,6 +13,19 @@ declare module "./parseTK" {
 
 type UnorderedListToken = TKBlock<typeof blockType>;
 
+// const indentedUnorderedListParser = (
+// 	indent: number
+// ): Parser<UnorderedListToken> =>
+// 	nOrMore(
+// 		1,
+// 		oneOf([
+// 			indentedListItemParser(indent),
+// 			indentedUnorderedListParser(indent + 2),
+// 		])
+// 	)
+// 		.map((listItems) => listItems.map((listItem) => listItem.content))
+// 		.map((listItems) => ({ type: "unorderedList", listItems }));
+
 export const unorderedListParser: Parser<UnorderedListToken> = nOrMore(
 	1,
 	listItemParser

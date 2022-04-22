@@ -12,6 +12,12 @@ declare module "./parseTK" {
 
 type ListItemToken = TKBlock<typeof blockType>;
 
+export const indentedListItemParser = (indent: number): Parser<ListItemToken> =>
+	prefix(str(" ".repeat(indent) + "- "), line).map((content) => ({
+		type: "listItem",
+		content,
+	}));
+
 export const listItemParser: Parser<ListItemToken> = prefix(
 	str("- "),
 	line
