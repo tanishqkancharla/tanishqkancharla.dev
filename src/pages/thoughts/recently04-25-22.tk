@@ -1,0 +1,47 @@
+# Recently
+---
+2022-04
+
+I'm stealing this format from [Tom Macwright](https://macwright.com/2022/03/29/recently.html).
+
+## Rebuilding my website
+
+I rebuilt my website, completely from scratch. In hindsight, it was totally unnecessary, but I've learned a lot since working with Chet, and I wanted to flex some of those technical skills. I also didn't like the idea of depending on the Next.js framework: I noticed it had changed a lot even in the short time since I had made my website, and I just didn't want to keep up with all of the latest hullabaloo.
+
+The major parts of the website:
+
+### Parser
+
+Wrote a parser from scratch for my blog post format. I want to spin this out into its own package, because I'm pretty proud of it. It's mostly inspired by [Chet's article on parsers](https://medium.com/@chetcorcos/introduction-to-parsers-644d1b5d7f3d), but it's built in Typescript, and typed.
+
+### My own framework
+
+Ironically, ended up building a Next.js like framework...😂. Each page in my website is either a blog post with a `.tk` extension or a `.tsx` page that exports a react component, and a `getStaticProps` function. It was surprisingly really easy to build! With the conditional imports API, it makes it really easy. I want to extend this with `getServerSideProps` using the cloud functions from Vercel, and then write an article "How to build your own Next.js-like framework".
+
+### Styling
+
+I was previously using semantic CSS for everything on my website. I switched to using `styled-components`. The CSS in my last website became unmaintanable. The way I think about it...to truly encapsulate a component, you need the semantics, business logic, and styling all in one place. The old web's design decision of splitting those up didn't work because it doesn't scale...it makes it hard to compose. React combines semantics and business logic, and that was great because it allows much easier composition of components. Throw in `styled-components`, and you get the style in there too.
+
+I kept the design basically exactly the same. I like my design! I didn't wanna change it.
+
+---
+
+There are features I had to cut before shipping the website: namely, the article item animation, and the thoughts page. I'll be able to do the former when I do React on the client...but that's a lot of complexity...not sure if I wanna do that. The latter I'll be able to do when I do `getServerSideProps`.
+
+## Going to DC
+
+I'm going to be staying in DC for 3 months, starting in a few days. I'm pretty excited: I'll be spending time with my girlfriend and my friends. DC is cool...its very uhhh gentrified. I miss a lot of the culture I can see in New York, but its a nice place.
+
+Working remotely as a contractor is interesting...I don't quite feel safe enough to sign a lease yet, so I'm not gonna do that, but I like the idea of just jumping around place to place for a while. I have enough savings that I could float myself for a few months even if I lost my job. And that should be enough to get a new job, so I'm not really worried. I wanna go to San Francisco next.
+
+Besides, I'll always have my parents' place to come back to anyway. They don't exactly believe in my current job and want me to get a more traditional, more safe full-time job...but I don't really want that. I wanna ride out this contracting opportunity.
+
+## Coming from India
+
+I came back from a 2-week trip to India recently. I haven't been to India in about 12 years, so I was really excited to go.
+
+I have to say, I enjoyed my trip a lot. I like the cities I stayed in, the family I met after so many years, the things I did. My favorite part was watching the sunrise over the Mahabalipurum beach in Chennai, and going to the temple afterward. It was really really nice. I wanna go back to India sometime in the next year.
+
+It was interesting, because even though the places I stayed in were *far* less gentrified/clean/sterile as the United States, I never really felt unsafe. All of the strangers I talked to were very polite. I hate how isolating the American suburb feels, and I enjoyed the contrasting hospitality and neighbor-liness of everyone I had run into in India.
+
+Also, everything was like a factor of 10 cheaper there.
