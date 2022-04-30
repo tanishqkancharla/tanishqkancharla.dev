@@ -88,6 +88,11 @@ const ThoughtsRow = styled.a`
 		border-color: ${accentColor};
 		color: ${accentColor};
 	}
+
+	:focus {
+		outline: none;
+		border-color: ${accentColor};
+	}
 `;
 
 const StyledThoughtsTable = styled.table`
