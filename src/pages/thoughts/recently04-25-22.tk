@@ -1,22 +1,24 @@
 # Recently
 ---
+Rebuilding my website, going to DC, and my trip to India.
+---
 2022-04
 
 I'm stealing this format from [Tom Macwright](https://macwright.com/2022/03/29/recently.html).
 
 ## Rebuilding my website
 
-I rebuilt my website, completely from scratch. In hindsight, it was totally unnecessary, but I've learned a lot since working with Chet, and I wanted to flex some of those technical skills. I also didn't like the idea of depending on the Next.js framework: I noticed it had changed a lot even in the short time since I had made my website, and I just didn't want to keep up with all of the latest hullabaloo.
+I rebuilt my website, completely from scratch. In hindsight, it was totally unnecessary, but I've learned a [lot since working with Chet](/blog/what-i-learned), and I wanted to flex some of those technical skills. I also didn't like the idea of depending on the Next.js framework: I noticed it had changed a lot even in the short time since I had made my website, and I just didn't want to keep up with all of the latest hullabaloo.
 
 The major parts of the website:
 
 ### Parser
 
-Wrote a parser from scratch for my blog post format. I want to spin this out into its own package, because I'm pretty proud of it. It's mostly inspired by [Chet's article on parsers](https://medium.com/@chetcorcos/introduction-to-parsers-644d1b5d7f3d), but it's built in Typescript, and typed.
+Wrote a parser from scratch for my blog post format. I want to spin this out into its own package, because I'm pretty proud of it. It's mostly inspired by [Chet's article on parsers](https://medium.com/@chetcorcos/introduction-to-parsers-644d1b5d7f3d), but it's built in Typescript so its typed.
 
 ### My own framework
 
-Ironically, ended up building a Next.js like framework...😂. Each page in my website is either a blog post with a `.tk` extension or a `.tsx` page that exports a react component, and a `getStaticProps` function. It was surprisingly really easy to build! With the conditional imports API, it makes it really easy. I want to extend this with `getServerSideProps` using the cloud functions from Vercel, and then write an article "How to build your own Next.js-like framework".
+Ironically, ended up building a Next.js like framework...XD. Each page in my website is either a blog post with a `.tk` extension or a `.tsx` page that exports a react component, and a `getStaticProps` function. It was surprisingly really easy to build! With the conditional imports API, it makes it really easy. I want to extend this with `getServerSideProps` using the cloud functions from Vercel, and then write an article "How to build your own Next.js-like framework".
 
 ### Styling
 
@@ -26,7 +28,7 @@ I kept the design basically exactly the same. I like my design! I didn't wanna c
 
 ---
 
-There are features I had to cut before shipping the website: namely, the article item animation, and the thoughts page. I'll be able to do the former when I do React on the client...but that's a lot of complexity...not sure if I wanna do that. The latter I'll be able to do when I do `getServerSideProps`.
+There are a few features I had to cut before shipping the website: namely, the article item animation and the ability for dynamic pages. I'll be able to do the former when I do React on the client...but that's a lot of complexity...not sure if I wanna do that. The latter I'll be able to do with `getServerSideProps`
 
 ## Going to DC
 

@@ -45,3 +45,11 @@ export function bimap<T, S>(
 }
 
 export type Date = { year: number; month: number };
+
+export function sortByDate<T extends { date: Date }>(items: T[]) {
+	return items.sort((a, b) => {
+		// sort from most recent to least recent
+		if (a.date.year !== b.date.year) return b.date.year - a.date.year;
+		else return b.date.month - a.date.month;
+	});
+}

@@ -3,7 +3,8 @@ import { borderColor } from "../../styles/vars";
 
 export const Divider = styled.hr`
 	border-color: ${borderColor};
-	border-top-width: 1px;
+	border-width: 0;
+	border-top-width: 2.5px;
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
 	width: 100%;

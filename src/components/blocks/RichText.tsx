@@ -17,7 +17,7 @@ export const Code = styled.code`
 
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 		"Liberation Mono", "Courier New", monospace;
-	font-size: 85%;
+	font-size: 80%;
 	line-height: 1.25rem;
 
 	color: ${accentColor};

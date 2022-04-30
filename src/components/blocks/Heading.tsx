@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { headingTextColor } from "../../styles/vars";
+import { headingTextColor, secondaryHeadingTextColor } from "../../styles/vars";
 
 export const H1 = styled.h1`
 	font-weight: 600;
@@ -26,7 +26,7 @@ export const H3 = styled.h3`
 	margin-top: 1rem;
 	margin-bottom: 0.3rem;
 	line-height: 1.75rem;
-	color: ${headingTextColor};
+	color: ${secondaryHeadingTextColor};
 `;
 
 export const H4 = styled.h4`
@@ -34,5 +34,5 @@ export const H4 = styled.h4`
 	margin-top: 1rem;
 	margin-bottom: 0.3rem;
 	line-height: 1.75rem;
-	color: ${headingTextColor};
+	color: ${secondaryHeadingTextColor};
 `;

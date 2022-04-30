@@ -5,6 +5,7 @@ export const tertiateBackgroundColor = "rgba(25, 25, 25, 1)";
 export const transparentBackground = "rgba(36, 36, 36, 0.15)";
 
 export const headingTextColor = "rgba(250, 250, 250, 1)";
+export const secondaryHeadingTextColor = "rgba(250, 250, 250, 1)";
 export const bodyTextColor = "rgba(171, 171, 171, 1)";
 export const secondaryBodyTextColor = "rgba(135, 135, 135, 1)";
 export const tertiaryBodyTextColor = "rgba(89, 89, 89, 1)";
