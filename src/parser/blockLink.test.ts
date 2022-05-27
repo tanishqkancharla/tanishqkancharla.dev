@@ -1,6 +1,6 @@
+import { isParseSuccess } from "teg-parser";
 import { assert, assertEqual } from "../utils/assertUtils";
 import { blockLinkParser } from "./blockLink";
-import { isParseSuccess } from "./parseUtils";
 
 describe("blockLink", () => {
 	it("works", () => {

@@ -1,6 +1,6 @@
+import { isParseSuccess } from "teg-parser";
 import { assert } from "../utils/assertUtils";
 import { newLineParser } from "./newLine";
-import { isParseSuccess } from "./parseUtils";
 
 describe("newLine", () => {
 	it("works", () => {

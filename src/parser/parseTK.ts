@@ -1,3 +1,12 @@
+import {
+	isParseFailure,
+	line,
+	logResult,
+	maybe,
+	oneOf,
+	sequence,
+	zeroOrMore,
+} from "teg-parser";
 import { blockLinkParser as blockLink } from "./blockLink";
 import { blockquoteParser } from "./blockQuote";
 import { bookmarkParser } from "./bookmark";
@@ -10,15 +19,6 @@ import { h3Parser as h3 } from "./h3";
 import { imageParser } from "./image";
 import { newLineParser as newLine } from "./newLine";
 import { paragraphParser as paragraph } from "./paragraph";
-import {
-	isParseFailure,
-	line,
-	logResult,
-	maybe,
-	oneOf,
-	sequence,
-	zeroOrMore,
-} from "./parseUtils";
 import { toggleParser } from "./toggle";
 import { tweetParser } from "./twitter";
 import { unorderedListParser as unorderedList } from "./unorderedList";

@@ -1,6 +1,5 @@
-import { Parser } from "./Parser";
+import { line, maybe, nOrMore, Parser, prefix, str } from "teg-parser";
 import { TKBlock } from "./parseTK";
-import { line, maybe, nOrMore, prefix, str } from "./parseUtils";
 
 const blockType = "unorderedList";
 

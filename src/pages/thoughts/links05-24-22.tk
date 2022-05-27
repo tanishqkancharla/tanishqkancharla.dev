@@ -1,0 +1,37 @@
+# Links
+---
+Some recent links to things and my thoughts on them
+---
+2022-05
+
+[bookmark:https://github.com/SerenityOS/jakt]
+
+I'm not really too familiar with the purpose of this language, but it seems interesting. It's got a lot going on; its starting complexity as a language already seems pretty high.
+
+One of these days, I want to sit down and spend some time rethinking programming language semantics. Go back to the beginnings: what is the point of languages? How do they interface with the computer and assembly code? Ultimately, it's all just data mutation. So I wonder if forgetting everything about modern programming langauges, what an interface to a computer might look like.
+
+---
+
+[bookmark:https://graph-docs.vercel.app/]
+
+I spent some time going through all of XState's docs. I've been really interested in statemachines recently. Like Prosemirror, or React, or reactive databases.
+
+I haven't actually tried XState in an app yet, but based on my prior experience, it feels like there's a lot of complexity in XState's model. Splitting up all your state into states, data, context, all seemed too contrived and complicated to me; I just want to put a number in my state!
+
+I get that it lets your app only have a finite number of states (as opposed to having a number in a state that can be any value), but it didn't feel practical to me. I want to play around with it more, before I really decide my thoughts though.
+
+Also I didn't understand actors; isn't that going back to OOP? It seems like you just want a good composable state abstraction.
+
+---
+
+[bookmark:https://doc.anytype.io/d/]
+
+Anytype seems interesting! Everything's objects and types. I've been going through their docs. It's interesting to see these tools for thought just get more and more flexible and generic.
+
+I was talking about this with [Alex Obeanauer](https://alexanderobenauer.com/), but its interesting to frame this like our tools are become more flexible and capable, and "reaching down" to programming level, until building systems on apps like Anytype will essentially just be programming.
+
+There's still a huge gap, obviously, but I think we're getting close! I tweeted out an idea for another tool that I think would really get us closer:
+
+[tweet:https://twitter.com/moonriseTK/status/1529831216999972864]
+
+I have this inkling that functional programming is the right paradigm for us to build up from on top of programming.

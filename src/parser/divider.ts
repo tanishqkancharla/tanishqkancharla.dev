@@ -1,6 +1,5 @@
-import { Parser } from "./Parser";
+import { Parser, str } from "teg-parser";
 import { TKBlock } from "./parseTK";
-import { str } from "./parseUtils";
 
 declare module "./parseTK" {
 	interface TKBlockMap {

@@ -1,6 +1,6 @@
+import { isParseSuccess } from "teg-parser";
 import { assert, assertEqual } from "../utils/assertUtils";
 import { h3Parser } from "./h3";
-import { isParseSuccess } from "./parseUtils";
 
 describe("h3", () => {
 	it("works", () => {

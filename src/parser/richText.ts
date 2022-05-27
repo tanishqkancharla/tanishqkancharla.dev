@@ -1,29 +1,26 @@
-import { Parser } from "./Parser";
-import { ParseFailure, ParseSuccess } from "./ParseResult";
 import {
 	between,
-	char,
-	concat,
-	identity,
 	isParseSuccess,
 	line,
 	nOrMore,
-	not,
+	notChars,
 	oneOf,
 	oneOrMore,
+	ParseFailure,
+	Parser,
+	ParseSuccess,
 	sequence,
-	takeUntil,
+	str,
+	takeUntilAfter,
 	zeroOrMore,
-} from "./parseUtils";
+} from "teg-parser";
+import { not } from "teg-parser/build/parseUtils";
+import { concat, identity } from "./parseUtils";
 
 function delimitedInlineTextParser<Char extends string>(
 	c: Char
 ): Parser<string> {
-	return between(
-		char(c),
-		zeroOrMore(not(oneOf([char(c), char("\n")]))),
-		char(c)
-	).map(concat);
+	return between(str(c), zeroOrMore(notChars([c, "\n"])), str(c)).map(concat);
 }
 
 type ItalicToken = { type: "italic"; content: string };
@@ -47,19 +44,19 @@ export const codeParser: Parser<CodeToken> = delimitedInlineTextParser("`").map(
 type LinkToken = { type: "link"; content: string; href: string };
 
 export const linkParser: Parser<LinkToken> = sequence([
-	char("["),
-	takeUntil(char("]")),
-	char("("),
-	takeUntil(char(")")),
+	str("["),
+	takeUntilAfter(str("]")),
+	str("("),
+	takeUntilAfter(str(")")),
 ])
-	.map((seq) => [concat(seq[1]), concat(seq[3])])
+	.map((seq) => [seq[1], seq[3]])
 	.map(([content, href]) => ({ type: "link", content, href }));
 
 type PlainToken = { type: "plain"; content: string };
 
 export const plainParser: Parser<PlainToken> = nOrMore(
 	1,
-	not(oneOf([char("\n"), boldParser, linkParser, codeParser, italicParser]))
+	not(oneOf([str("\n"), boldParser, linkParser, codeParser, italicParser]))
 )
 	.map(concat)
 	.map((content) => ({ type: "plain", content }));

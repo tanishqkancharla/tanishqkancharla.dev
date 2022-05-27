@@ -1,6 +1,6 @@
+import { isParseSuccess } from "teg-parser";
 import { assert, assertEqual } from "../utils/assertUtils";
 import { dateParser } from "./date";
-import { isParseSuccess } from "./parseUtils";
 
 describe("Date", () => {
 	it("works", () => {

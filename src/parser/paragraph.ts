@@ -1,4 +1,4 @@
-import { Parser } from "./Parser";
+import { Parser } from "teg-parser";
 import { TKBlock } from "./parseTK";
 import { RichTextContent, richTextParser } from "./richText";
 

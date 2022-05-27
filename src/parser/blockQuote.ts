@@ -1,6 +1,5 @@
-import { Parser } from "./Parser";
+import { nOrMore, Parser, prefix, str } from "teg-parser";
 import { TKBlock } from "./parseTK";
-import { nOrMore, prefix, str } from "./parseUtils";
 import { RichTextContent, richTextParser } from "./richText";
 
 // | This
@@ -13,9 +12,9 @@ declare module "./parseTK" {
 	}
 }
 
-type BlockLinkToken = TKBlock<typeof blockType>;
+type BlockQuoteToken = TKBlock<typeof blockType>;
 
-export const blockquoteParser: Parser<BlockLinkToken> = nOrMore(
+export const blockquoteParser: Parser<BlockQuoteToken> = nOrMore(
 	1,
 	prefix(str("| "), richTextParser)
 ).map((content) => ({ type: "blockquote", content }));

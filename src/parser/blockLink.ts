@@ -1,6 +1,5 @@
-import { Parser } from "./Parser";
+import { Parser, sequence, str, takeUntilAfter } from "teg-parser";
 import { TKBlock } from "./parseTK";
-import { char, concat, sequence, takeUntil } from "./parseUtils";
 
 // [Gem](https://moonrise.tk)
 const blockType = "blockLink";
@@ -14,11 +13,11 @@ declare module "./parseTK" {
 type BlockLinkToken = TKBlock<typeof blockType>;
 
 export const blockLinkParser: Parser<BlockLinkToken> = sequence([
-	char("["),
-	takeUntil(char("]")),
-	char("("),
-	takeUntil(char(")")),
-	char("\n"),
+	str("["),
+	takeUntilAfter(str("]")),
+	str("("),
+	takeUntilAfter(str(")")),
+	str("\n"),
 ])
-	.map((seq) => [concat(seq[1]), concat(seq[3])])
+	.map((seq) => [seq[1], seq[3]])
 	.map(([content, href]) => ({ type: "blockLink", content, href }));

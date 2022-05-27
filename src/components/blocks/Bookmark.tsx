@@ -77,7 +77,7 @@ const _Bookmark = styled.a`
 	}
 `;
 
-const BookmarkUrl = styled.span`
+const BookmarkUrl = styled.div`
 	color: ${tertiaryBodyTextColor};
 	overflow: hidden;
 	text-overflow: ellipsis;

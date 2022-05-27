@@ -1,6 +1,5 @@
-import { Parser } from "./Parser";
+import { Parser, prefix, str, takeUntilAfter } from "teg-parser";
 import { TKBlock } from "./parseTK";
-import { concat, prefix, str, takeUntil } from "./parseUtils";
 
 declare module "./parseTK" {
 	interface TKBlockMap {
@@ -12,7 +11,6 @@ type TwitterToken = TKBlock<"tweet">;
 
 export const tweetParser: Parser<TwitterToken> = prefix(
 	str("[tweet:"),
-	takeUntil(str("]\n"))
+	takeUntilAfter(str("]\n"))
 ) //
-	.map(concat)
 	.map((url) => ({ type: "tweet", url }));

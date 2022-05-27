@@ -43,16 +43,17 @@ export async function getStaticProps(): Promise<PropsType> {
 export const title = "Thoughts";
 
 const ThoughtsRowName = styled.div`
-	flex: 2 0 auto;
+	width: 65%;
 `;
 
 const ThoughtsRowDate = styled.div`
-	flex: 1 0 auto;
+	flex: 1 1 auto;
 `;
 
-const ThoughtsHeader = styled.th`
+const ThoughtsHeader = styled.div`
 	text-align: left;
 	font-weight: normal;
+
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -62,24 +63,24 @@ const ThoughtsHeader = styled.th`
 	padding: 5px;
 `;
 
-const ThoughtsRow = styled.a`
+const StyledThoughtsRow = styled.a`
 	color: ${bodyTextColor};
 	display: block;
 
 	padding: 5px;
-	text-decoration: none;
 	font-weight: 400;
 	border-top: solid ${borderColor} 1.5px;
 	border-bottom: solid transparent 1.5px;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 
 	:last-child {
 		border-bottom: solid ${borderColor} 1.5px;
 	}
 
-	border-radius: 2px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+	text-decoration: none;
 
 	${transitionSm}
 
@@ -95,31 +96,40 @@ const ThoughtsRow = styled.a`
 	}
 `;
 
-const StyledThoughtsTable = styled.table`
+const StyledThoughtsTable = styled.div`
 	margin-top: 20px;
 	width: 100%;
 	border-spacing: 0;
 	color: ${bodyTextColor};
 
-	${ThoughtsRow}:nth-child(odd) {
+	${StyledThoughtsRow} {
 		background-color: rgba(0, 0, 0, 0.3);
 		box-shadow: inset 0 0 12px 1px rgba(0, 0, 0, 0.6);
 	}
 `;
 
+function DateItem(props: { date: TKMetadata["date"] }) {
+	const date = new Date(props.date.year, props.date.month - 1);
+	return (
+		<>
+			{date.toLocaleDateString("en", {
+				year: "numeric",
+				month: "long",
+			})}
+		</>
+	);
+}
+
 function ThoughtsDBRow(props: ThoughtMetadata) {
 	const { href, title, date } = props;
+
 	return (
-		<tr>
-			<td>
-				<ThoughtsRow href={href}>
-					<ThoughtsRowName>{title}</ThoughtsRowName>
-					<ThoughtsRowDate>
-						{date.month}-{date.year}
-					</ThoughtsRowDate>
-				</ThoughtsRow>
-			</td>
-		</tr>
+		<StyledThoughtsRow href={href} role={"row"}>
+			<ThoughtsRowName>{title}</ThoughtsRowName>
+			<ThoughtsRowDate>
+				<DateItem date={date} />
+			</ThoughtsRowDate>
+		</StyledThoughtsRow>
 	);
 }
 
@@ -136,13 +146,14 @@ function Thoughts(props: PropsType) {
 				<StyledThoughtsTable
 					aria-label="Thoughts"
 					aria-describedby="thoughts-table-desc"
+					role={"table"}
 				>
-					<tr>
-						<ThoughtsHeader>
-							<ThoughtsRowName>Name</ThoughtsRowName>
-							<ThoughtsRowDate>Date</ThoughtsRowDate>
+					<div role="row">
+						<ThoughtsHeader role="columnheader">
+							<ThoughtsRowName role="columnheader">Name</ThoughtsRowName>
+							<ThoughtsRowDate role="columnheader">Date</ThoughtsRowDate>
 						</ThoughtsHeader>
-					</tr>
+					</div>
 					{sortByDate(metadatas).map((post, i) => (
 						<ThoughtsDBRow {...post} key={i} />
 					))}

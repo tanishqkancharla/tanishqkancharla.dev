@@ -1,11 +1,11 @@
+import { isParseSuccess } from "teg-parser";
 import { assert, assertEqual } from "../utils/assertUtils";
 import { imageParser } from "./image";
-import { isParseSuccess } from "./parseUtils";
 
 describe("image", () => {
 	it("works", () => {
 		const result = imageParser.run(
-			"[image:/posts/ui-as-an-api/spotify-console.png](The Spotify API Console)\n"
+			"[image:/posts/ui-as-an-api/spotify-console.png](The Spotify API Console)"
 		);
 		assert.ok(isParseSuccess(result));
 
@@ -17,7 +17,7 @@ describe("image", () => {
 
 	it("works without caption", () => {
 		const result = imageParser.run(
-			"[image:/posts/ui-as-an-api/spotify-console.png]\n"
+			"[image:/posts/ui-as-an-api/spotify-console.png]"
 		);
 		assert.ok(isParseSuccess(result));
 

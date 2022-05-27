@@ -1,6 +1,6 @@
+import { isParseSuccess, zeroOrMore } from "teg-parser";
 import { assert, assertEqual } from "../utils/assertUtils";
 import { block, parseTK } from "./parseTK";
-import { isParseSuccess, zeroOrMore } from "./parseUtils";
 
 describe("Parser", () => {
 	it("Parsing block works", () => {

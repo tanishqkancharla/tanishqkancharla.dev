@@ -1,14 +1,13 @@
-import { Parser } from "./Parser";
-import { TKBlock } from "./parseTK";
 import {
-	concat,
 	line,
 	maybe,
+	Parser,
 	prefix,
 	sequence,
 	str,
-	takeUntil,
-} from "./parseUtils";
+	takeUntilAfter,
+} from "teg-parser";
+import { TKBlock } from "./parseTK";
 
 const blockType = "codeBlock";
 
@@ -29,7 +28,7 @@ function cleanContent(content: string): string {
 
 export const codeBlockParser: Parser<CodeBlockToken> = sequence([
 	langParser,
-	takeUntil(str("\n```\n")).map(concat),
+	takeUntilAfter(str("\n```\n")),
 ]) //
 	.map(([lang, rawContent]) => ({
 		type: "codeBlock",

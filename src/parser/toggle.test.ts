@@ -1,5 +1,5 @@
+import { isParseSuccess } from "teg-parser";
 import { assert, assertEqual } from "../utils/assertUtils";
-import { isParseSuccess } from "./parseUtils";
 import { toggleParser } from "./toggle";
 
 describe("toggle", () => {

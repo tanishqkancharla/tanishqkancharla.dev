@@ -1,6 +1,5 @@
-import { Parser } from "./Parser";
+import { Parser, sequence, str, takeUntilAfter } from "teg-parser";
 import { TKBlock } from "./parseTK";
-import { char, concat, sequence, str, takeUntil } from "./parseUtils";
 
 // [bookmark:https://moonrise.tk]
 const blockType = "bookmark";
@@ -15,8 +14,8 @@ type BlockLinkToken = TKBlock<typeof blockType>;
 
 export const bookmarkParser: Parser<BlockLinkToken> = sequence([
 	str("[bookmark:"),
-	takeUntil(str("]")),
-	char("\n"),
+	takeUntilAfter(str("]")),
+	str("\n"),
 ])
-	.map((seq) => concat(seq[1]))
+	.map((seq) => seq[1])
 	.map((url) => ({ type: "bookmark", url }));

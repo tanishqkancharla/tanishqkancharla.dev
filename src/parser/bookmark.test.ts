@@ -1,15 +1,15 @@
-import { assert, assertEqual } from "../utils/assertUtils";
 import { bookmarkParser } from "./bookmark";
-import { isParseSuccess } from "./parseUtils";
+import { testParser } from "./testParser";
 
 describe("bookmark", () => {
-	it("works", () => {
-		const result = bookmarkParser.run("[bookmark:https://gem.moonrise.tk]\n");
-		assert.ok(isParseSuccess(result));
-		assert.ok(result.stream.isEmpty);
-		assertEqual(result.value, {
+	testParser(
+		"bookmark",
+		bookmarkParser,
+		`
+    [bookmark:https://gem.moonrise.tk]\n`,
+		{
 			type: "bookmark",
 			url: "https://gem.moonrise.tk",
-		});
-	});
+		}
+	);
 });
