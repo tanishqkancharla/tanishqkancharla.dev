@@ -15,7 +15,7 @@ async function buildPost(context: WebsiteContext, postFilePath: string) {
 
 	const compiledContents = await compilePost(rawContents, context, href);
 
-	return compiledContents;
+	return `<!DOCTYPE html>${compiledContents}`;
 }
 
 async function buildReactPage(context: WebsiteContext, pageFilePath: string) {
@@ -39,7 +39,7 @@ async function buildReactPage(context: WebsiteContext, pageFilePath: string) {
 		title,
 	});
 
-	return compiledContents;
+	return `<!DOCTYPE html>${compiledContents}`;
 }
 
 export async function buildWebsite() {

@@ -1,6 +1,21 @@
-import styled from "styled-components";
+import React from "react";
+import { useWebsiteContext } from "../WebsiteContext";
 
-export const Font = styled.style`
+export const Style = () => {
+	const { accentColor } = useWebsiteContext();
+
+	return (
+		<style
+			dangerouslySetInnerHTML={{
+				__html: `
+        *, *::after, *::before {
+          box-sizing: border-box;
+        }
+
+        :root {
+          --accent-color: ${accentColor}
+        }
+
 	/* cyrillic-ext */
 	@font-face {
 		font-family: "Source Sans Pro";
@@ -151,4 +166,8 @@ export const Font = styled.style`
 			U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
 			U+2215, U+FEFF, U+FFFD;
 	}
-`;
+  `,
+			}}
+		/>
+	);
+};

@@ -5,10 +5,10 @@ import { bodyTextColor, pageWidth } from "../styles/vars";
 import { isDefined } from "../utils/typeUtils";
 import { Body } from "./Body";
 import { Breadcrumbs } from "./Breadcrumbs";
-import { Font } from "./Font";
 import { Footer } from "./Footer";
 import { Head } from "./Head";
 import { Header } from "./Header";
+import { Style } from "./Style";
 
 type PageProps = {
 	children: React.ReactNode;
@@ -38,9 +38,9 @@ export function Page({ children }: PageProps) {
 		.filter(isDefined);
 
 	return (
-		<html>
+		<html lang="en">
 			<Head />
-			<Font />
+			<Style />
 			<Body>
 				<Header title={title} />
 				<_Page>

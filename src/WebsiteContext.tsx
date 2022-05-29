@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { defaultWebsiteContext } from "./config";
 
 export type WebsiteContext = {
+	accentColor: string;
 	headerImageURL: string;
 	headerImageAlt: string;
 	headerImageCredits: string;

@@ -2,11 +2,11 @@ import { rootPath } from "./tools/rootPath";
 import { WebsiteContext } from "./WebsiteContext";
 
 export const defaultWebsiteContext: WebsiteContext = {
+	accentColor: "#7772e0",
 	postsDir: rootPath("/src/pages/"),
 	outDir: rootPath("/dist/"),
-	headerImageURL: "/bolivia.jpg",
+	headerImageURL: "/seoul.jpeg",
 	headerImageAlt:
-		"Shot in infrared from Isla Incahuasi, a rocky island composed of marine limestone sediments and volcanic material surrounded by the Salar de Uyuni, a massive pink salt desert",
-	headerImageCredits:
-		"https://www.behance.net/gallery/85911149/Bolivia-Infraland",
+		"A shot of Seoul, South Korea of high-rise buildings set against the backdrop of a mountain, with a purple and blue sky during sunrise.",
+	headerImageCredits: "https://unsplash.com/photos/LoGWCnEVDgU",
 };

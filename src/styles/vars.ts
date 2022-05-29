@@ -1,4 +1,5 @@
-export const accentColor = "#da898f";
+export const accentColor = "var(--accent-color)";
+
 export const backgroundColor = "rgba(32, 32, 32, 1)";
 export const secondaryBackgroundColor = "rgba(57, 57, 57, 1)";
 export const tertiateBackgroundColor = "rgba(25, 25, 25, 1)";
