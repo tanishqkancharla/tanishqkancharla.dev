@@ -47,6 +47,7 @@ const BreadcrumbDivider = styled.span`
 `;
 
 const BreadcrumbNavIcon = styled(BreadcrumbNavA)`
+	display: flex;
 	padding: 3px 3px;
 	margin-right: 2px;
 `;
