@@ -1,0 +1,29 @@
+# Programming languages, rich text editors, and functional programming.
+---
+What do programming languages, rich text editors, functional programming have to do with each other? Spoiler alert: They’re all about interfaces to software
+---
+2022-05
+
+I'm deeply interested in programming languages, rich text editors and functional programming. That seems like a hodge-podge of interests, but they're more related in my head than you'd think.
+
+*Programming languages <-> Functional programming*: Code is really just a piece of state that we’re modifying to get the view (compiled output) to reflect what we want.
+
+Functional programming and separate state from view in code is imo the best way to split up programs.
+
+*Programming languages <-> Rich text editors*: A programming language is a developer’s interface to the computer, and a rich text editor is an interface to the computer for the user.
+
+In both situations, we describe something which gets compiled or injected with semantic meaning by something else.
+
+*Functional programming <-> Rich text editors*: Rich text editors are about having a sequence of keystrokes turned into a semantic and meaningful document. What you type in changes the state of the content, which becomes reflected by the change in the view.
+
+Idk if that properly explains the picture I have in my head. They’re all layers of abstraction...for making things easier to reason about (so we can worry only about the highest layer of abstraction)
+
+---
+
+*Editing* (going down the layers):
+Hardware -> Registers -> C++ (Web browser) -> DOM/JS (Web browser) -> State
+
+*Updating view* (going back up the layers):
+State -> DOM/JS (View) -> C++ (Web browser) -> GPU -> Hardware
+
+Updating hardware manually is typically pretty difficult, especially to reason about at scale. Editing and understanding state, on the opposite end, should be semantic and easy.
