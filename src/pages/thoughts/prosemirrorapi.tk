@@ -1,0 +1,76 @@
+# Things I would do to improve Prosemirror's API
+---
+My thoughts on Prosemirror's API
+---
+2022-06
+
+I've been using [Prosemirror](https://prosemirror.net/) for about two years now. I would say I know the library fairly well, having used it in 3 or 4 different projects. It has a large learning curve but definitely very very powerful, and I think its general and light-weight enough to be used in use-cases where you wouldn't immediately think "I need a rich-text editor toolkit".
+
+I like how prosemirror strictly follows the functional programming paradigm. Chet and I have found it makes it much easier to integrate into a larger project. Just "plug" yourself into the transaction cycle:
+
+[image:/thoughts/prosemirrorapi/prosemirror-view.png] [Illustration from prosemirror](https://prosemirror.net/docs/guide/#view)
+
+After using it extensively in a larger project, there are definitely some snags I've caught myself on.
+
+The `view` portion of Plugins is conflated. You use it both for setting up a popup (a view) or managing async effects (make network call). That's because only in that field do you have access to a stable dispatch function that lets you dispatch at a later time.
+
+[image:/thoughts/prosemirrorapi/declarative-effects.png] [Talk from David K](https://www.youtube.com/watch?v=HPoC-k7Rxwo&t=1210s)
+
+I think it would be better to separate effect declaration from "view" stuff like popups, and separate the two. An effects field could probably just be a pure function of plugin state, or have its signature identical to the `view` field.
+
+I honestly dont know if the `view` field (as it used for setting up popups and such) belongs in a plugin at all. Plugins could just be state fields. Maybe views can get plugged in when the editor view is being created (view plugins). This lets you use outside "props" when constructing the view plugins, that wouldn't otherwise be available in the state plugin.
+
+Here's the rendering model of react and prosemirror compared:
+
+React:
+`view = fn(props, state)`
+
+Prosemirror:
+`view = (props => fn(state))(props)`
+
+Basically, you can't change props once the prosemirror view and plugins have been instantiated.
+
+You can get around this with hacky ways, like declaring a new Prosemirror plugin that just holds props (`PropsPlugin`), and reading that in the other plugins. Or merely using Plugin creation functions where the arguments are "subscriptions" to props. So you subscribe to all the prop updates.
+
+But you need React's rendering model when you're using Prosemirror as a component plugging into a bigger state-dispatch system: props are just pieces of state from higher up in the tree. And that's something you may need access to when you're rendering a plugin:
+
+- If you're implementing the slash-command approach, you need access to what commands and blocks are available to insert.
+- For @mentions in the editor, you need access to what you can mention, and so you need access to a list of pages or to a service that lets you access a list of objects.
+
+Decorations are also kind of a frustrating aspect for me; again, they're declared as a pure function of state with no props. But in this case you don't even have access to the view. And the most performant way of using decorations is keeping `DecorationSet`s in your state, which is odd semantic-wise, because decoration very much sounds like something "view-like".
+
+I would implement Decorations the same way I would with the other view plugins.
+
+Anyway, I decided to write about this because it's been snags I've caught myself on as I am plugging in prosemirror into a bigger system, where we use React.
+
+Hopefully, the culmination of my effort is a library that lets you use react's rendering model for prosemirror. Right now the API looks something like this:
+
+```tsx
+// This is in your app
+function Editor() {
+  ...
+  <EditorView state={editorState}>
+    <FindInPagePopup state={editorState} dispatch={dispatch}/>
+    <AutocompleteMentionPopup ... />
+  </EditorView>
+}
+
+// This is from the library
+function EditorView(props: {state: EditorState}) {
+  ...
+  const view = useMemo(() => createEditorView(...))
+
+  useLayoutEffect(/* Mount editor view */)
+
+  return (
+    <div>
+      <div ref={editorViewNodeRef}/>
+      <div>
+        {props.children}
+      </div>
+    </div>
+  )
+}
+```
+
+Where view plugins just become React components, that will update when your props to them update. Otherwise, the EditorView is managed separately as a pure function of editor state.
