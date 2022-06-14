@@ -12,21 +12,29 @@ npm run serve // Serve built blog
 ```
 
 ## Source directories explained:
+`/client`: Javascript for the client. At the moment its very very minimal.
+
 `/pages`: Blog post pages which are either `.tk` (my personal blog post format) or `.tsx` files.
-
-`/parser`: A parser for the `.tk` format, which uses the [teg](https://github.com/tanishqkancharla/teg) parser toolkit I built.
-
-`/compiler`: A compiler that runs through the parsed contents of the blog post and does async-y things like load tweets, bookmarks, or syntax highlight code.
 
 `/components`: Styled components for the website, including for each individual block in the blog posts.
 
 `/styles`: Some basic styling variables for the website. Doesn't use css variables...yet.
 
-`buildWebsite.ts`: Where everything gets read and built. `npm run build` only calls this file.
+`/server/buildWebsite.ts`: Where everything gets read and built. `npm run build` only calls this file.
 
-`config.ts`: Configuration for things I change most about my website: header image and accent color.
+`/server/parser`: A parser for the `.tk` format, which uses the [teg](https://github.com/tanishqkancharla/teg) parser toolkit I built.
 
-`PageContext.tsx/WebsiteContext.tsx`: React context providers that components can use while building.
+`/server/compiler`: A compiler that runs through the parsed contents of the blog post and does async-y things like load tweets, bookmarks, or syntax highlight code.
+
+`config.ts`: The website config that gets provided to pages when they render.
+
+## The live-reload dev server
+
+The dev server is passable. See `dev.ts` for how it works, but it basically builds the website, starts a web server, and watches source files for changes.
+
+Unfortunately, at the moment, if a source file that's not one of the end-pages (i.e. `/src/pages/` or `/src/client/`) changes, it has to rebuild the website, since it doesn't know which files are dependent on it.
+
+Eventually, I'd like to build something that will fix this, e.g. dependency graph parser. Either that, or cache the compilations of tk posts. But for now, everything is fairly fast.
 
 ---
 
