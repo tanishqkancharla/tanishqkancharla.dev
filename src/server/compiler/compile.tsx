@@ -1,5 +1,5 @@
 import React from "react";
-import { renderToString } from "react-dom/server";
+import { renderToStaticMarkup } from "react-dom/server";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 import { Page } from "../../components/Page";
 import { TKArticle } from "../../components/TKArticle";
@@ -81,7 +81,7 @@ export function compileReactComponent<P>(
 	const sheet = new ServerStyleSheet();
 
 	try {
-		let renderedPost = renderToString(
+		let renderedPost = renderToStaticMarkup(
 			<StyleSheetManager sheet={sheet.instance}>
 				<WebsiteContextProvider value={websiteContext}>
 					<PageContextProvider value={pageContext}>

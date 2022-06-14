@@ -53,3 +53,7 @@ export function sortByDate<T extends { date: Date }>(items: T[]) {
 		else return b.date.month - a.date.month;
 	});
 }
+
+export function keys<K extends string, V>(object: { [key in K]: V }) {
+	return Object.keys(object) as K[];
+}

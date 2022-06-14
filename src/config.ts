@@ -9,6 +9,8 @@ export type WebsiteContext = {
 	postsDir: string;
 	relativeClientJsPath: string;
 	outDir: string;
+
+	mode: "DEV" | "PROD";
 };
 
 export const defaultWebsiteContext: WebsiteContext = {
@@ -20,4 +22,5 @@ export const defaultWebsiteContext: WebsiteContext = {
 	headerImageAlt:
 		"A shot of Seoul, South Korea of high-rise buildings set against the backdrop of a mountain, with a purple and blue sky during sunrise.",
 	headerImageCredits: "https://unsplash.com/photos/LoGWCnEVDgU",
+	mode: "DEV",
 };

@@ -1,7 +1,9 @@
-#!/usr/bin/env node
-import chokidar from "chokidar";
+#!/usr/bin/env ts-node
+import { watch } from "chokidar";
 import decache from "decache";
-import { BuildWebsite } from "./src/server/buildWebsite";
+import { defaultWebsiteContext } from "./src/config";
+import { buildPage, buildWebsite } from "./src/server/buildWebsite";
+import { rootPath } from "./src/tools/rootPath";
 import { spawn } from "./src/tools/spawn";
 
 type BuildStep = () => void | Promise<void>;
@@ -15,28 +17,24 @@ const buildSteps: BuildStep[] = [
 				"Expected to find `buildWebsite` in ./src/server/buildWebsite"
 			);
 		}
-		const buildWebsite = module.buildWebsite as BuildWebsite;
-		buildWebsite(true);
+		// const buildWebsite = module.buildWebsite as BuildWebsite;
+		buildWebsite(defaultWebsiteContext);
 	},
 ];
-
-async function build() {
-	for (const buildStep of buildSteps) {
-		await buildStep();
-	}
-}
 
 function serveWebsite() {
 	return spawn("serve", []);
 }
 
 async function buildAndServe() {
-	await build();
+	const context = defaultWebsiteContext;
+
+	await buildWebsite(context);
 	serveWebsite();
 
-	chokidar.watch(["src"]).on("change", async () => {
+	watch(["src"]).on("change", async (filePath) => {
 		try {
-			await build();
+			await buildPage(context, rootPath(filePath));
 		} catch (e) {
 			console.error(e);
 		}

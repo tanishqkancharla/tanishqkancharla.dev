@@ -1,9 +1,12 @@
 import * as esbuild from "esbuild";
 import fs from "fs-extra";
+import glob from "glob";
+import minimatch from "minimatch";
 import path from "path";
-import { defaultWebsiteContext, WebsiteContext } from "../config";
-import { crawlDirectory } from "../tools/crawlDirectory";
+import { flatten } from "remeda";
+import { WebsiteContext } from "../config";
 import { rootPath } from "../tools/rootPath";
+import { keys } from "../utils/typeUtils";
 import { compilePost, compileReactComponent } from "./compiler/compile";
 
 async function buildTKPost(context: WebsiteContext, postFilePath: string) {
@@ -16,7 +19,16 @@ async function buildTKPost(context: WebsiteContext, postFilePath: string) {
 
 	const compiledContents = await compilePost(rawContents, context, href);
 
-	return `<!DOCTYPE html>${compiledContents}`;
+	const contents = `<!DOCTYPE html>${compiledContents}`;
+
+	const outPostPath = path.join(
+		context.outDir,
+		relativePostDir,
+		`${name}.html`
+	);
+
+	await fs.ensureFile(outPostPath);
+	await fs.writeFile(outPostPath, contents, "utf8");
 }
 
 async function buildReactPage(context: WebsiteContext, pageFilePath: string) {
@@ -40,50 +52,67 @@ async function buildReactPage(context: WebsiteContext, pageFilePath: string) {
 		title,
 	});
 
-	return `<!DOCTYPE html>${compiledContents}`;
+	const contents = `<!DOCTYPE html>${compiledContents}`;
+
+	const outPostPath = path.join(
+		context.outDir,
+		relativePostDir,
+		`${name}.html`
+	);
+
+	await fs.ensureFile(outPostPath);
+	await fs.writeFile(outPostPath, contents, "utf8");
 }
 
-export type BuildWebsite = typeof buildWebsite;
-
-export async function buildWebsite(dev: boolean) {
-	const context = defaultWebsiteContext;
-	const { postsDir } = context;
-
-	for await (const filePath of crawlDirectory(postsDir)) {
-		const { dir, name, ext } = path.parse(filePath);
-
-		let compiledContents: string;
-
-		if (ext === ".tk") {
-			console.log(`${name}.tk => ${name}.html`);
-
-			compiledContents = await buildTKPost(context, filePath);
-		} else if (ext === ".tsx") {
-			console.log(`${name}.tsx => ${name}.html`);
-
-			compiledContents = await buildReactPage(context, filePath);
-		} else {
-			console.error("Unknown extension found for file: ", filePath);
-			continue;
-		}
-
-		const relativePostDir = path.relative(context.postsDir, dir);
-		const outPostPath = path.join(
-			context.outDir,
-			relativePostDir,
-			`${name}.html`
-		);
-
-		await fs.ensureFile(outPostPath);
-		await fs.writeFile(outPostPath, compiledContents, "utf8");
-	}
-
+async function buildJavascript(context: WebsiteContext, filePath: string) {
+	const dev = context.mode === "DEV";
 	await esbuild.build({
-		entryPoints: [rootPath("src/client/index.tsx")],
+		entryPoints: [filePath],
 		outdir: context.outDir,
 		bundle: true,
 		minify: !dev,
 		sourcemap: dev ? "inline" : undefined,
 		sourcesContent: dev,
 	});
+}
+
+const pageBuilders = {
+	"src/pages/**/*.tk": buildTKPost,
+	"src/pages/**/*.tsx": buildReactPage,
+	"src/client/index.tsx": buildJavascript,
+};
+
+function matchGlob(globStr: string): Promise<string[]> {
+	return new Promise((resolve, reject) => {
+		glob(globStr, (error, matches) => {
+			if (error) reject(error);
+			resolve(matches);
+		});
+	});
+}
+
+export async function getAllPages() {
+	const pageGlobs = keys(pageBuilders).map(rootPath);
+	const matchingFiles = await Promise.all(pageGlobs.map(matchGlob));
+	return flatten(matchingFiles);
+}
+
+export async function buildPage(context: WebsiteContext, filePath: string) {
+	for (const pageGlob of keys(pageBuilders)) {
+		const match = minimatch(filePath, rootPath(pageGlob));
+		if (match) {
+			const buildPage = pageBuilders[pageGlob];
+			await buildPage(context, filePath);
+			return;
+		}
+	}
+
+	console.warn(`No match found for ${filePath}`);
+}
+
+export async function buildWebsite(context: WebsiteContext) {
+	const filePaths = await getAllPages();
+	for (const filePath of filePaths) {
+		await buildPage(context, filePath);
+	}
 }
