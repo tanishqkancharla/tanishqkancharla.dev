@@ -103,16 +103,15 @@ export async function buildPage(context: WebsiteContext, filePath: string) {
 		if (match) {
 			const buildPage = pageBuilders[pageGlob];
 			await buildPage(context, filePath);
-			return;
+			return true;
 		}
 	}
 
-	console.warn(`No match found for ${filePath}`);
+	return false;
 }
 
+/** Build website pages in parallel */
 export async function buildWebsite(context: WebsiteContext) {
 	const filePaths = await getAllPages();
-	for (const filePath of filePaths) {
-		await buildPage(context, filePath);
-	}
+	await Promise.all(filePaths.map((filePath) => buildPage(context, filePath)));
 }

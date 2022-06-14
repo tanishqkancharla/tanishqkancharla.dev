@@ -36,6 +36,22 @@ Unfortunately, at the moment, if a source file that's not one of the end-pages (
 
 Eventually, I'd like to build something that will fix this, e.g. dependency graph parser. Either that, or cache the compilations of tk posts. But for now, everything is fairly fast.
 
+## Things to do
+
+- [ ] Projects page
+
+Header image
+- [ ] Avoid layout shifts by measuring header image while building website.
+- [ ] Use `sharp` to create header image at different sizes
+
+Server effects
+- [ ] useServerEffect, rerender while effects still exist
+- [ ] Client side rendering framework...?
+
+Server performance
+- [ ] Cache network calls during a server run? Or cache parsed tk posts?
+- [ ] Rebuliding whole website when source file that's not end-file changes is inefficient. Could have dependency checking.
+
 ---
 
 Tanishq Kancharla
