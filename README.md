@@ -39,6 +39,7 @@ Eventually, I'd like to build something that will fix this, e.g. dependency grap
 ## Things to do
 
 - [ ] Projects page
+- [ ] Statically load tweets
 
 Header image
 - [ ] Avoid layout shifts by measuring header image while building website.
@@ -51,6 +52,10 @@ Server effects
 Server performance
 - [ ] Cache network calls during a server run? Or cache parsed tk posts?
 - [ ] Rebuliding whole website when source file that's not end-file changes is inefficient. Could have dependency checking.
+
+Parser
+- [ ] Move out into different project
+- [ ] Use `testParser` for everything.
 
 ---
 

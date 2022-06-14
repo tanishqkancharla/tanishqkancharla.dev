@@ -1,0 +1,31 @@
+# Teg
+---
+Open sourcing a parser toolkit library in Typescript
+---
+2022-06
+
+I recently open sourced Teg: a tiny, typed, parser combinator toolkit in Typescript. It allows you to build powerful parsers in a really composable, semantic, and typed way.
+
+[bookmark:https://github.com/tanishqkancharla/teg]
+
+[tweet:https://twitter.com/moonriseTK/status/1535697045125726211]
+
+Teg aims to be a semantic and approachable library for parsing. Teg's semantics are mostly based off PEGS: Parsing Expression Grammers
+
+## Motivation
+Teg is, for the most part, a porting of the ideas [described here](https://medium.com/@chetcorcos/introduction-to-parsers-644d1b5d7f3d) to Typescript.
+
+## What I'm using it for
+This is [currently used](https://github.com/tanishqkancharla/tanishqkancharla.dev/tree/main/src/server/parser) by my website for the blog post format.
+
+Previously, I was using [Ohm](https://ohmjs.org/). But it ended up being painful to maintain. I found having everything in Typescript is much nicer than a DSL; its straightforward for me to read and write, and it gives me all the power of a general purpose language.
+
+## What I'm going to be using it for
+
+I plan on also adopting it for [Gem](https://gem.tanishqkancharla.dev). Essentially making my own blogging platform and text editor, so I can take notes quickly, and export it out as a blog post in my exact format.
+
+As a part of that, I'm figuring out how to make an incremental version of Teg. I found some promising ideas [in this paper](https://people.seas.harvard.edu/~chong/pubs/gpeg_sle21.pdf).
+
+But I still need to get around to implementing the ideas in Typescript, and there are some modifications I'm thinking about. I'm gonna make a separate post about that, once I finish going through the whole paper.
+
+After that, I plan on making a desktop version of Gem that lets you save, add themes...loads of cool stuff. But that's in the far distance for now. Teg is a nights and weekends project, so it'll take a while before I get there.

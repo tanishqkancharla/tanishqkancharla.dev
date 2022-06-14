@@ -34,14 +34,14 @@ export async function compilePost(
 	const ast = parseTK(contents);
 
 	const transformedBlocks: TransformedBlock[] = await Promise.all(
-		ast.blocks.map(async (block) => {
+		ast.blocks.map((block) => {
 			switch (block.type) {
 				case "tweet":
-					return await tweetLoader(block);
+					return tweetLoader(block);
 				case "bookmark":
-					return await bookmarkLoader(block);
+					return bookmarkLoader(block);
 				case "codeBlock":
-					return await codeBlockLoader(block);
+					return codeBlockLoader(block);
 				default:
 					return block;
 			}
@@ -103,8 +103,8 @@ export function compileReactComponent<P>(
 		sheet.seal();
 
 		return renderedPost;
-	} catch (e) {
+	} catch (error) {
 		sheet.seal();
-		throw e;
+		throw new Error(JSON.stringify(error));
 	}
 }

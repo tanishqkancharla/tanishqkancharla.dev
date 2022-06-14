@@ -12,7 +12,12 @@ function serveWebsite() {
 async function buildAndServe() {
 	const context = defaultWebsiteContext;
 
-	await buildWebsite(context);
+	try {
+		await buildWebsite(context);
+	} catch (error) {
+		console.error(`Could not build website due to error: ${error}`);
+		return;
+	}
 	serveWebsite();
 
 	watch(["src"]).on("change", async (filePath) => {

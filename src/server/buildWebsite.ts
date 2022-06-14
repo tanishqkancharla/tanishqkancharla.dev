@@ -110,8 +110,17 @@ export async function buildPage(context: WebsiteContext, filePath: string) {
 	return false;
 }
 
-/** Build website pages in parallel */
+/** Build website pages */
 export async function buildWebsite(context: WebsiteContext) {
 	const filePaths = await getAllPages();
-	await Promise.all(filePaths.map((filePath) => buildPage(context, filePath)));
+	if (context.mode === "DEV") {
+		for (const filePath of filePaths) {
+			await buildPage(context, filePath);
+		}
+	} else if (context.mode === "PROD") {
+		// Parallel
+		await Promise.all(
+			filePaths.map((filePath) => buildPage(context, filePath))
+		);
+	}
 }
