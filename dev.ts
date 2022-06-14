@@ -1,18 +1,22 @@
 #!/usr/bin/env node
 import chokidar from "chokidar";
 import decache from "decache";
+import { BuildWebsite } from "./src/server/buildWebsite";
 import { spawn } from "./src/tools/spawn";
 
 type BuildStep = () => void | Promise<void>;
 
 const buildSteps: BuildStep[] = [
 	() => {
-		decache("./src/buildWebsite");
-		const module = require("./src/buildWebsite");
+		decache("./src/server/buildWebsite");
+		const module = require("./src/server/buildWebsite");
 		if (!module.buildWebsite) {
-			throw new Error("Expected to find `buildWebsite` in ./src/buildWebsite");
+			throw new Error(
+				"Expected to find `buildWebsite` in ./src/server/buildWebsite"
+			);
 		}
-		module.buildWebsite();
+		const buildWebsite = module.buildWebsite as BuildWebsite;
+		buildWebsite(true);
 	},
 ];
 

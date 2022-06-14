@@ -1,7 +1,7 @@
 import React from "react";
 import { randomString } from "remeda";
 import styled from "styled-components";
-import { RichTextContent } from "../../parser/richText";
+import { RichTextContent } from "../../server/parser/richText";
 import { accentColor } from "../../styles/vars";
 import { P } from "./Paragraph";
 import { RichTextParagraph } from "./RichText";

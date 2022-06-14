@@ -1,5 +1,5 @@
 import { isParseSuccess, logResult, Parser } from "teg-parser";
-import { assert, assertEqual } from "../utils/assertUtils";
+import { assert, assertEqual } from "../../utils/assertUtils";
 
 export function testParser<T>(
 	name: string,

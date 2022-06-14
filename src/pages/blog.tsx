@@ -7,10 +7,10 @@ import { Bookmark } from "../components/blocks/Bookmark";
 import { Divider } from "../components/blocks/Divider";
 import { P } from "../components/blocks/Paragraph";
 import { Page } from "../components/Page";
-import { parseTK, TKMetadata } from "../parser/parseTK";
+import { WebsiteContext } from "../config";
+import { parseTK, TKMetadata } from "../server/parser/parseTK";
 import { listDirectory } from "../tools/listDirectory";
 import { rootPath } from "../tools/rootPath";
-import { WebsiteContext } from "../WebsiteContext";
 
 type Metadata = TKMetadata & { href: string };
 

@@ -1,10 +1,10 @@
 import React from "react";
-import { usePageContext } from "../PageContext";
+import { usePageContext } from "../server/PageContext";
+import { useWebsiteContext } from "../server/WebsiteContext";
 import { borderColor } from "../styles/vars";
-import { useWebsiteContext } from "../WebsiteContext";
 
 export function Head() {
-	const { headerImageURL } = useWebsiteContext();
+	const { headerImageURL, relativeClientJsPath } = useWebsiteContext();
 	const { title } = usePageContext();
 	return (
 		<head>
@@ -39,6 +39,7 @@ export function Head() {
 			<meta name="author" content="Tanishq Kancharla" />
 			<meta name="og:url" content="https://tanishqkancharla.dev" />
 
+			<script src={relativeClientJsPath} defer />
 			<link
 				rel="preconnect"
 				href="https://fonts.gstatic.com/"

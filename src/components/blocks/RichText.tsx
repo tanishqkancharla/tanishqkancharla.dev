@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { RichTextToken } from "../../parser/richText";
+import { RichTextToken } from "../../server/parser/richText";
 import {
 	accentColor,
 	secondaryBackgroundColor,

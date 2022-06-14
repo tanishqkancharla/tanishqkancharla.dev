@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useWebsiteContext } from "../server/WebsiteContext";
 import { pageWidth, transparentBackground } from "../styles/vars";
-import { useWebsiteContext } from "../WebsiteContext";
 import { H1 } from "./blocks/Heading";
 
 export const _Header = styled.div`

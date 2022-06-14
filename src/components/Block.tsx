@@ -1,6 +1,6 @@
 import React from "react";
 import { isString, randomString } from "remeda";
-import { TransformedBlock } from "../compiler/compile";
+import { TransformedBlock } from "../server/compiler/compile";
 import { BlockLink } from "./blocks/BlockLink";
 import { Blockquote } from "./blocks/Blockquote";
 import { Bookmark } from "./blocks/Bookmark";

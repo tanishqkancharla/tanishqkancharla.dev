@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { usePageContext } from "../PageContext";
+import { usePageContext } from "../server/PageContext";
 import { bodyTextColor, pageWidth } from "../styles/vars";
 import { isDefined } from "../utils/typeUtils";
 import { Body } from "./Body";

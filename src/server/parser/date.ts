@@ -6,7 +6,7 @@ import {
 	str,
 	takeUntilAfter,
 } from "teg-parser";
-import { Date } from "../utils/typeUtils";
+import { Date } from "../../utils/typeUtils";
 import { TKBlock } from "./parseTK";
 
 declare module "./parseTK" {

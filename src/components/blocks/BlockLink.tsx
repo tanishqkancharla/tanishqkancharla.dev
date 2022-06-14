@@ -6,9 +6,9 @@ import {
 	borderColor,
 	transitionDurationSm,
 } from "../../styles/vars";
+import { P } from "./Paragraph";
 
 const BlockLinkA = styled.a`
-	display: block;
 	color: ${bodyTextColor};
 
 	border-style: solid;
@@ -44,5 +44,9 @@ const BlockLinkA = styled.a`
 
 export function BlockLink(props: { content: string; url: string }) {
 	const { content, url } = props;
-	return <BlockLinkA href={url}>{content}</BlockLinkA>;
+	return (
+		<P>
+			<BlockLinkA href={url}>{content}</BlockLinkA>
+		</P>
+	);
 }

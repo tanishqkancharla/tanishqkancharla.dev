@@ -1,5 +1,5 @@
 import { isParseSuccess } from "teg-parser";
-import { assert, assertEqual } from "../utils/assertUtils";
+import { assert, assertEqual } from "../../utils/assertUtils";
 import { imageParser } from "./image";
 
 describe("image", () => {

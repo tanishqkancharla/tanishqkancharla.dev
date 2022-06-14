@@ -1,11 +1,12 @@
+import * as esbuild from "esbuild";
 import fs from "fs-extra";
 import path from "path";
+import { defaultWebsiteContext, WebsiteContext } from "../config";
+import { crawlDirectory } from "../tools/crawlDirectory";
+import { rootPath } from "../tools/rootPath";
 import { compilePost, compileReactComponent } from "./compiler/compile";
-import { defaultWebsiteContext } from "./config";
-import { crawlDirectory } from "./tools/crawlDirectory";
-import { WebsiteContext } from "./WebsiteContext";
 
-async function buildPost(context: WebsiteContext, postFilePath: string) {
+async function buildTKPost(context: WebsiteContext, postFilePath: string) {
 	const { dir, name } = path.parse(postFilePath);
 
 	const rawContents = await fs.readFile(postFilePath, "utf8");
@@ -42,7 +43,9 @@ async function buildReactPage(context: WebsiteContext, pageFilePath: string) {
 	return `<!DOCTYPE html>${compiledContents}`;
 }
 
-export async function buildWebsite() {
+export type BuildWebsite = typeof buildWebsite;
+
+export async function buildWebsite(dev: boolean) {
 	const context = defaultWebsiteContext;
 	const { postsDir } = context;
 
@@ -54,7 +57,7 @@ export async function buildWebsite() {
 		if (ext === ".tk") {
 			console.log(`${name}.tk => ${name}.html`);
 
-			compiledContents = await buildPost(context, filePath);
+			compiledContents = await buildTKPost(context, filePath);
 		} else if (ext === ".tsx") {
 			console.log(`${name}.tsx => ${name}.html`);
 
@@ -74,4 +77,13 @@ export async function buildWebsite() {
 		await fs.ensureFile(outPostPath);
 		await fs.writeFile(outPostPath, compiledContents, "utf8");
 	}
+
+	await esbuild.build({
+		entryPoints: [rootPath("src/client/index.tsx")],
+		outdir: context.outDir,
+		bundle: true,
+		minify: !dev,
+		sourcemap: dev ? "inline" : undefined,
+		sourcesContent: dev,
+	});
 }

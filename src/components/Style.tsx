@@ -1,5 +1,5 @@
 import React from "react";
-import { useWebsiteContext } from "../WebsiteContext";
+import { useWebsiteContext } from "../server/WebsiteContext";
 
 export const Style = () => {
 	const { accentColor } = useWebsiteContext();

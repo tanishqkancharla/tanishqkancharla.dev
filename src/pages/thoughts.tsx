@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Article } from "../components/Article";
 import { P } from "../components/blocks/Paragraph";
 import { Page } from "../components/Page";
-import { parseTK, TKMetadata } from "../parser/parseTK";
+import { parseTK, TKMetadata } from "../server/parser/parseTK";
 import {
 	accentColor,
 	bodyTextColor,

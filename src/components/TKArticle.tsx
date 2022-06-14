@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { TransformedDoc } from "../compiler/compile";
+import { TransformedDoc } from "../server/compiler/compile";
 import { Article } from "./Article";
 import { Block } from "./Block";
 import { Divider } from "./blocks/Divider";

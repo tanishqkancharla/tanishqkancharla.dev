@@ -1,3 +1,3 @@
-import { buildWebsite } from "./src/buildWebsite";
+import { buildWebsite } from "./src/server/buildWebsite";
 
-(async () => await buildWebsite())();
+(async () => await buildWebsite(false))();

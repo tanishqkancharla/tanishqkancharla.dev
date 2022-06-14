@@ -1,11 +1,12 @@
 import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToString } from "react-dom/server";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
-import { Page } from "../components/Page";
-import { TKArticle } from "../components/TKArticle";
+import { Page } from "../../components/Page";
+import { TKArticle } from "../../components/TKArticle";
+import { WebsiteContext } from "../../config";
 import { PageContext, PageContextProvider } from "../PageContext";
 import { parseTK, TKDoc } from "../parser/parseTK";
-import { WebsiteContext, WebsiteContextProvider } from "../WebsiteContext";
+import { WebsiteContextProvider } from "../WebsiteContext";
 import { bookmarkLoader, LoadedBookmark } from "./bookmarkLoader";
 import { codeBlockLoader, LoadedCodeBlock } from "./codeblockLoader";
 import { TypeTransformedBlocks } from "./Transformer";
@@ -57,35 +58,18 @@ export async function compilePost(
 		title: ast.metadata?.title || "Moonrise",
 	};
 
-	const sheet = new ServerStyleSheet();
-	try {
-		let renderedPost = renderToStaticMarkup(
-			<StyleSheetManager sheet={sheet.instance}>
-				<WebsiteContextProvider value={websiteContext}>
-					<PageContextProvider value={pageContext}>
-						<Page>
-							<TKArticle doc={transformedDoc} />
-						</Page>
-					</PageContextProvider>
-				</WebsiteContextProvider>
-			</StyleSheetManager>
-		);
+	const Component = (transformedDoc: TransformedDoc) => (
+		<Page>
+			<TKArticle doc={transformedDoc} />
+		</Page>
+	);
 
-		const styleTags = sheet.getStyleTags();
-
-		const bodyIndex = renderedPost.indexOf("<body");
-		renderedPost =
-			renderedPost.slice(0, bodyIndex) +
-			styleTags +
-			renderedPost.slice(bodyIndex, undefined);
-
-		sheet.seal();
-
-		return renderedPost;
-	} catch (e) {
-		sheet.seal();
-		throw e;
-	}
+	return compileReactComponent(
+		Component,
+		transformedDoc,
+		websiteContext,
+		pageContext
+	);
 }
 
 export function compileReactComponent<P>(
@@ -97,7 +81,7 @@ export function compileReactComponent<P>(
 	const sheet = new ServerStyleSheet();
 
 	try {
-		let renderedPost = renderToStaticMarkup(
+		let renderedPost = renderToString(
 			<StyleSheetManager sheet={sheet.instance}>
 				<WebsiteContextProvider value={websiteContext}>
 					<PageContextProvider value={pageContext}>
@@ -110,6 +94,7 @@ export function compileReactComponent<P>(
 		const styleTags = sheet.getStyleTags();
 
 		const bodyIndex = renderedPost.indexOf("<body");
+		// Insert right before the body.
 		renderedPost =
 			renderedPost.slice(0, bodyIndex) +
 			styleTags +
