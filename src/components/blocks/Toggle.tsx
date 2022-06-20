@@ -2,7 +2,7 @@ import React from "react";
 import { randomString } from "remeda";
 import styled from "styled-components";
 import { RichTextContent } from "../../server/parser/richText";
-import { accentColor } from "../../styles/vars";
+import { accentColor, blockMargin } from "../../styles/vars";
 import { P } from "./Paragraph";
 import { RichTextParagraph } from "./RichText";
 
@@ -17,8 +17,7 @@ const Summary = styled.summary`
 `;
 
 const Details = styled.details`
-	margin-top: 0.3rem;
-	margin-bottom: 0.3rem;
+	margin: ${blockMargin} 0;
 
 	${P} {
 		margin-top: 6px;

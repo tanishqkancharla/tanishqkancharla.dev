@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {
 	accentColor,
+	blockMargin,
 	borderColor,
 	fontSm,
 	secondaryBodyTextColor,
@@ -28,8 +29,7 @@ const _Bookmark = styled.a`
 	border-width: 2px;
 
 	display: block;
-	margin-top: 0.5rem;
-	margin-bottom: 0.5rem;
+	margin: ${blockMargin} 0;
 	padding: 0.5rem;
 	text-decoration: none;
 

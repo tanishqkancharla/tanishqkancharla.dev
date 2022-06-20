@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useWebsiteContext } from "../server/WebsiteContext";
-import { pageWidth, transparentBackground } from "../styles/vars";
+import { articleWidth, transparentBackground } from "../styles/vars";
 import { H1 } from "./blocks/Heading";
 
 export const _Header = styled.div`
@@ -59,7 +59,7 @@ const Banner = styled.div`
 		margin-top: 0;
 		margin-bottom: 0;
 		color: rgba(250, 250, 250, 1);
-		width: ${pageWidth};
+		width: ${articleWidth};
 	}
 `;
 

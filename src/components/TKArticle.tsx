@@ -1,27 +1,15 @@
-import React, { useEffect, useRef } from "react";
-import { TransformedDoc } from "../server/compiler/compile";
+import React from "react";
+import { CompiledDoc } from "../server/compiler/compile";
 import { Article } from "./Article";
 import { Block } from "./Block";
 import { Divider } from "./blocks/Divider";
 import { P } from "./blocks/Paragraph";
 
-export function TKArticle(props: { doc: TransformedDoc }) {
+export function TKArticle(props: { doc: CompiledDoc }) {
 	const { blocks, metadata } = props.doc;
-	const ref = useRef<HTMLElement>(null);
-
-	useEffect(() => {
-		const node = ref.current;
-		if (!node) return;
-		node.childNodes.forEach((child, index) => {
-			if (child instanceof HTMLElement) {
-				const prevStyle = child.getAttribute("style");
-				child.setAttribute("style", `${prevStyle};--index: ${index};`);
-			}
-		});
-	}, [ref.current]);
 
 	return (
-		<Article ref={ref}>
+		<Article>
 			{metadata?.description && (
 				<>
 					<P>{metadata.description}</P>

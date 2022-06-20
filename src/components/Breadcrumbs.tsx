@@ -1,16 +1,20 @@
 import React from "react";
 import { randomString } from "remeda";
 import styled from "styled-components";
+import { usePageContext } from "../server/PageContext";
 import {
 	accentColor,
+	articleWidth,
 	secondaryBackgroundColor,
 	secondaryBodyTextColor,
 	transitionSm,
 } from "../styles/vars";
+import { isDefined } from "../utils/typeUtils";
 
 const BreadcrumbNav = styled.nav`
 	display: flex;
 	flex-direction: row;
+	width: ${articleWidth};
 	gap: 3px;
 	margin-top: 0.25rem;
 	margin-bottom: 0.5rem;
@@ -94,12 +98,24 @@ function BreadcrumbItem(props: { navItem: BreadcrumbNavItem }) {
 	);
 }
 
-export function Breadcrumbs(props: { navItems: BreadcrumbNavItem[] }) {
-	const { navItems } = props;
+export function Breadcrumbs() {
+	const { href } = usePageContext();
+	const dirItems = href.split("/");
+
+	const navItems = dirItems
+		.map((dirItem, index) => {
+			if (dirItem === "index") return;
+			const name = dirItem;
+			const dirItemsUpToHere = dirItems.slice(0, index + 1);
+			const href = "/".concat(dirItemsUpToHere.join("/"));
+			return { name, href };
+		})
+		.filter(isDefined);
+
 	return (
 		<BreadcrumbNav aria-label="breadcrumbs">
 			{navItems.length > 0 && (
-				<BreadcrumbNavIcon href="/">
+				<BreadcrumbNavIcon href="/" aria-label="Home">
 					<HomeIcon />
 				</BreadcrumbNavIcon>
 			)}

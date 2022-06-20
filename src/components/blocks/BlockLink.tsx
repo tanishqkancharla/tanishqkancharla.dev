@@ -4,20 +4,20 @@ import {
 	accentColor,
 	bodyTextColor,
 	borderColor,
+	borderRadius,
+	borderWidth,
 	transitionDurationSm,
 } from "../../styles/vars";
 import { P } from "./Paragraph";
 
 const BlockLinkA = styled.a`
+	display: inline-block;
 	color: ${bodyTextColor};
 
 	border-style: solid;
 	border-color: ${borderColor};
-	border-radius: 0.25rem;
-	border-width: 2px;
-
-	margin-top: 0.3rem;
-	margin-bottom: 0.3rem;
+	border-radius: ${borderRadius};
+	border-width: ${borderWidth};
 
 	padding: 0.25rem;
 
@@ -28,8 +28,6 @@ const BlockLinkA = styled.a`
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 	transition-duration: ${transitionDurationSm};
 
-	width: -webkit-fit-content;
-	width: -moz-fit-content;
 	width: fit-content;
 
 	& .title {

@@ -9,6 +9,7 @@ import { Page } from "../components/Page";
 import { parseTK, TKMetadata } from "../server/parser/parseTK";
 import {
 	accentColor,
+	blockMargin,
 	bodyTextColor,
 	borderColor,
 	secondaryBodyTextColor,
@@ -97,7 +98,7 @@ const StyledThoughtsRow = styled.a`
 `;
 
 const StyledThoughtsTable = styled.div`
-	margin-top: 20px;
+	margin-top: ${blockMargin};
 	width: 100%;
 	border-spacing: 0;
 	color: ${bodyTextColor};

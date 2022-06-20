@@ -12,7 +12,7 @@ import { codeBlockLoader, LoadedCodeBlock } from "./codeblockLoader";
 import { TypeTransformedBlocks } from "./Transformer";
 import { LoadedTweet, tweetLoader } from "./tweetLoader";
 
-export type TransformedBlock = TypeTransformedBlocks<
+export type CompiledBlock = TypeTransformedBlocks<
 	"bookmark",
 	LoadedBookmark,
 	"tweet",
@@ -21,9 +21,9 @@ export type TransformedBlock = TypeTransformedBlocks<
 	LoadedCodeBlock
 >;
 
-export type TransformedDoc = {
+export type CompiledDoc = {
 	metadata: TKDoc["metadata"];
-	blocks: TransformedBlock[];
+	blocks: CompiledBlock[];
 };
 
 export async function compilePost(
@@ -33,7 +33,7 @@ export async function compilePost(
 ): Promise<string> {
 	const ast = parseTK(contents);
 
-	const transformedBlocks: TransformedBlock[] = await Promise.all(
+	const compiledBlocks: CompiledBlock[] = await Promise.all(
 		ast.blocks.map((block) => {
 			switch (block.type) {
 				case "tweet":
@@ -48,9 +48,9 @@ export async function compilePost(
 		})
 	);
 
-	const transformedDoc: TransformedDoc = {
+	const transformedDoc: CompiledDoc = {
 		metadata: ast.metadata,
-		blocks: transformedBlocks,
+		blocks: compiledBlocks,
 	};
 
 	const pageContext: PageContext = {
@@ -58,7 +58,7 @@ export async function compilePost(
 		title: ast.metadata?.title || "Moonrise",
 	};
 
-	const Component = (transformedDoc: TransformedDoc) => (
+	const Component = (transformedDoc: CompiledDoc) => (
 		<Page>
 			<TKArticle doc={transformedDoc} />
 		</Page>
@@ -105,6 +105,6 @@ export function compileReactComponent<P>(
 		return renderedPost;
 	} catch (error) {
 		sheet.seal();
-		throw new Error(JSON.stringify(error));
+		throw error;
 	}
 }
