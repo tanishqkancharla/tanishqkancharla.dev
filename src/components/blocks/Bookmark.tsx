@@ -9,7 +9,6 @@ import {
 	tertiaryBodyTextColor,
 	transitionDurationSm,
 } from "../../styles/vars";
-import { Date } from "../../utils/typeUtils";
 import { P } from "./Paragraph";
 
 const BookmarkTitle = styled.h4`
@@ -116,11 +115,12 @@ const monthAliases = [
 ];
 
 function BookmarkDate(props: { date: Date }) {
-	return (
-		<_BookmarkDate>
-			{`${monthAliases[props.date.month]} ${props.date.year}`}
-		</_BookmarkDate>
-	);
+	const localizedDate = new Intl.DateTimeFormat("en-US", {
+		month: "short",
+		day: "numeric",
+	}).format(props.date);
+
+	return <_BookmarkDate>{localizedDate}</_BookmarkDate>;
 }
 
 function BookmarkHeader(props: { title: string; date?: Date }) {

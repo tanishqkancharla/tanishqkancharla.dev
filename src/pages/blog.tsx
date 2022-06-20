@@ -21,6 +21,7 @@ export async function getStaticProps(
 ): Promise<PropsType> {
 	const blogPostsDirPath = rootPath("src/pages/blog");
 	const blogPostPaths = await listDirectory(blogPostsDirPath);
+
 	const blogPostMetadatas = await Promise.all(
 		blogPostPaths.map(async (result) => {
 			if (result.isDir) return undefined;
@@ -41,6 +42,10 @@ export const title = "Blog";
 function Blog(props: PropsType) {
 	const { postMetadatas } = props;
 
+	const sortedMetadatas = postMetadatas.sort(
+		(a, b) => b.date.getMilliseconds() - a.date.getMilliseconds()
+	);
+
 	return (
 		<Page>
 			<Article>
@@ -49,22 +54,16 @@ function Blog(props: PropsType) {
 					computers, programming, interfaces and myself.
 				</P>
 				<Divider />
-				{postMetadatas
-					.sort((a, b) => {
-						// sort from most recent to least recent
-						if (a.date.year !== b.date.year) return b.date.year - a.date.year;
-						else return b.date.month - a.date.month;
-					})
-					.map((post, i) => (
-						<Bookmark
-							title={post.title}
-							url={post.href}
-							date={post.date}
-							key={post.href}
-						>
-							<P>{post.description}</P>
-						</Bookmark>
-					))}
+				{sortedMetadatas.map((post) => (
+					<Bookmark
+						title={post.title}
+						url={post.href}
+						date={post.date}
+						key={post.href}
+					>
+						<P>{post.description}</P>
+					</Bookmark>
+				))}
 			</Article>
 		</Page>
 	);

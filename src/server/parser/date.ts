@@ -2,36 +2,29 @@ import {
 	ParseFailure,
 	Parser,
 	ParseSuccess,
-	sequence,
 	str,
 	takeUntilAfter,
 } from "teg-parser";
-import { Date } from "../../utils/typeUtils";
 import { TKBlock } from "./parseTK";
 
 declare module "./parseTK" {
 	interface TKBlockMap {
-		date: Date;
+		date: { content: Date };
 	}
 }
 
 type DateToken = TKBlock<"date">;
 
-/** Parse [year]-[month] */
-export const dateParser: Parser<DateToken> = sequence([
-	takeUntilAfter(str("-")),
-	takeUntilAfter(str("\n")),
-]).chain(
-	([yearStr, monthStr]) =>
+/** Parse date */
+export const dateParser: Parser<DateToken> = takeUntilAfter(str("\n")).chain(
+	(str) =>
 		new Parser((stream) => {
-			const year = Number(yearStr);
-			if (!year)
-				return new ParseFailure(`Expected year, found ${yearStr}`, stream);
+			const content = new Date(str);
 
-			const month = Number(monthStr);
-			if (!month)
-				return new ParseFailure(`Expected month, found ${monthStr}`, stream);
+			if (content.toString() === "Invalid Date") {
+				return new ParseFailure(`Expected date, found, ${str}`, stream);
+			}
 
-			return new ParseSuccess({ year, month, type: "date" as const }, stream);
+			return new ParseSuccess({ content, type: "date" as const }, stream);
 		})
 );

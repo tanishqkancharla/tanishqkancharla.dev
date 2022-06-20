@@ -44,16 +44,6 @@ export function bimap<T, S>(
 	return success(successFn(result.value));
 }
 
-export type Date = { year: number; month: number };
-
-export function sortByDate<T extends { date: Date }>(items: T[]) {
-	return items.sort((a, b) => {
-		// sort from most recent to least recent
-		if (a.date.year !== b.date.year) return b.date.year - a.date.year;
-		else return b.date.month - a.date.month;
-	});
-}
-
 export function keys<K extends string, V>(object: { [key in K]: V }) {
 	return Object.keys(object) as K[];
 }

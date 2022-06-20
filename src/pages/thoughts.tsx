@@ -17,7 +17,6 @@ import {
 } from "../styles/vars";
 import { listDirectory } from "../tools/listDirectory";
 import { rootPath } from "../tools/rootPath";
-import { sortByDate } from "../utils/typeUtils";
 
 type ThoughtMetadata = TKMetadata & { href: string };
 
@@ -110,15 +109,12 @@ const StyledThoughtsTable = styled.div`
 `;
 
 function DateItem(props: { date: TKMetadata["date"] }) {
-	const date = new Date(props.date.year, props.date.month - 1);
-	return (
-		<>
-			{date.toLocaleDateString("en", {
-				year: "numeric",
-				month: "long",
-			})}
-		</>
-	);
+	const localString = props.date.toLocaleDateString("en", {
+		year: "numeric",
+		month: "long",
+	});
+
+	return <>{localString}</>;
 }
 
 function ThoughtsDBRow(props: ThoughtMetadata) {
@@ -137,25 +133,25 @@ function ThoughtsDBRow(props: ThoughtMetadata) {
 function Thoughts(props: PropsType) {
 	const { metadatas } = props;
 
+	const sortedMetadatas = metadatas.sort(
+		(a, b) => b.date.getMilliseconds() - a.date.getMilliseconds()
+	);
+
 	return (
 		<Page>
 			<Article>
-				<P id="thoughts-table-desc">
+				<P>
 					This is my personal table for thoughts: a collection of whims,
 					half-baked ideas, and streams of consciousness.
 				</P>
-				<StyledThoughtsTable
-					aria-label="Thoughts"
-					aria-describedby="thoughts-table-desc"
-					role={"table"}
-				>
+				<StyledThoughtsTable aria-label="Thoughts" role="table">
 					<div role="row">
 						<ThoughtsHeader role="columnheader">
 							<ThoughtsRowName role="columnheader">Name</ThoughtsRowName>
 							<ThoughtsRowDate role="columnheader">Date</ThoughtsRowDate>
 						</ThoughtsHeader>
 					</div>
-					{sortByDate(metadatas).map((post, i) => (
+					{sortedMetadatas.map((post, i) => (
 						<ThoughtsDBRow {...post} key={i} />
 					))}
 				</StyledThoughtsTable>

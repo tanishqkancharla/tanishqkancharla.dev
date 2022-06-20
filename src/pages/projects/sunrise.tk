@@ -1,0 +1,11 @@
+# Sunrise
+---
+A terminal emulator built on top of Nushell.
+---
+2022-06
+
+A mish-mash between graphical and textual input.
+
+* Execute commands linearly
+* Structured outputs: Nushell.
+* Graphical and interactive data: For example, in tables, expand rows, change labels, etc. Modify images.

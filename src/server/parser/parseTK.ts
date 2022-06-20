@@ -55,7 +55,7 @@ export const header = sequence([h1, divider, line, divider, date])
 	.map(([h1, description, date]) => ({
 		title: h1.content,
 		description,
-		date: { year: date.year, month: date.month },
+		date: date.content,
 	}));
 
 export const document = sequence([maybe(header), zeroOrMore(block)]);
@@ -63,7 +63,7 @@ export const document = sequence([maybe(header), zeroOrMore(block)]);
 export type TKMetadata = {
 	title: string;
 	description?: string;
-	date: { year: number; month: number };
+	date: Date;
 };
 
 export type TKDoc = {
