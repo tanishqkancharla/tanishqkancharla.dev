@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="en"><head><title>How I setup my website: TK&#x27;s website</title><meta charSet="UTF-8"/><meta name="og:title" content="How I setup my website: TK&#x27;s website"/><meta name="description" content="Tanishq Kancharla&#x27;s personal website"/><meta name="og:description" content="Tanishq Kancharla&#x27;s personal website"/><meta property="og:image" content="/seoul.jpeg"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:creator" content="@moonriseTK"/><meta name="twitter:title" content="Tanishq Kancharla"/><meta name="twitter:description" content="Tanishq Kancharla&#x27;s personal website."/><meta name="twitter:image" content="/seoul.jpeg"/><meta name="twitter:widgets:theme" content="dark"/><meta name="twitter:widgets:border-color" content="rgb(82, 82, 82)"/><meta name="twitter:dnt" content="on"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="Content-Language" content="en"/><meta name="author" content="Tanishq Kancharla"/><meta name="og:url" content="https://tanishqkancharla.dev"/><script src="/index.js" defer=""></script><link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="anonymous"/></head><style>
+        *, *::after, *::before {
+          box-sizing: border-box;
+        }
+
+        :root {
+          --accent-color: #7772e0
+        }
+
+	/* cyrillic-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNa7lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+			U+FE2E-FE2F;
+	}
+	/* cyrillic */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qPK7lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+	}
+	/* greek-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNK7lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+1F00-1FFF;
+	}
+	/* greek */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qO67lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+0370-03FF;
+	}
+	/* vietnamese */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qN67lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+			U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+	}
+	/* latin-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNq7lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+			U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+	}
+	/* latin */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2)
+			format("woff2");
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+			U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+			U+2215, U+FEFF, U+FFFD;
+	}
+	/* cyrillic-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmhdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+			U+FE2E-FE2F;
+	}
+	/* cyrillic */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwkxdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+	}
+	/* greek-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmxdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+1F00-1FFF;
+	}
+	/* greek */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlBdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+0370-03FF;
+	}
+	/* vietnamese */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmBdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+			U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+	}
+	/* latin-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmRdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+			U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+	}
+	/* latin */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu3cOWxw.woff2)
+			format("woff2");
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+			U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+			U+2215, U+FEFF, U+FFFD;
+	}
+  </style><style data-styled="true" data-styled-version="5.3.5">.gLQMuJ{font-family:"Source Sans Pro",ui-sans-serif,system-ui,-apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans", sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol", "Noto Color Emoji";font-weight:400;background-color:rgba(32,32,32,1);height:100%;width:100%;margin:0;}/*!sc*/
+data-styled.g1[id="sc-bczRLJ"]{content:"gLQMuJ,"}/*!sc*/
+.hvGblW{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;gap:3px;margin-top:0.25rem;margin-bottom:0.5rem;-webkit-align-items:flex-end;-webkit-box-align:flex-end;-ms-flex-align:flex-end;align-items:flex-end;}/*!sc*/
+data-styled.g2[id="sc-gsnTZi"]{content:"hvGblW,"}/*!sc*/
+.hWZHFS{display:inline-block;font-size:85%;line-height:1.25rem;color:rgba(135,135,135,1);padding:0 3px;border-radius:2px;-webkit-text-decoration:none;text-decoration:none;-webkit-transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform;-webkit-transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;-webkit-transition-timing-function:cubic-bezier(0.4,0,0.2,1);transition-timing-function:cubic-bezier(0.4,0,0.2,1);-webkit-transition-duration:110ms;transition-duration:110ms;}/*!sc*/
+.hWZHFS:hover{background-color:rgba(57,57,57,1);color:var(--accent-color);}/*!sc*/
+.hWZHFS:focus{outline:0;background-color:rgba(57,57,57,1);}/*!sc*/
+data-styled.g3[id="sc-dkzDqf"]{content:"hWZHFS,"}/*!sc*/
+.iGMYJB{display:inline-block;line-height:1.25rem;padding-bottom:1px;}/*!sc*/
+data-styled.g4[id="sc-hKMtZM"]{content:"iGMYJB,"}/*!sc*/
+.fNhJnY{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding:3px 3px;margin-right:2px;}/*!sc*/
+data-styled.g5[id="sc-eCYdqJ"]{content:"fNhJnY,"}/*!sc*/
+.bMTnCu{height:0.9rem;width:0.9rem;fill:rgba(135,135,135,1);-webkit-transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform;-webkit-transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;-webkit-transition-timing-function:cubic-bezier(0.4,0,0.2,1);transition-timing-function:cubic-bezier(0.4,0,0.2,1);-webkit-transition-duration:110ms;transition-duration:110ms;}/*!sc*/
+.sc-eCYdqJ:hover .sc-jSMfEi{fill:var(--accent-color);}/*!sc*/
+data-styled.g6[id="sc-jSMfEi"]{content:"bMTnCu,"}/*!sc*/
+.kSHxWQ{min-height:200px;}/*!sc*/
+data-styled.g7[id="sc-gKXOVf"]{content:"kSHxWQ,"}/*!sc*/
+.eBysaP{font-weight:600;font-size:2.5rem;line-height:3rem;margin-top:1.5rem;margin-bottom:0.5rem;-webkit-text-decoration:underline;text-decoration:underline;color:rgba(250,250,250,1);}/*!sc*/
+data-styled.g8[id="sc-iBkjds"]{content:"eBysaP,"}/*!sc*/
+.tVzXI{height:18rem;min-height:250px;overflow:hidden;position:relative;width:100%;z-index:1;}/*!sc*/
+data-styled.g12[id="sc-kDDrLX"]{content:"tVzXI,"}/*!sc*/
+.buWjr{width:100%;height:100%;}/*!sc*/
+.buWjr img{height:100%;width:100%;object-fit:cover;}/*!sc*/
+data-styled.g13[id="sc-iqcoie"]{content:"buWjr,"}/*!sc*/
+.bIOCgS{position:absolute;bottom:0;right:0.25rem;z-index:2;-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
+.bIOCgS:hover{-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
+data-styled.g14[id="sc-crXcEl"]{content:"bIOCgS,"}/*!sc*/
+.gamQnU{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;height:auto;position:absolute;bottom:0;box-shadow:1;width:100%;background-color:rgb(0,0,0);background-color:rgba(36,36,36,0.15);-webkit-backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}/*!sc*/
+.gamQnU h1{display:block;margin-top:0;margin-bottom:0;color:rgba(250,250,250,1);width:clamp(40%,540px,83.33333%);}/*!sc*/
+data-styled.g15[id="sc-evZas"]{content:"gamQnU,"}/*!sc*/
+.kbMgJU{margin-left:auto;margin-right:auto;margin-top:0.5rem;color:rgba(171,171,171,1);width:clamp(40%,540px,83.33333%);}/*!sc*/
+data-styled.g16[id="sc-breuTD"]{content:"kbMgJU,"}/*!sc*/
+.kIKKSK{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}/*!sc*/
+.kIKKSK > *{opacity:0;}/*!sc*/
+data-styled.g17[id="sc-ksZaOG"]{content:"kIKKSK,"}/*!sc*/
+.cbzFhL{margin-top:0.4rem;margin-bottom:0.4rem;line-height:1.4rem;font-size:1.025rem;}/*!sc*/
+data-styled.g18[id="sc-hAZoDl"]{content:"cbzFhL,"}/*!sc*/
+.dVUlLw{color:white;margin-top:0px;margin-bottom:0.5rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:normal;}/*!sc*/
+data-styled.g21[id="sc-bjUoiL"]{content:"dVUlLw,"}/*!sc*/
+.kFkRCi{border-style:solid;border-color:rgb(82,82,82);border-radius:0.25rem;border-width:2px;display:block;margin-top:0.5rem;margin-bottom:0.5rem;padding:0.5rem;-webkit-text-decoration:none;text-decoration:none;-webkit-transition-property:background-color,border-color,color,fill,stroke, opacity,box-shadow,-webkit-transform;-webkit-transition-property:background-color,border-color,color,fill,stroke, opacity,box-shadow,transform;transition-property:background-color,border-color,color,fill,stroke, opacity,box-shadow,transform;-webkit-transition-timing-function:cubic-bezier(0.4,0,0.2,1);transition-timing-function:cubic-bezier(0.4,0,0.2,1);-webkit-transition-duration:110ms;transition-duration:110ms;}/*!sc*/
+.kFkRCi:hover{border-color:var(--accent-color);}/*!sc*/
+.kFkRCi:focus{outline:0;border-color:var(--accent-color);}/*!sc*/
+.kFkRCi .sc-hAZoDl{font-size:85%;line-height:1.25rem;color:rgba(135,135,135,1);text-overflow:ellipsis;overflow:hidden;display:-webkit-box !important;-webkit-line-clamp:3;-webkit-box-orient:vertical;white-space:normal;}/*!sc*/
+.kFkRCi .sc-hAZoDl:not(:last-of-type){margin-bottom:0.25rem;}/*!sc*/
+.kFkRCi .block-link-lg .favicon{margin-right:0.5rem;position:relative;height:1rem;width:1rem;display:inline;}/*!sc*/
+.kFkRCi :last-child{margin-bottom:0px;}/*!sc*/
+data-styled.g22[id="sc-idiyUo"]{content:"kFkRCi,"}/*!sc*/
+.kdjxYj{color:rgba(89,89,89,1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:85%;max-width:80%;}/*!sc*/
+data-styled.g23[id="sc-dIouRR"]{content:"kdjxYj,"}/*!sc*/
+.jjMiIf{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}/*!sc*/
+data-styled.g25[id="sc-dmRaPn"]{content:"jjMiIf,"}/*!sc*/
+.lmIACz{background-color:rgba(25,25,25,1);color:rgba(171,171,171,1);margin-top:0.4rem;margin-bottom:0.4rem;border-style:solid;border-color:var(--accent-color);border-radius:0.25rem;border-width:1.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;box-shadow:0.4px 0.5px 0.6px hsl(0deg 0% 4% / 0.56), 1px 1.2px 1.4px -1.3px hsl(0deg 0% 4% / 0.46), 3.2px 3.6px 4.4px -2.6px hsl(0deg 0% 4% / 0.36), 8.6px 9.8px 12px -3.8px hsl(0deg 0% 4% / 0.27);line-height:1.25rem;padding:0.5rem;overflow-wrap:break-word;}/*!sc*/
+.lmIACz .token.comment,.lmIACz .token.prolog,.lmIACz .token.doctype,.lmIACz .token.cdata{color:rgba(99,99,99,1);font-style:italic;}/*!sc*/
+.lmIACz .token.namespace{opacity:0.7;}/*!sc*/
+.lmIACz .token.punctuation,.lmIACz .token.operator{color:rgba(99,99,99,1);}/*!sc*/
+.lmIACz .token.atrule,.lmIACz .token.keyword,.lmIACz .token.attr-name,.lmIACz .language-autohotkey .token.selector{color:var(--accent-color);}/*!sc*/
+.lmIACz .token.string,.lmIACz .token.attr-value{color:#f76d74;}/*!sc*/
+.lmIACz .token.entity,.lmIACz .token.url,.lmIACz .token.symbol,.lmIACz .token.number,.lmIACz .token.boolean,.lmIACz .token.variable,.lmIACz .token.constant,.lmIACz .token.property,.lmIACz .token.regex,.lmIACz .token.inserted{color:#5aa9fa;}/*!sc*/
+.lmIACz .token.function,.lmIACz .token.deleted,.lmIACz .language-autohotkey .token.tag{color:#ffffff;}/*!sc*/
+.lmIACz .token.tag,.lmIACz .token.selector,.lmIACz .language-autohotkey .token.keyword{color:#2d9d78;}/*!sc*/
+.lmIACz .token.important,.lmIACz .token.bold{font-weight:bold;}/*!sc*/
+.lmIACz .token.italic{font-style:italic;}/*!sc*/
+data-styled.g27[id="sc-fLlhyt"]{content:"lmIACz,"}/*!sc*/
+.ftvzee{white-space:pre-wrap;}/*!sc*/
+data-styled.g28[id="sc-bBrHrO"]{content:"ftvzee,"}/*!sc*/
+.hNpNFH{border-color:rgb(82,82,82);border-width:0;border-top-width:2.5px;margin-top:0.5rem;margin-bottom:0.5rem;width:100%;border-style:solid;}/*!sc*/
+data-styled.g29[id="sc-ivTmOn"]{content:"hNpNFH,"}/*!sc*/
+.kFeNmu{padding-left:1rem;margin-top:0.3rem;margin-bottom:0.3rem;list-style-type:disc;}/*!sc*/
+data-styled.g30[id="sc-cxabCf"]{content:"kFeNmu,"}/*!sc*/
+.gzlhYa{margin-top:0.3rem;margin-bottom:0.3rem;line-height:1.4rem;font-size:1.025rem;list-style-position:outside;}/*!sc*/
+data-styled.g32[id="sc-iIPllB"]{content:"gzlhYa,"}/*!sc*/
+.eVdupQ{border-radius:0.125rem;display:inline-block;padding-left:0.25rem;padding-right:0.25rem;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas, "Liberation Mono","Courier New",monospace;font-size:80%;line-height:1.25rem;color:var(--accent-color);background-color:rgba(57,57,57,1);overflow-wrap:break-word;}/*!sc*/
+data-styled.g33[id="sc-gicCDI"]{content:"eVdupQ,"}/*!sc*/
+.hFTxHI{cursor:pointer;color:rgba(135,135,135,1);-webkit-text-decoration:underline;text-decoration:underline;-webkit-transition-property:background-color,border-color,color,fill,stroke, opacity,box-shadow,-webkit-transform;-webkit-transition-property:background-color,border-color,color,fill,stroke, opacity,box-shadow,transform;transition-property:background-color,border-color,color,fill,stroke, opacity,box-shadow,transform;-webkit-transition-timing-function:cubic-bezier(0.4,0,0.2,1);transition-timing-function:cubic-bezier(0.4,0,0.2,1);-webkit-transition-duration:110ms;transition-duration:110ms;}/*!sc*/
+.hFTxHI:hover{color:var(--accent-color);}/*!sc*/
+data-styled.g34[id="sc-ezWOiH"]{content:"hFTxHI,"}/*!sc*/
+.cSmoGn::-webkit-details-marker{color:var(--accent-color);}/*!sc*/
+.cSmoGn::marker{color:var(--accent-color);}/*!sc*/
+data-styled.g35[id="sc-bZkfAO"]{content:"cSmoGn,"}/*!sc*/
+.gmHpKP{margin-top:0.3rem;margin-bottom:0.3rem;}/*!sc*/
+.gmHpKP .sc-hAZoDl{margin-top:6px;margin-left:4px;border-color:var(--accent-color);border-left-width:3.5px;padding-left:10px;}/*!sc*/
+data-styled.g36[id="sc-kLLXSd"]{content:"gmHpKP,"}/*!sc*/
+.kACBaP{margin:auto;width:100%;max-width:420px;}/*!sc*/
+data-styled.g37[id="sc-ikZpkk"]{content:"kACBaP,"}/*!sc*/
+</style><body class="sc-bczRLJ gLQMuJ"><div class="sc-kDDrLX tVzXI"><div class="sc-iqcoie buWjr"><img src="/seoul.jpeg" alt="A shot of Seoul, South Korea of high-rise buildings set against the backdrop of a mountain, with a purple and blue sky during sunrise."/></div><a class="sc-crXcEl bIOCgS img-credits" target="_blank" rel="noreferrer" href="https://unsplash.com/photos/LoGWCnEVDgU"><span role="img" aria-label="Camera">📸</span></a><div class="sc-evZas gamQnU"><h1 class="sc-iBkjds eBysaP">How I setup my website</h1></div></div><div class="sc-breuTD kbMgJU"><nav aria-label="breadcrumbs" class="sc-gsnTZi hvGblW"><a href="/" class="sc-dkzDqf sc-eCYdqJ hWZHFS fNhJnY"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" class="sc-jSMfEi bMTnCu icon"><title>S Home 18 N</title><rect id="Canvas" opacity="0" width="18" height="18" class="rect"></rect><path d="M17.666,10.125,9.375,1.834a.53151.53151,0,0,0-.75,0L.334,10.125a.53051.53051,0,0,0,0,.75l.979.9785A.5.5,0,0,0,1.6665,12H2v4.5a.5.5,0,0,0,.5.5h4a.5.5,0,0,0,.5-.5v-5a.5.5,0,0,1,.5-.5h3a.5.5,0,0,1,.5.5v5a.5.5,0,0,0,.5.5h4a.5.5,0,0,0,.5-.5V12h.3335a.5.5,0,0,0,.3535-.1465l.979-.9785A.53051.53051,0,0,0,17.666,10.125Z"></path></svg></a><span class="sc-hKMtZM iGMYJB">/</span><a href="/blog" class="sc-dkzDqf hWZHFS">blog</a><span class="sc-hKMtZM iGMYJB">/</span><a href="/blog/my-website-setup" class="sc-dkzDqf hWZHFS">my-website-setup</a></nav><article class="sc-ksZaOG kIKKSK"><p class="sc-hAZoDl cbzFhL">Making my website has been like...a year-long endeavor. I guess it&#x27;s never really finished, right? I just want to briefly talk about where the website&#x27;s been and where its going.</p><hr class="sc-ivTmOn hNpNFH"/><p class="sc-hAZoDl cbzFhL">Originally, my site was built using <a href="https://fruitionsite.com" class="sc-ezWOiH hFTxHI">Fruition</a>. It was a quick way to get started with a website by directly connecting it to my notion. It was slow, and hard to customize though, so I eventually moved it away to using the unofficial notion API built by Splitbee (when Notion didn&#x27;t have an API):</p><a href="https://github.com/splitbee/notion-api-worker" class="sc-idiyUo kFkRCi"><div class="sc-dmRaPn jjMiIf"><h4 class="sc-bjUoiL dVUlLw">GitHub - splitbee/notion-api-worker: Notion as CMS with easy API access</h4></div><p class="sc-hAZoDl cbzFhL">Notion as CMS with easy API access. Contribute to splitbee/notion-api-worker development by creating an account on GitHub.</p><div class="sc-dIouRR kdjxYj">https://github.com/splitbee/notion-api-worker</div></a><p class="sc-hAZoDl cbzFhL">At that point, I was using Next.js with Tailwind. Honestly, when I was done, it felt like complete magic. It didn&#x27;t take much time at all, and all my Notion pages rendered almost seamlessly in my own design language. And publishing a blog post was as easy as adding a new Notion page to a database.</p><p class="sc-hAZoDl cbzFhL">It wasn&#x27;t a perfect solution though -- the more I worked with using Notion, the more flaws I saw it had.</p><div class="sc-ikZpkk kACBaP"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Out of curiosity, I peeked into the javascript files notion downloads every time I open a page...uhh <a href="https://twitter.com/NotionHQ?ref_src=twsrc%5Etfw">@NotionHQ</a> care to explain yourself... <a href="https://t.co/viP0VrF2XL">pic.twitter.com/viP0VrF2XL</a></p>&mdash; Tanishq Kancharla (tk) 🌊 (@moonriseTK) <a href="https://twitter.com/moonriseTK/status/1275263735184199681?ref_src=twsrc%5Etfw">June 23, 2020</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div><p class="sc-hAZoDl cbzFhL">(this was before I was working on the website, but its a good example of just the confusing garbage Notion&#x27;s internal API was sending).</p><details class="sc-kLLXSd gmHpKP"><summary class="sc-bZkfAO cSmoGn">I also became pretty disillusioned with Tailwind.</summary><p class="sc-hAZoDl cbzFhL">I got annoyed with how long my class names ended up being, and that there wasn&#x27;t a good first-class solution for it. I also just wanted my html to be hella clean and semantic (look at the source of this website!). So I ejected Tailwind and just rebuilt it in CSS.</p></details><p class="sc-hAZoDl cbzFhL">Regarding the Notion issue, I&#x27;m still working on it, but I&#x27;ve also ripped it out for now. I&#x27;d love to use Notion&#x27;s official API, but they don&#x27;t support non-text blocks yet.</p><p class="sc-hAZoDl cbzFhL">So how does my blog work now? Well...I started using MDX, but it didn&#x27;t click for me. I just felt that if I wanted custom components in my prose, I should just be able to extend Markdown&#x27;s existing syntax. MDX isn&#x27;t annoying to use or anything...its just a matter of principle like I shouldn&#x27;t have to switch to React syntax when I want something as simple as a toggle block.</p><p class="sc-hAZoDl cbzFhL">So, naturally, I just built my own parser for a custom prose format. The whole thing is about 300 lines of code, and that&#x27;s reading <code class="sc-gicCDI eVdupQ">.tk</code> files, parsing them into an AST and recompiling them into HTML. I can&#x27;t stress how easy <a href="https://github.com/cdglabs/ohm" class="sc-ezWOiH hFTxHI">Ohm-js</a> made this for me. With 0 parser experience to building a markdown+ format in like 4 hours. Here is the spec for my format:</p><pre class="sc-fLlhyt lmIACz lang-undefined"><code class="sc-bBrHrO ftvzee">MarkdownOuter {
+  doc = h1 divider line divider block+
+  block =  blank | h3 | h2 | h1 | divider | image | block_link | toggle | bullet_list | code | blockquote | para | endline
+  h3 = "### " rest
+  h2 = "## " rest
+  h1 = "# " rest
+  divider = ("---" nl) | ("***" nl)
+  block_link = "[" (~"]" ~nl any)+ "]" nl
+  blockquote = inner_block+
+  inner_block = "| " (image | line)
+  image = "/ " (~(nl | sp) any)* " / " line
+  toggle = "> " line inner_block+
+  para = line+ // paragraph is just multiple consecutive lines
+  bullet_list = "- " (~"-" ~blank ~(nl nl) rest)* (bullet)*
+  bullet = "- " rest (~"-" ~blank ~(nl nl) rest)*
+  code = q rest (~q any)* q //anything between the \`\`\` markers
+  q = "\`\`\`"   // start and end code blocks
+  nl = "\\n"   // new line
+  sp = " "
+  blank = sp* nl  // blank line has only newline
+  endline = (~nl any)+ end
+  line = (~nl any)+ nl  // line has at least one letter
+  rest = (~nl any)* nl  // everything to the end of the line
+}</code></pre><p class="sc-hAZoDl cbzFhL">and that&#x27;s it! A single document, as you can see at the top, consists of a heading, followed by a descriptive line, and then the full content. I pass that into Ohm, along with semantic definitions of each node, and out pops an AST. I could save a little bit of time and condense my code quite a bit if I simply pass in the html equivalents directly to Ohm, but having an AST in between is nice for debugging.</p><hr class="sc-ivTmOn hNpNFH"/><p class="sc-hAZoDl cbzFhL">I&#x27;m still figuring out the rest of my setup. I don&#x27;t know if I&#x27;ll completely move everything away from Notion or move everything back when the official API does everything I want it to. Big question is the projects page, which I&#x27;ve linked to the Notion page currently. Maybe I&#x27;ll use another Ohm parser.</p><p class="sc-hAZoDl cbzFhL">Things I want:</p><ul class="sc-cxabCf kFeNmu"><li class="sc-iIPllB gzlhYa">A feed of things I&#x27;m thinking about, or a changelog for things that were updated on my website recently.</li><li class="sc-iIPllB gzlhYa">Little pieces of art/illustration all over the place. Maybe sharks that follow around your cursor?</li><li class="sc-iIPllB gzlhYa">Minigames. I have one idea kind of like Google&#x27;s disconnected dinosaur game, except its someone surfing and jumping over obstacles.</li></ul></article></div><div class="sc-gKXOVf kSHxWQ"></div></body></html>

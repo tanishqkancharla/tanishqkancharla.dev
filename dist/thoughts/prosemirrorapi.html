@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="en"><head><title>Some thoughts on Prosemirror&#x27;s API: TK&#x27;s website</title><meta charSet="UTF-8"/><meta name="og:title" content="Some thoughts on Prosemirror&#x27;s API: TK&#x27;s website"/><meta name="description" content="Tanishq Kancharla&#x27;s personal website"/><meta name="og:description" content="Tanishq Kancharla&#x27;s personal website"/><meta property="og:image" content="/seoul.jpeg"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:creator" content="@moonriseTK"/><meta name="twitter:title" content="Tanishq Kancharla"/><meta name="twitter:description" content="Tanishq Kancharla&#x27;s personal website."/><meta name="twitter:image" content="/seoul.jpeg"/><meta name="twitter:widgets:theme" content="dark"/><meta name="twitter:widgets:border-color" content="rgb(82, 82, 82)"/><meta name="twitter:dnt" content="on"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="Content-Language" content="en"/><meta name="author" content="Tanishq Kancharla"/><meta name="og:url" content="https://tanishqkancharla.dev"/><script src="/index.js" defer=""></script><link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="anonymous"/></head><style>
+        *, *::after, *::before {
+          box-sizing: border-box;
+        }
+
+        :root {
+          --accent-color: #7772e0
+        }
+
+	/* cyrillic-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNa7lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+			U+FE2E-FE2F;
+	}
+	/* cyrillic */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qPK7lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+	}
+	/* greek-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNK7lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+1F00-1FFF;
+	}
+	/* greek */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qO67lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+0370-03FF;
+	}
+	/* vietnamese */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qN67lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+			U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+	}
+	/* latin-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNq7lujVj9_mf.woff2)
+			format("woff2");
+		unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+			U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+	}
+	/* latin */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2)
+			format("woff2");
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+			U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+			U+2215, U+FEFF, U+FFFD;
+	}
+	/* cyrillic-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmhdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+			U+FE2E-FE2F;
+	}
+	/* cyrillic */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwkxdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+	}
+	/* greek-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmxdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+1F00-1FFF;
+	}
+	/* greek */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlBdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+0370-03FF;
+	}
+	/* vietnamese */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmBdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+			U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+	}
+	/* latin-ext */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmRdu3cOWxy40.woff2)
+			format("woff2");
+		unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+			U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+	}
+	/* latin */
+	@font-face {
+		font-family: "Source Sans Pro";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu3cOWxw.woff2)
+			format("woff2");
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+			U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+			U+2215, U+FEFF, U+FFFD;
+	}
+  </style><style data-styled="true" data-styled-version="5.3.5">.gLQMuJ{font-family:"Source Sans Pro",ui-sans-serif,system-ui,-apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans", sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol", "Noto Color Emoji";font-weight:400;background-color:rgba(32,32,32,1);height:100%;width:100%;margin:0;}/*!sc*/
+data-styled.g1[id="sc-bczRLJ"]{content:"gLQMuJ,"}/*!sc*/
+.hvGblW{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;gap:3px;margin-top:0.25rem;margin-bottom:0.5rem;-webkit-align-items:flex-end;-webkit-box-align:flex-end;-ms-flex-align:flex-end;align-items:flex-end;}/*!sc*/
+data-styled.g2[id="sc-gsnTZi"]{content:"hvGblW,"}/*!sc*/
+.hWZHFS{display:inline-block;font-size:85%;line-height:1.25rem;color:rgba(135,135,135,1);padding:0 3px;border-radius:2px;-webkit-text-decoration:none;text-decoration:none;-webkit-transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform;-webkit-transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;-webkit-transition-timing-function:cubic-bezier(0.4,0,0.2,1);transition-timing-function:cubic-bezier(0.4,0,0.2,1);-webkit-transition-duration:110ms;transition-duration:110ms;}/*!sc*/
+.hWZHFS:hover{background-color:rgba(57,57,57,1);color:var(--accent-color);}/*!sc*/
+.hWZHFS:focus{outline:0;background-color:rgba(57,57,57,1);}/*!sc*/
+data-styled.g3[id="sc-dkzDqf"]{content:"hWZHFS,"}/*!sc*/
+.iGMYJB{display:inline-block;line-height:1.25rem;padding-bottom:1px;}/*!sc*/
+data-styled.g4[id="sc-hKMtZM"]{content:"iGMYJB,"}/*!sc*/
+.fNhJnY{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding:3px 3px;margin-right:2px;}/*!sc*/
+data-styled.g5[id="sc-eCYdqJ"]{content:"fNhJnY,"}/*!sc*/
+.bMTnCu{height:0.9rem;width:0.9rem;fill:rgba(135,135,135,1);-webkit-transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform;-webkit-transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;-webkit-transition-timing-function:cubic-bezier(0.4,0,0.2,1);transition-timing-function:cubic-bezier(0.4,0,0.2,1);-webkit-transition-duration:110ms;transition-duration:110ms;}/*!sc*/
+.sc-eCYdqJ:hover .sc-jSMfEi{fill:var(--accent-color);}/*!sc*/
+data-styled.g6[id="sc-jSMfEi"]{content:"bMTnCu,"}/*!sc*/
+.kSHxWQ{min-height:200px;}/*!sc*/
+data-styled.g7[id="sc-gKXOVf"]{content:"kSHxWQ,"}/*!sc*/
+.eBysaP{font-weight:600;font-size:2.5rem;line-height:3rem;margin-top:1.5rem;margin-bottom:0.5rem;-webkit-text-decoration:underline;text-decoration:underline;color:rgba(250,250,250,1);}/*!sc*/
+data-styled.g8[id="sc-iBkjds"]{content:"eBysaP,"}/*!sc*/
+.tVzXI{height:18rem;min-height:250px;overflow:hidden;position:relative;width:100%;z-index:1;}/*!sc*/
+data-styled.g12[id="sc-kDDrLX"]{content:"tVzXI,"}/*!sc*/
+.buWjr{width:100%;height:100%;}/*!sc*/
+.buWjr img{height:100%;width:100%;object-fit:cover;}/*!sc*/
+data-styled.g13[id="sc-iqcoie"]{content:"buWjr,"}/*!sc*/
+.bIOCgS{position:absolute;bottom:0;right:0.25rem;z-index:2;-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
+.bIOCgS:hover{-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
+data-styled.g14[id="sc-crXcEl"]{content:"bIOCgS,"}/*!sc*/
+.gamQnU{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;height:auto;position:absolute;bottom:0;box-shadow:1;width:100%;background-color:rgb(0,0,0);background-color:rgba(36,36,36,0.15);-webkit-backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}/*!sc*/
+.gamQnU h1{display:block;margin-top:0;margin-bottom:0;color:rgba(250,250,250,1);width:clamp(40%,540px,83.33333%);}/*!sc*/
+data-styled.g15[id="sc-evZas"]{content:"gamQnU,"}/*!sc*/
+.kbMgJU{margin-left:auto;margin-right:auto;margin-top:0.5rem;color:rgba(171,171,171,1);width:clamp(40%,540px,83.33333%);}/*!sc*/
+data-styled.g16[id="sc-breuTD"]{content:"kbMgJU,"}/*!sc*/
+.kIKKSK{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}/*!sc*/
+.kIKKSK > *{opacity:0;}/*!sc*/
+data-styled.g17[id="sc-ksZaOG"]{content:"kIKKSK,"}/*!sc*/
+.cbzFhL{margin-top:0.4rem;margin-bottom:0.4rem;line-height:1.4rem;font-size:1.025rem;}/*!sc*/
+data-styled.g18[id="sc-hAZoDl"]{content:"cbzFhL,"}/*!sc*/
+.lmIACz{background-color:rgba(25,25,25,1);color:rgba(171,171,171,1);margin-top:0.4rem;margin-bottom:0.4rem;border-style:solid;border-color:var(--accent-color);border-radius:0.25rem;border-width:1.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;box-shadow:0.4px 0.5px 0.6px hsl(0deg 0% 4% / 0.56), 1px 1.2px 1.4px -1.3px hsl(0deg 0% 4% / 0.46), 3.2px 3.6px 4.4px -2.6px hsl(0deg 0% 4% / 0.36), 8.6px 9.8px 12px -3.8px hsl(0deg 0% 4% / 0.27);line-height:1.25rem;padding:0.5rem;overflow-wrap:break-word;}/*!sc*/
+.lmIACz .token.comment,.lmIACz .token.prolog,.lmIACz .token.doctype,.lmIACz .token.cdata{color:rgba(99,99,99,1);font-style:italic;}/*!sc*/
+.lmIACz .token.namespace{opacity:0.7;}/*!sc*/
+.lmIACz .token.punctuation,.lmIACz .token.operator{color:rgba(99,99,99,1);}/*!sc*/
+.lmIACz .token.atrule,.lmIACz .token.keyword,.lmIACz .token.attr-name,.lmIACz .language-autohotkey .token.selector{color:var(--accent-color);}/*!sc*/
+.lmIACz .token.string,.lmIACz .token.attr-value{color:#f76d74;}/*!sc*/
+.lmIACz .token.entity,.lmIACz .token.url,.lmIACz .token.symbol,.lmIACz .token.number,.lmIACz .token.boolean,.lmIACz .token.variable,.lmIACz .token.constant,.lmIACz .token.property,.lmIACz .token.regex,.lmIACz .token.inserted{color:#5aa9fa;}/*!sc*/
+.lmIACz .token.function,.lmIACz .token.deleted,.lmIACz .language-autohotkey .token.tag{color:#ffffff;}/*!sc*/
+.lmIACz .token.tag,.lmIACz .token.selector,.lmIACz .language-autohotkey .token.keyword{color:#2d9d78;}/*!sc*/
+.lmIACz .token.important,.lmIACz .token.bold{font-weight:bold;}/*!sc*/
+.lmIACz .token.italic{font-style:italic;}/*!sc*/
+data-styled.g27[id="sc-fLlhyt"]{content:"lmIACz,"}/*!sc*/
+.ftvzee{white-space:pre-wrap;}/*!sc*/
+data-styled.g28[id="sc-bBrHrO"]{content:"ftvzee,"}/*!sc*/
+.hNpNFH{border-color:rgb(82,82,82);border-width:0;border-top-width:2.5px;margin-top:0.5rem;margin-bottom:0.5rem;width:100%;border-style:solid;}/*!sc*/
+data-styled.g29[id="sc-ivTmOn"]{content:"hNpNFH,"}/*!sc*/
+.kFeNmu{padding-left:1rem;margin-top:0.3rem;margin-bottom:0.3rem;list-style-type:disc;}/*!sc*/
+data-styled.g30[id="sc-cxabCf"]{content:"kFeNmu,"}/*!sc*/
+.gzlhYa{margin-top:0.3rem;margin-bottom:0.3rem;line-height:1.4rem;font-size:1.025rem;list-style-position:outside;}/*!sc*/
+data-styled.g32[id="sc-iIPllB"]{content:"gzlhYa,"}/*!sc*/
+.eVdupQ{border-radius:0.125rem;display:inline-block;padding-left:0.25rem;padding-right:0.25rem;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas, "Liberation Mono","Courier New",monospace;font-size:80%;line-height:1.25rem;color:var(--accent-color);background-color:rgba(57,57,57,1);overflow-wrap:break-word;}/*!sc*/
+data-styled.g33[id="sc-gicCDI"]{content:"eVdupQ,"}/*!sc*/
+.hFTxHI{cursor:pointer;color:rgba(135,135,135,1);-webkit-text-decoration:underline;text-decoration:underline;-webkit-transition-property:background-color,border-color,color,fill,stroke, opacity,box-shadow,-webkit-transform;-webkit-transition-property:background-color,border-color,color,fill,stroke, opacity,box-shadow,transform;transition-property:background-color,border-color,color,fill,stroke, opacity,box-shadow,transform;-webkit-transition-timing-function:cubic-bezier(0.4,0,0.2,1);transition-timing-function:cubic-bezier(0.4,0,0.2,1);-webkit-transition-duration:110ms;transition-duration:110ms;}/*!sc*/
+.hFTxHI:hover{color:var(--accent-color);}/*!sc*/
+data-styled.g34[id="sc-ezWOiH"]{content:"hFTxHI,"}/*!sc*/
+.hQzmgs{margin:0;margin-top:1rem;margin-bottom:1rem;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;gap:0.3rem;}/*!sc*/
+.hQzmgs img{max-width:100%;}/*!sc*/
+data-styled.g38[id="sc-jIZahH"]{content:"hQzmgs,"}/*!sc*/
+.dWnEZX{font-size:85%;color:rgba(135,135,135,1);}/*!sc*/
+data-styled.g39[id="sc-himrzO"]{content:"dWnEZX,"}/*!sc*/
+</style><body class="sc-bczRLJ gLQMuJ"><div class="sc-kDDrLX tVzXI"><div class="sc-iqcoie buWjr"><img src="/seoul.jpeg" alt="A shot of Seoul, South Korea of high-rise buildings set against the backdrop of a mountain, with a purple and blue sky during sunrise."/></div><a class="sc-crXcEl bIOCgS img-credits" target="_blank" rel="noreferrer" href="https://unsplash.com/photos/LoGWCnEVDgU"><span role="img" aria-label="Camera">📸</span></a><div class="sc-evZas gamQnU"><h1 class="sc-iBkjds eBysaP">Some thoughts on Prosemirror&#x27;s API</h1></div></div><div class="sc-breuTD kbMgJU"><nav aria-label="breadcrumbs" class="sc-gsnTZi hvGblW"><a href="/" class="sc-dkzDqf sc-eCYdqJ hWZHFS fNhJnY"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" class="sc-jSMfEi bMTnCu icon"><title>S Home 18 N</title><rect id="Canvas" opacity="0" width="18" height="18" class="rect"></rect><path d="M17.666,10.125,9.375,1.834a.53151.53151,0,0,0-.75,0L.334,10.125a.53051.53051,0,0,0,0,.75l.979.9785A.5.5,0,0,0,1.6665,12H2v4.5a.5.5,0,0,0,.5.5h4a.5.5,0,0,0,.5-.5v-5a.5.5,0,0,1,.5-.5h3a.5.5,0,0,1,.5.5v5a.5.5,0,0,0,.5.5h4a.5.5,0,0,0,.5-.5V12h.3335a.5.5,0,0,0,.3535-.1465l.979-.9785A.53051.53051,0,0,0,17.666,10.125Z"></path></svg></a><span class="sc-hKMtZM iGMYJB">/</span><a href="/thoughts" class="sc-dkzDqf hWZHFS">thoughts</a><span class="sc-hKMtZM iGMYJB">/</span><a href="/thoughts/prosemirrorapi" class="sc-dkzDqf hWZHFS">prosemirrorapi</a></nav><article class="sc-ksZaOG kIKKSK"><p class="sc-hAZoDl cbzFhL">Some thoughts on Prosemirror&#x27;s API</p><hr class="sc-ivTmOn hNpNFH"/><p class="sc-hAZoDl cbzFhL">I&#x27;ve been using <a href="https://prosemirror.net/" class="sc-ezWOiH hFTxHI">Prosemirror</a> for about two years now. I would say I know the library fairly well, having used it in 3 or 4 different projects. It has a large learning curve but definitely very very powerful, and I think its general and light-weight enough to be used in use-cases where you wouldn&#x27;t immediately think &quot;I need a rich-text editor toolkit&quot;.</p><p class="sc-hAZoDl cbzFhL">I like how prosemirror strictly follows the functional programming paradigm. Chet and I have found it makes it much easier to integrate into a larger project. Just &quot;plug&quot; yourself into the transaction cycle:</p><figure class="sc-jIZahH hQzmgs"><img src="/thoughts/prosemirrorapi/prosemirror-view.png"/><figcaption class="sc-himrzO dWnEZX"></figcaption></figure><p class="sc-hAZoDl cbzFhL"> <a href="https://prosemirror.net/docs/guide/#view" class="sc-ezWOiH hFTxHI">Illustration from prosemirror</a></p><p class="sc-hAZoDl cbzFhL">After using it extensively in a larger project, there are definitely some snags I&#x27;ve caught myself on.</p><p class="sc-hAZoDl cbzFhL">The <code class="sc-gicCDI eVdupQ">view</code> portion of Plugins is conflated. You use it both for setting up a popup (a view) or managing async effects (make network call). That&#x27;s because only in that field do you have access to a stable dispatch function that lets you dispatch at a later time.</p><figure class="sc-jIZahH hQzmgs"><img src="/thoughts/prosemirrorapi/declarative-effects.png"/><figcaption class="sc-himrzO dWnEZX"></figcaption></figure><p class="sc-hAZoDl cbzFhL"> <a href="https://www.youtube.com/watch?v=HPoC-k7Rxwo&amp;t=1210s" class="sc-ezWOiH hFTxHI">Talk from David K</a></p><p class="sc-hAZoDl cbzFhL">I think it would be better to separate effect declaration from &quot;view&quot; stuff like popups, and separate the two. An effects field could probably just be a pure function of plugin state, or have its signature identical to the <code class="sc-gicCDI eVdupQ">view</code> field.</p><p class="sc-hAZoDl cbzFhL">I honestly dont know if the <code class="sc-gicCDI eVdupQ">view</code> field (as it used for setting up popups and such) belongs in a plugin at all. Plugins could just be state fields. Maybe views can get plugged in when the editor view is being created (view plugins). This lets you use outside &quot;props&quot; when constructing the view plugins, that wouldn&#x27;t otherwise be available in the state plugin.</p><p class="sc-hAZoDl cbzFhL">Here&#x27;s the rendering model of react and prosemirror compared:</p><p class="sc-hAZoDl cbzFhL">React:</p><p class="sc-hAZoDl cbzFhL"><code class="sc-gicCDI eVdupQ">view = fn(props, state)</code></p><p class="sc-hAZoDl cbzFhL">Prosemirror:</p><p class="sc-hAZoDl cbzFhL"><code class="sc-gicCDI eVdupQ">view = (props =&gt; fn(state))(props)</code></p><p class="sc-hAZoDl cbzFhL">Basically, you can&#x27;t change props once the prosemirror view and plugins have been instantiated.</p><p class="sc-hAZoDl cbzFhL">You can get around this with hacky ways, like declaring a new Prosemirror plugin that just holds props (<code class="sc-gicCDI eVdupQ">PropsPlugin</code>), and reading that in the other plugins. Or merely using Plugin creation functions where the arguments are &quot;subscriptions&quot; to props. So you subscribe to all the prop updates.</p><p class="sc-hAZoDl cbzFhL">But you need React&#x27;s rendering model when you&#x27;re using Prosemirror as a component plugging into a bigger state-dispatch system: props are just pieces of state from higher up in the tree. And that&#x27;s something you may need access to when you&#x27;re rendering a plugin:</p><ul class="sc-cxabCf kFeNmu"><li class="sc-iIPllB gzlhYa">If you&#x27;re implementing the slash-command approach, you need access to what commands and blocks are available to insert.</li><li class="sc-iIPllB gzlhYa">For @mentions in the editor, you need access to what you can mention, and so you need access to a list of pages or to a service that lets you access a list of objects.</li></ul><p class="sc-hAZoDl cbzFhL">Decorations are also kind of a frustrating aspect for me; again, they&#x27;re declared as a pure function of state with no props. But in this case you don&#x27;t even have access to the view. And the most performant way of using decorations is keeping <code class="sc-gicCDI eVdupQ">DecorationSet</code>s in your state, which is odd semantic-wise, because decoration very much sounds like something &quot;view-like&quot;.</p><p class="sc-hAZoDl cbzFhL">I would implement Decorations the same way I would with the other view plugins.</p><p class="sc-hAZoDl cbzFhL">Anyway, I decided to write about this because it&#x27;s been snags I&#x27;ve caught myself on as I am plugging in prosemirror into a bigger system, where we use React.</p><p class="sc-hAZoDl cbzFhL">Hopefully, the culmination of my effort is a library that lets you use react&#x27;s rendering model for prosemirror. Right now the API looks something like this:</p><pre class="sc-fLlhyt lmIACz lang-tsx"><code class="sc-bBrHrO ftvzee"><span class="token comment">// This is in your app</span>
+<span class="token keyword">function</span> <span class="token function">Editor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">EditorView</span></span> <span class="token attr-name">state</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>editorState<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">FindInPagePopup</span></span> <span class="token attr-name">state</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>editorState<span class="token punctuation">}</span></span> <span class="token attr-name">dispatch</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>dispatch<span class="token punctuation">}</span></span><span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">AutocompleteMentionPopup</span></span> <span class="token attr-name">...</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">EditorView</span></span><span class="token punctuation">></span></span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// This is from the library</span>
+<span class="token keyword">function</span> <span class="token function">EditorView</span><span class="token punctuation">(</span>props<span class="token operator">:</span> <span class="token punctuation">{</span>state<span class="token operator">:</span> EditorState<span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+  <span class="token keyword">const</span> view <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">createEditorView</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+  <span class="token function">useLayoutEffect</span><span class="token punctuation">(</span><span class="token comment">/* Mount editor view */</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">ref</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>editorViewNodeRef<span class="token punctuation">}</span></span><span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>children<span class="token punctuation">}</span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre><p class="sc-hAZoDl cbzFhL">Where view plugins just become React components, that will update when your props to them update. Otherwise, the EditorView is managed separately as a pure function of editor state.</p></article></div><div class="sc-gKXOVf kSHxWQ"></div></body></html>
