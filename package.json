@@ -1,6 +1,6 @@
 {
 	"name": "www.tanishqkancharla.dev",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Tanishq Kancharla's website",
 	"main": "src/index.ts",
 	"scripts": {
