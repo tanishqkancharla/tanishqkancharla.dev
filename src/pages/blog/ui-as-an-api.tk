@@ -1,8 +1,8 @@
-# UI/UX design and REST API design are the same thing
 ---
-Exposing an API as a UI vs REST endpoints has a lot of tradeoffs. What tradeoffs are we making, and more importantly, how do we get the best of both?
+title: UI/UX design and REST API design are the same thing
+description: Exposing an API as a UI vs REST endpoints has a lot of tradeoffs. What tradeoffs are we making, and more importantly, how do we get the best of both?
+date: 07/10/2021
 ---
-2021-07
 
 The way I think of an app is that it stores some data (maybe on your local machine, maybe on a remote server), and it gives you an API to manipulate that data. AFAIK that pretty much describes what every app does.
 

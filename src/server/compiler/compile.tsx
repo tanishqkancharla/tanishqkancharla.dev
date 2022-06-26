@@ -1,11 +1,12 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { isString } from "remeda";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
+import { parseTK, TKDoc } from "tk-parser";
 import { Page } from "../../components/Page";
 import { TKArticle } from "../../components/TKArticle";
 import { WebsiteContext } from "../../config";
 import { PageContext, PageContextProvider } from "../PageContext";
-import { parseTK, TKDoc } from "../parser/parseTK";
 import { WebsiteContextProvider } from "../WebsiteContext";
 import { bookmarkLoader, LoadedBookmark } from "./bookmarkLoader";
 import { codeBlockLoader, LoadedCodeBlock } from "./codeblockLoader";
@@ -31,7 +32,9 @@ export async function compilePost(
 	websiteContext: WebsiteContext,
 	href: string
 ): Promise<string> {
-	const ast = parseTK(contents);
+	console.log("Compiling page: ", href);
+	console.log("-----------------------");
+	const ast: TKDoc = parseTK(contents);
 
 	const transformedBlocks: TransformedBlock[] = await Promise.all(
 		ast.blocks.map((block) => {
@@ -48,14 +51,22 @@ export async function compilePost(
 		})
 	);
 
+	console.log("-----------------------");
+
 	const transformedDoc: TransformedDoc = {
 		metadata: ast.metadata,
 		blocks: transformedBlocks,
 	};
 
+	let title = "Moonrise";
+
+	if (isString(ast.metadata.title)) {
+		title = ast.metadata.title;
+	}
+
 	const pageContext: PageContext = {
 		href,
-		title: ast.metadata?.title || "Moonrise",
+		title,
 	};
 
 	const Component = (transformedDoc: TransformedDoc) => (

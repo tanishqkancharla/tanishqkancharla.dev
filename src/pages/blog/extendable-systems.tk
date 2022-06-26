@@ -1,8 +1,8 @@
-# Create floors, not ceilings
 ---
-What do Rust traits, React hooks, and Tailwind CSS have to do with each other? This post talks about patterns I've seen in extendable systems.
+title: Create floors, not ceilings
+description: What do Rust traits, React hooks, and Tailwind CSS have to do with each other? This post talks about patterns I've seen in extendable systems.
+date: 09/15/2021
 ---
-2021-09
 
 I saw this Joey Banks tweet recently:
 

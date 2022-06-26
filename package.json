@@ -45,6 +45,7 @@
 		"react-dom": "^18.0.0",
 		"remeda": "^0.0.32",
 		"styled-components": "^5.3.5",
-		"teg-parser": "^0.1.0"
+		"teg-parser": "^0.1.0",
+		"tk-parser": "^0.0.4"
 	}
 }

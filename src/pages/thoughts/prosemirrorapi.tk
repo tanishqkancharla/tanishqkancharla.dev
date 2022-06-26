@@ -1,8 +1,8 @@
-# Things I would do to improve Prosemirror's API
 ---
-My thoughts on Prosemirror's API
+title: Some thoughts on Prosemirror's API
+description: Some thoughts on Prosemirror's API
+date: 06/20/2022
 ---
-2022-06
 
 I've been using [Prosemirror](https://prosemirror.net/) for about two years now. I would say I know the library fairly well, having used it in 3 or 4 different projects. It has a large learning curve but definitely very very powerful, and I think its general and light-weight enough to be used in use-cases where you wouldn't immediately think "I need a rich-text editor toolkit".
 

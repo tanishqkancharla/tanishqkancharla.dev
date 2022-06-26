@@ -12,25 +12,16 @@ function serveWebsite() {
 async function buildAndServe() {
 	const context = defaultWebsiteContext;
 
-	try {
-		await buildWebsite(context);
-	} catch (error) {
-		console.error(`Could not build website due to error: ${error}`);
-		return;
-	}
+	await buildWebsite(context);
 	serveWebsite();
 
 	watch(["src"]).on("change", async (filePath) => {
-		try {
-			const built = await buildPage(context, rootPath(filePath));
-			if (built) {
-				console.log(`Rebuilt ${filePath}`);
-			} else {
-				console.warn(`No match found for ${filePath}: Rebuilding website`);
-				await buildWebsite(context);
-			}
-		} catch (e) {
-			console.error(e);
+		const built = await buildPage(context, rootPath(filePath));
+		if (built) {
+			console.log(`Rebuilt ${filePath}`);
+		} else {
+			console.warn(`No match found for ${filePath}: Rebuilding website`);
+			await buildWebsite(context);
 		}
 	});
 }
