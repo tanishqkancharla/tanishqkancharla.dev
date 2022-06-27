@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { fontSm, secondaryBodyTextColor } from "../styles/vars";
+import { fontSm, secondaryBodyTextColor } from "../../styles/vars";
 
 const Figure = styled.figure`
 	margin: 0;
