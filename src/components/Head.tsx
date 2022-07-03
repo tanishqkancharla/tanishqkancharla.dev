@@ -40,10 +40,15 @@ export function Head() {
 			<meta name="og:url" content="https://tanishqkancharla.dev" />
 
 			<script src={relativeClientJsPath} defer />
+			<link rel="preconnect" href="https://fonts.googleapis.com" />
 			<link
 				rel="preconnect"
-				href="https://fonts.gstatic.com/"
+				href="https://fonts.gstatic.com"
 				crossOrigin="anonymous"
+			/>
+			<link
+				href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap"
+				rel="stylesheet"
 			/>
 		</head>
 	);
