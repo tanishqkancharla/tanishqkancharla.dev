@@ -3,8 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { isString } from "remeda";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 import { parseTK, TKDoc } from "tk-parser";
-import { Page } from "../../components/Page";
-import { TKArticle } from "../../components/TKArticle";
+import { TKPage } from "../../components/TKPage";
 import { WebsiteContext } from "../../config";
 import { PageContext, PageContextProvider } from "../PageContext";
 import { WebsiteContextProvider } from "../WebsiteContext";
@@ -69,15 +68,9 @@ export async function compilePost(
 		title,
 	};
 
-	const Component = (transformedDoc: TransformedDoc) => (
-		<Page>
-			<TKArticle doc={transformedDoc} />
-		</Page>
-	);
-
 	return compileReactComponent(
-		Component,
-		transformedDoc,
+		TKPage,
+		{ doc: transformedDoc },
 		websiteContext,
 		pageContext
 	);
