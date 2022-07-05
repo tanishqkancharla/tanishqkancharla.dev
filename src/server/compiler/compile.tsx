@@ -104,11 +104,8 @@ export function compileReactComponent<P>(
 			styleTags +
 			renderedPost.slice(bodyIndex, undefined);
 
-		sheet.seal();
-
 		return renderedPost;
-	} catch (error) {
+	} finally {
 		sheet.seal();
-		throw new Error(JSON.stringify(error));
 	}
 }
