@@ -99,28 +99,10 @@ const _BookmarkDate = styled.div`
 	font-size: ${fontSm};
 `;
 
-const monthAliases = [
-	"Jan",
-	"Feb",
-	"Mar",
-	"Apr",
-	"May",
-	"Jun",
-	"Jul",
-	"Aug",
-	"Sep",
-	"Oct",
-	"Nov",
-	"Dec",
-];
+const dateFormatter = new Intl.DateTimeFormat("en-US", { dateStyle: "medium" });
 
 function BookmarkDate(props: { date: Date }) {
-	const localizedDate = new Intl.DateTimeFormat("en-US", {
-		month: "short",
-		day: "numeric",
-	}).format(props.date);
-
-	return <_BookmarkDate>{localizedDate}</_BookmarkDate>;
+	return <_BookmarkDate>{dateFormatter.format(props.date)}</_BookmarkDate>;
 }
 
 function BookmarkHeader(props: { title: string; date?: Date }) {

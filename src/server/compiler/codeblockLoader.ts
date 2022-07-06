@@ -1,6 +1,6 @@
 import Prism from "prismjs";
 import loadLanguages from "prismjs/components/";
-import { TKBlock } from "../parser/parseTK";
+import { TKBlock } from "tk-parser";
 import { TKBlockTransformer } from "./Transformer";
 
 export type LoadedCodeBlock = {
@@ -12,7 +12,7 @@ export type LoadedCodeBlock = {
 type CodeBlockLoader = TKBlockTransformer<"codeBlock", LoadedCodeBlock>;
 
 export const codeBlockLoader: CodeBlockLoader = async (
-	block: TKBlock<"codeBlock">
+	block: Extract<TKBlock, { type: "codeBlock" }>
 ) => {
 	const { content, lang } = block;
 

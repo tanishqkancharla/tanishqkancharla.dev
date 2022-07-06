@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { RichTextToken } from "../../server/parser/richText";
+import { RichTextContent } from "tk-parser/dist/blocks/richText";
 import {
 	accentColor,
 	secondaryBackgroundColor,
@@ -40,7 +40,7 @@ export const A = styled.a`
 	}
 `;
 
-export function RichTextParagraph(props: { children: RichTextToken[] }) {
+export function RichTextParagraph(props: { children: RichTextContent }) {
 	const content = props.children.map((token) => {
 		switch (token.type) {
 			case "bold":

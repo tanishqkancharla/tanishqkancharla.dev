@@ -1,8 +1,8 @@
-# What I learned working with a senior engineer as a new grad
 ---
-A summary of what I learned about software development working with a senior software engineer with far more experience than me.
+title: What I learned working with a senior engineer as a new grad
+description: A summary of what I learned about software development working with a senior software engineer with far more experience than me.
+date: 04/13/2022
 ---
-2022-04
 
 Over the past few months, I've been working on a new project with [Chet Corcos](www.chetcorcos.com), the first engineering hire at Notion. Chet has been a professional engineer for 6 years and helped build Notion from the ground up. For contrast, I graduated from school in May 2021. I've been programming for a while but have only used Javascript and React for about two and a half years, of which about a year has been professional.
 

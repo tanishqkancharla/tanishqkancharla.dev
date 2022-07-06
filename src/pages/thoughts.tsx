@@ -1,43 +1,75 @@
 import fs from "fs-extra";
 import path from "path";
 import React from "react";
-import { isDefined } from "remeda";
+import { isDefined, reverse, sortBy } from "remeda";
 import styled from "styled-components";
+import { parseTK, TKDoc } from "tk-parser";
 import { Article } from "../components/Article";
 import { P } from "../components/blocks/Paragraph";
 import { Page } from "../components/Page";
-import { parseTK, TKMetadata } from "../server/parser/parseTK";
-import {
-	accentColor,
-	blockMargin,
-	bodyTextColor,
-	borderColor,
-	secondaryBodyTextColor,
-	transitionSm,
-} from "../styles/vars";
+import { StyledRow, StyledTable } from "../components/StyledTable";
+import { secondaryBodyTextColor } from "../styles/vars";
 import { listDirectory } from "../tools/listDirectory";
 import { rootPath } from "../tools/rootPath";
 
-type ThoughtMetadata = TKMetadata & { href: string };
+type Metadata = {
+	title: string;
+	description: string;
+	date: Date;
+	// tags: string[];
 
-type PropsType = { metadatas: ThoughtMetadata[] };
+	href: string;
+};
+
+type PropsType = { postMetadatas: Metadata[] };
+
+function checkMetadata(metadata: TKDoc["metadata"]) {
+	if (!metadata.title) throw new Error(`Missing title ${metadata}`);
+	if (Array.isArray(metadata.title))
+		throw new Error("Expected title to be string");
+
+	if (!metadata.description) throw new Error("Missing description");
+	if (Array.isArray(metadata.description))
+		throw new Error("Expected description to be string");
+
+	if (!metadata.date) throw new Error("Missing date");
+	if (Array.isArray(metadata.date))
+		throw new Error("Expected date to be string");
+	const date = new Date(metadata.date);
+	if (date.toString() === "Invalid Date")
+		throw new Error(`Date ${metadata.date} was malformed`);
+
+	// if (!metadata.tags) throw new Error("Missing tags");
+	// if (!Array.isArray(metadata.tags))
+	// 	throw new Error("Expected tags to be string array");
+
+	return {
+		title: metadata.title,
+		description: metadata.description,
+		date,
+	};
+}
 
 export async function getStaticProps(): Promise<PropsType> {
 	const thoughtPostsDirPath = rootPath("src/pages/thoughts");
 	const thoughtPostPaths = await listDirectory(thoughtPostsDirPath);
+
 	const thoughtPostMetadatas = await Promise.all(
 		thoughtPostPaths.map(async (result) => {
 			if (result.isDir) return undefined;
 			const thoughtPostPath = path.join(thoughtPostsDirPath, result.name);
 			const rawContents = await fs.readFile(thoughtPostPath, "utf8");
-			const { metadata } = parseTK(rawContents);
+			const ast = parseTK(rawContents);
+
+			const metadata = checkMetadata(ast.metadata);
+
 			if (!metadata) return undefined;
 
 			return { ...metadata, href: `/thoughts/${result.name.slice(0, -3)}` };
 		})
 	);
 
-	return { metadatas: thoughtPostMetadatas.filter(isDefined) };
+	return { postMetadatas: thoughtPostMetadatas.filter(isDefined) };
 }
 
 export const title = "Thoughts";
@@ -63,79 +95,23 @@ const ThoughtsHeader = styled.div`
 	padding: 5px;
 `;
 
-const StyledThoughtsRow = styled.a`
-	color: ${bodyTextColor};
-	display: block;
+const dateFormatter = new Intl.DateTimeFormat("en-US", { dateStyle: "medium" });
 
-	padding: 5px;
-	font-weight: 400;
-	border-top: solid ${borderColor} 1.5px;
-	border-bottom: solid transparent 1.5px;
-
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-
-	:last-child {
-		border-bottom: solid ${borderColor} 1.5px;
-	}
-
-	text-decoration: none;
-
-	${transitionSm}
-
-	:hover {
-		cursor: pointer;
-		border-color: ${accentColor};
-		color: ${accentColor};
-	}
-
-	:focus {
-		outline: none;
-		border-color: ${accentColor};
-	}
-`;
-
-const StyledThoughtsTable = styled.div`
-	margin-top: ${blockMargin};
-	width: 100%;
-	border-spacing: 0;
-	color: ${bodyTextColor};
-
-	${StyledThoughtsRow} {
-		background-color: rgba(0, 0, 0, 0.3);
-		box-shadow: inset 0 0 12px 1px rgba(0, 0, 0, 0.6);
-	}
-`;
-
-function DateItem(props: { date: TKMetadata["date"] }) {
-	const localString = props.date.toLocaleDateString("en", {
-		year: "numeric",
-		month: "long",
-	});
-
-	return <>{localString}</>;
-}
-
-function ThoughtsDBRow(props: ThoughtMetadata) {
+function ThoughtsDBRow(props: Metadata) {
 	const { href, title, date } = props;
 
 	return (
-		<StyledThoughtsRow href={href} role={"row"}>
+		<StyledRow href={href} role={"row"}>
 			<ThoughtsRowName>{title}</ThoughtsRowName>
-			<ThoughtsRowDate>
-				<DateItem date={date} />
-			</ThoughtsRowDate>
-		</StyledThoughtsRow>
+			<ThoughtsRowDate>{dateFormatter.format(date)}</ThoughtsRowDate>
+		</StyledRow>
 	);
 }
 
 function Thoughts(props: PropsType) {
-	const { metadatas } = props;
+	const { postMetadatas } = props;
 
-	const sortedMetadatas = metadatas.sort(
-		(a, b) => b.date.getMilliseconds() - a.date.getMilliseconds()
-	);
+	const sortedMetadatas = reverse(sortBy(postMetadatas, (post) => post.date));
 
 	return (
 		<Page>
@@ -144,7 +120,11 @@ function Thoughts(props: PropsType) {
 					This is my personal table for thoughts: a collection of whims,
 					half-baked ideas, and streams of consciousness.
 				</P>
-				<StyledThoughtsTable aria-label="Thoughts" role="table">
+				<StyledTable
+					aria-label="Thoughts"
+					aria-describedby="thoughts-table-desc"
+					role={"table"}
+				>
 					<div role="row">
 						<ThoughtsHeader role="columnheader">
 							<ThoughtsRowName role="columnheader">Name</ThoughtsRowName>
@@ -154,7 +134,7 @@ function Thoughts(props: PropsType) {
 					{sortedMetadatas.map((post, i) => (
 						<ThoughtsDBRow {...post} key={i} />
 					))}
-				</StyledThoughtsTable>
+				</StyledTable>
 			</Article>
 		</Page>
 	);

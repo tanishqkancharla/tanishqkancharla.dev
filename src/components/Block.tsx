@@ -7,12 +7,12 @@ import { Bookmark } from "./blocks/Bookmark";
 import { CodeBlock } from "./blocks/CodeBlock";
 import { Divider } from "./blocks/Divider";
 import { H1, H2, H3 } from "./blocks/Heading";
+import { Image } from "./blocks/Image";
 import { Li, Ul } from "./blocks/List";
 import { P } from "./blocks/Paragraph";
 import { RichTextParagraph } from "./blocks/RichText";
 import { Toggle } from "./blocks/Toggle";
 import { Tweet } from "./blocks/Tweet";
-import { Image } from "./Image";
 
 export function Block(props: { block: CompiledBlock }): JSX.Element | null {
 	const block = props.block;

@@ -1,4 +1,4 @@
-import { TKBlock } from "../parser/parseTK";
+import { TKBlock } from "tk-parser/dist/TKBlock";
 
 type Transformer<In, Out> = (ast: In) => Out | Promise<Out>;
 

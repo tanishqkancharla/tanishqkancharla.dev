@@ -1,8 +1,8 @@
-# How I setup my website
 ---
-Making my website has been like...a year-long endeavor. I guess it's never really finished, right? I just want to briefly talk about where the website's been and where its going.
+title: How I setup my website
+description: Making my website has been like...a year-long endeavor. I guess it's never really finished, right? I just want to briefly talk about where the website's been and where its going.
+date: 08/20/2021
 ---
-2021-08
 
 Originally, my site was built using [Fruition](https://fruitionsite.com). It was a quick way to get started with a website by directly connecting it to my notion. It was slow, and hard to customize though, so I eventually moved it away to using the unofficial notion API built by Splitbee (when Notion didn't have an API):
 
