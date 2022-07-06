@@ -1,8 +1,9 @@
-# Sunrise
 ---
-A terminal emulator built on top of Nushell.
+title: Sunrise
+description: A terminal emulator using structured data.
+status: thinking
+tags: [rust]
 ---
-2022-06
 
 A mish-mash between graphical and textual input.
 

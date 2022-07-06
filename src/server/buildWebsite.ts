@@ -1,4 +1,3 @@
-import decache from "decache";
 import * as esbuild from "esbuild";
 import fs from "fs-extra";
 import glob from "glob";
@@ -35,11 +34,7 @@ async function buildTKPost(context: WebsiteContext, postFilePath: string) {
 async function buildReactPage(context: WebsiteContext, pageFilePath: string) {
 	const { dir, name } = path.parse(pageFilePath);
 
-<<<<<<< HEAD
-	decache(pageFilePath);
-=======
 	delete require.cache[require.resolve(pageFilePath)];
->>>>>>> main
 	const imports = await import(pageFilePath);
 	const { default: Component, getStaticProps } = imports;
 

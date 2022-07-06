@@ -1,12 +1,12 @@
 import React from "react";
-import { TransformedDoc } from "../server/compiler/compile";
+import { CompiledDoc } from "../server/compiler/compile";
 import { Article } from "./Article";
 import { Block } from "./Block";
 import { Divider } from "./blocks/Divider";
 import { P } from "./blocks/Paragraph";
 import { Page } from "./Page";
 
-export function TKPage(props: { doc: TransformedDoc }) {
+export function TKPage(props: { doc: CompiledDoc }) {
 	const { blocks, metadata } = props.doc;
 
 	return (

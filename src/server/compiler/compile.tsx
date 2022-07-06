@@ -31,8 +31,6 @@ export async function compilePost(
 	websiteContext: WebsiteContext,
 	href: string
 ): Promise<string> {
-	console.log("Compiling page: ", href);
-	console.log("-----------------------");
 	const ast: TKDoc = parseTK(contents);
 
 	const compiledBlocks: CompiledBlock[] = await Promise.all(
@@ -50,13 +48,7 @@ export async function compilePost(
 		})
 	);
 
-<<<<<<< HEAD
 	const transformedDoc: CompiledDoc = {
-=======
-	console.log("-----------------------");
-
-	const transformedDoc: TransformedDoc = {
->>>>>>> main
 		metadata: ast.metadata,
 		blocks: compiledBlocks,
 	};
@@ -72,15 +64,6 @@ export async function compilePost(
 		title,
 	};
 
-<<<<<<< HEAD
-	const Component = (transformedDoc: CompiledDoc) => (
-		<Page>
-			<TKArticle doc={transformedDoc} />
-		</Page>
-	);
-
-=======
->>>>>>> main
 	return compileReactComponent(
 		TKPage,
 		{ doc: transformedDoc },
@@ -120,9 +103,5 @@ export function compileReactComponent<P>(
 		return renderedPost;
 	} finally {
 		sheet.seal();
-<<<<<<< HEAD
-		throw error;
-=======
->>>>>>> main
 	}
 }
