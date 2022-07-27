@@ -27,6 +27,11 @@ export const Gallery = styled.div`
 		grid-template-columns: repeat(1, 1fr);
 	}
 
+	& > * {
+		// This gets animated to opacity 1 in client code
+		opacity: 0;
+	}
+
 	row-gap: 1rem;
 	column-gap: 1rem;
 `;
