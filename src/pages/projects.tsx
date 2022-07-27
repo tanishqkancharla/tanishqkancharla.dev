@@ -1,39 +1,32 @@
+import {
+	blueDark,
+	blueDarkA,
+	greenDark,
+	greenDarkA,
+	orangeDark,
+	orangeDarkA,
+	violetDark,
+	violetDarkA,
+} from "@radix-ui/colors";
 import * as dt from "data-type-ts";
 import fs from "fs-extra";
 import path from "path";
 import React from "react";
+import { sortBy } from "remeda";
+import styled from "styled-components";
 import { parseTK } from "tk-parser";
 import { H3 } from "../components/blocks/Heading";
 import { P } from "../components/blocks/Paragraph";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { Gallery, GalleryLinkItem } from "../components/Gallery";
 import { Page } from "../components/Page";
+import { borderRadius, fontSm } from "../styles/vars";
 import { listDirectory } from "../tools/listDirectory";
 import { rootPath } from "../tools/rootPath";
 import { isDefined } from "../utils/typeUtils";
 
-type ProjectTag =
-	| "web"
-	| "swift"
-	| "rust"
-	| "python"
-	| "school"
-	| "c"
-	| "javascript"
-	| "typescript";
-
-const projectTagType = dt.or(
-	dt.literal("web"),
-	dt.literal("swift"),
-	dt.literal("rust"),
-	dt.literal("python"),
-	dt.literal("school"),
-	dt.literal("c"),
-	dt.literal("javascript"),
-	dt.literal("typescript")
-);
-
 type ProjectStatus = "thinking" | "published" | "in-progress" | "archived";
+
 const projectStatusType = dt.or(
 	dt.literal("thinking"),
 	dt.literal("published"),
@@ -46,7 +39,8 @@ type ProjectMetadata = {
 	description: string;
 	status: ProjectStatus;
 	href: string;
-	tags?: ProjectTag[];
+	last_edited: string;
+	tags?: string[];
 	github?: string;
 };
 
@@ -57,7 +51,8 @@ const projectMetadataType: dt.RuntimeDataType<ProjectMetadata> = dt.object({
 		status: projectStatusType,
 	},
 	optional: {
-		tags: dt.array(projectTagType),
+		last_edited: dt.string,
+		tags: dt.array(dt.string),
 		github: dt.string,
 	},
 });
@@ -89,17 +84,72 @@ ${validateError}`);
 		})
 	);
 
-	return { projectMetadatas: projectPostMetadatas.filter(isDefined) };
+	const statusPriority: Record<ProjectStatus, number> = {
+		"in-progress": 0,
+		thinking: 1,
+		published: 2,
+		archived: 3,
+	};
+
+	const sortedMetadatas = sortBy(
+		projectPostMetadatas.filter(isDefined),
+		(metadata) => statusPriority[metadata.status],
+		[({ last_edited }) => (last_edited ? Date.parse(last_edited) : 0), "desc"]
+	);
+
+	return { projectMetadatas: sortedMetadatas };
 }
 
 type PropsType = { projectMetadatas: ProjectMetadata[] };
 
+const statusColor = {
+	thinking: blueDark["blue11"],
+	published: greenDark["green11"],
+	"in-progress": orangeDark["orange11"],
+	archived: violetDark["violet11"],
+};
+
+const statusBackgroundColor = {
+	thinking: blueDarkA["blueA4"],
+	published: greenDarkA["greenA4"],
+	"in-progress": orangeDarkA["orangeA4"],
+	archived: violetDarkA["violetA4"],
+};
+
+const Status = styled.div`
+	display: inline-block;
+	margin: 4px 0;
+	border-radius: ${borderRadius};
+	padding: 2px 4px;
+	font-size: ${fontSm};
+	color: ${({ children }: { children: ProjectStatus }) =>
+		statusColor[children]};
+	background-color: ${({ children }: { children: ProjectStatus }) =>
+		statusBackgroundColor[children]};
+`;
+
+const Tag = styled.span`
+	display: inline-block;
+	font-style: italic;
+	font-size: ${fontSm};
+	padding: 2px;
+`;
+
 function ProjectItem(props: { metadata: ProjectMetadata }) {
-	const { href, title, description } = props.metadata;
+	const { href, title, description, github, status, tags } = props.metadata;
 	return (
 		<GalleryLinkItem href={href}>
 			<H3>{title}</H3>
 			<P>{description}</P>
+			<Status>{status}</Status>
+			<div>
+				{tags?.map((tag, index) => (
+					<React.Fragment key={tag}>
+						<Tag>{tag}</Tag>
+						{index + 1 !== tags?.length && ","}
+					</React.Fragment>
+				))}
+			</div>
 		</GalleryLinkItem>
 	);
 }
@@ -108,7 +158,7 @@ function ProjectsPage(props: PropsType) {
 	return (
 		<Page>
 			<Breadcrumbs />
-			<Gallery>
+			<Gallery className="gallery">
 				{props.projectMetadatas.map((metadata) => (
 					<ProjectItem key={metadata.href} metadata={metadata} />
 				))}

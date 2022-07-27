@@ -1,9 +1,10 @@
 ---
 title: Gem
-description: Performant and lightweight rich text editor
+description: Performant and lightweight rich text editor, built to be very accessible, simple, and playful.
 href: https://gem.tanishqkancharla.dev
 github: https://github.com/tanishqkancharla/gem
-status: published
+last_edited: March 22, 2022
+status: in-progress
 tags: [web, typescript]
 ---
 

@@ -1,12 +1,15 @@
 ---
 title: Nubot
-description: Nushell discord bot
+description: A terminal emulator discord bot for nushell.
 github: https://github.com/nushell/nu-discord-bot
+last_edited: August 26, 2021
 status: published
 tags: [rust]
 ---
 
 This signals my first official project in Rust: I built a discord bot for the Nushell discord server (it lets you run nushell commands).
+
+[image: /projects/nubot.png]
 
 I had a generally pretty good experience, and I like how nicely the domain can be modeled with Rust traits.
 

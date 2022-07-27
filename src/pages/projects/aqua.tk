@@ -1,0 +1,187 @@
+---
+title: Aqua
+description: A DSL to write CSS in that makes it easier to compose styles.
+last_edited: November 19, 2021
+status: archived
+tags: [rust]
+---
+
+CSS isn't amazing, but I've found I really don't like most of the CSS-in-JS ways getting around it. They're usually some abominations built on strings.
+
+Here are some of the problems with CSS that I'll try and fix with an alternative DSL instead:
+
+- Composition is ugly
+- Design systems can be hard to enforce
+- Scoping is a problem:
+
+[bookmark: https://css.oddbird.net/scope/explainer/]
+[bookmark: https://www.slideshare.net/stubbornella/object-oriented-css/55-MARKUP_AND_CSS]
+
+I imagine an ideal DSL over CSS to be protocol-oriented:
+
+```json
+|spaced-small { // Just regular CSS inside these protocols
+	padding: 2px;
+  margin: 3px;
+}
+
+|spaced-large {
+	padding: 4px;
+  margin: 6px;
+}
+
+|border {
+	border: 2px solid black;
+}
+
+|button-small: |spaced-small, |border {
+	/* any other styles here */
+}
+
+/* Semicolon needed if no declaration */
+|button-large: |spaced-large, |border;
+```
+
+And then you just ideally use the protocols as class names in your components.
+
+Here's how it addresses each of the problems:
+
+## Composition
+
+Composition of styles is really easy in this formulation. It lets you build complex styles as a combination of smaller ones. Similar to tailwind, but it lets you give semantic names to a combination of styles.
+
+## Being able to enforce a design system
+
+The way I thought about this was that a design system could specify atomic styles like for each color or border-styles etc, and then all the styles the developers use just compose on top of that. There could even be a linter so that if you introduce your own styles not in the design system, it throws a warning.
+
+## Scoping
+
+It doesn't really solve this yet (bc I don't fully understand the problem). In fact, the DSL has no scoping — you just use it with class-names so selecting things based on their type isn't possible, like `h1`.
+
+I'm not exactly sure how to introduce it yet, and I'm wondering if I can solve it together with a different problem:
+
+## Deep requirements
+
+Suppose the design system has this `list-item` concept that has header text and description text inside it, and the header text div needs to conform to `bold`. This requirement can't be modeled inside the DSL. I'm wondering how to modify such that it can, and maybe solve the scoping problem along the way. With this sort of syntax maybe:
+
+```css
+|list-item: |spaced-large, |border {
+	|header: |text-bold;
+}
+
+/* So generated CSS for the top Aqua declaration will end up looking like */
+
+.list-item {
+	/* |spaced-large styles */
+  /* |border styles */
+}
+
+.list-item.header {
+	/* |text-bold styles */
+}
+
+```
+
+The idea is that the header in the banner will render differently from the header in the list item. This is pretty trivial with CSS class names: `.banner.header`.
+
+## Variables/aliases
+
+I'm not yet entirely sure if tokens should exist or not, because they overlap a little bit with the responsibilities of protocols.
+
+```css
+blue-400 = #2680EB;
+cta-background-color = blue-400;
+button-cta-background-color = cta-background-color;
+```
+
+---
+
+The idea of this is really just to let you build your own layers of styling: Adobe Spectrum's design foundation builds on atomic tokens like this:
+
+[image: /project/aqua.png](A set of design tokens, evolving semantically)
+
+You could imagine setting this up in the DSL as different files:
+
+```bash
+global-tokens.aqua
+alias-tokens.aqua
+button.aqua
+```
+
+with each successive one importing the other:
+
+```css
+/* global-tokens.aqua */
+blue-400 = #2680EB;
+
+/* alias-tokens.aqua */
+|cta {
+	background-color: $blue-400
+}
+
+/* button.aqua */
+/* So this says button-cta conforms to the cta protocol */
+/* and that it defines a text protocol inside that conforms to bold */
+|button-cta: |cta {
+	|text: |bold
+}
+
+.button-cta {
+	background-color: $blue-400;
+}
+
+.button-cta.text {
+	font-weight: bold;
+}
+```
+
+Generics:
+
+```css
+/* Can X be typechecked (and should it 🙄)? */
+|flex-col<X> {
+	display: flex;
+	flex-direction: column;
+	gap: X;
+}
+```
+
+Aqua js package:
+
+```jsx
+// Declaring a style (register w/ global aqua context)
+const cta: Aqua = aqua(rounded, textWhite, {
+	backgroundColor: aqua
+})
+
+// Using it, function-style. This generates a cta class name string.
+// Is it possible to avoid a runtime w/ this approach?
+// Where do the styles for the Aqua declarations get stored?
+const Button = () => {
+	return <button className={cta()}></button>
+}
+
+// Hook-style. This keeps the styles "near" the components
+const Button = () => {
+	const ctaStyle = useAqua(cta);
+	// or
+	const ctaStyle = useAqua(rounded, textWhite, {
+		backgroundColor: aqua
+	});
+	return <button className={ctaStyle}></button>
+}
+
+function useAqua(aq: Aqua) {
+	const context = useAquaContext();
+	...
+}
+```
+
+I don't think there is a way to avoid a runtime, without a compilation pass, so like a Webpack or Postcss plugin.
+
+---
+
+Things to explore:
+
+- Reading about extrinsic/intrinsic values in CSS — is it possible to make this more clear so people know when a value is extrinsic or intrinsic (extrinsic is when the size of a container depends on its parents, intrinsic is when it depends on its contents)
+- Flexbox and CSS Grid are great ways to build layout. First class support for them?

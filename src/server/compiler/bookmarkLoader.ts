@@ -22,7 +22,8 @@ export const bookmarkLoader: BookmarkLoader = async (block: {
 		description = ogMetadata.description;
 		title = ogMetadata.title;
 	} catch {
-		throw new Error(`Could not fetch opengraph metadata for ${block.url} `);
+		title = new URL(block.url).host;
+		description = "";
 	}
 
 	return { ...block, title, description } as const;

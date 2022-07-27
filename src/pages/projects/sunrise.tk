@@ -2,7 +2,7 @@
 title: Sunrise
 description: A terminal emulator using structured data.
 status: thinking
-tags: [rust]
+tags: [rust, web]
 ---
 
 A mish-mash between graphical and textual input.

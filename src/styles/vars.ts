@@ -47,3 +47,6 @@ box-shadow: 0.4px 0.5px 0.6px hsl(0deg 0% 4% / 0.56),
     1px 1.2px 1.4px -1.3px hsl(0deg 0% 4% / 0.46),
     3.2px 3.6px 4.4px -2.6px hsl(0deg 0% 4% / 0.36),
     8.6px 9.8px 12px -3.8px hsl(0deg 0% 4% / 0.27);`;
+
+export const mediaPhone = "@media screen and (max-width: 576px)";
+export const mediaTablet = "@media screen and (max-width: 960px)";
