@@ -5,6 +5,7 @@ import {
 	bodyTextColor,
 	borderColor,
 	borderRadius,
+	borderWidth,
 	galleryWidth,
 	mediaPhone,
 	mediaTablet,
@@ -37,6 +38,7 @@ export const GalleryLinkItem = styled.a`
 	overflow: hidden;
 
 	height: 250px;
+	border-width: ${borderWidth};
 	border-color: ${borderColor};
 	border-radius: ${borderRadius};
 	border-style: solid;

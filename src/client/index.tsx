@@ -26,6 +26,6 @@ if (gallery) {
 			transform: ["translate(0, 2rem)", "none"],
 			opacity: [0, 1],
 		},
-		{ delay: stagger(0.05, { easing: "ease-out" }), duration: 0.35 }
+		{ delay: stagger(0.04, { easing: "ease-out" }), duration: 0.35 }
 	);
 }
