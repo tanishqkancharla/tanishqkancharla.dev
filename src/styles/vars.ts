@@ -25,8 +25,6 @@ export const borderWidth = "2px";
 
 export const articleWidth = "clamp(40%, 540px, 83.33333%)";
 
-export const galleryWidth = "clamp(66.7%, 700px, 83.33333%)";
-
 export const transitionDurationSm = "110ms";
 export const transitionDurationLg = "270ms";
 

@@ -6,7 +6,6 @@ import {
 	borderColor,
 	borderRadius,
 	borderWidth,
-	galleryWidth,
 	mediaPhone,
 	mediaTablet,
 	shadowMd,
@@ -15,7 +14,7 @@ import {
 
 export const Gallery = styled.div`
 	margin: ${blockMarginLg} 0;
-	width: ${galleryWidth};
+	width: clamp(70%, 700px, 83.333333%);
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 
@@ -42,17 +41,19 @@ export const GalleryLinkItem = styled.a`
 	color: ${bodyTextColor};
 	overflow: hidden;
 
-	height: 250px;
+	height: 300px;
 	border-width: ${borderWidth};
 	border-color: ${borderColor};
 	border-radius: ${borderRadius};
 	border-style: solid;
-
-	padding: 0 16px;
 
 	${transitionLg}
 	:hover {
 		border-color: ${accentColor};
 		${shadowMd}
 	}
+`;
+
+export const GalleryItemContent = styled.div`
+	padding: 0 16px;
 `;

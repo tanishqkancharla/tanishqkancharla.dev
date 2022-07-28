@@ -1,6 +1,7 @@
 ---
 title: NASA Web Client
-description: The NASA Web Client is a simple website designed for querying and searching across NASA's media archives.
+description: A web client to NASA's media archives.
+header_image_src: /projects/nasawebapi.gif
 github: https://github.com/tklightningfast/nasa-web-api
 last_edited: May 5, 2020
 status: published
