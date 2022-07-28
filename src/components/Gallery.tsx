@@ -14,7 +14,7 @@ import {
 
 export const Gallery = styled.div`
 	margin: ${blockMarginLg} 0;
-	width: clamp(75%, 800px, 90%);
+	width: clamp(70%, 700px, 83.333333%);
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 

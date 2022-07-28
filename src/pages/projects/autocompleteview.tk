@@ -1,6 +1,7 @@
 ---
 title: Autocomplete View
-description: AutocompleteView is a SwiftUI view that provides automatic completions as a user types in text field.
+description: Simple autocomplete view for SwiftUI.
+header_image_src: /projects/autocompleteviewheader.gif
 github: https://github.com/tklightningfast/AutocompleteView
 last_edited: April 13, 2021
 status: published
@@ -9,7 +10,7 @@ tags: [swift]
 
 It’s built on SwiftUI, and the codebase is pretty small so you can quickly go through and learn how it works. Since it’s so small, it’s not extremely flexible or configurable.
 
-[image: /projects/autocompleteview.png]
+[image: /projects/autocompleteview.gif]
 
 ## How you would use it off-the-shelf
 
