@@ -116,7 +116,7 @@ function Thoughts(props: PropsType) {
 	return (
 		<Page>
 			<Article>
-				<P id="thoughts-table-desc">
+				<P>
 					This is my personal table for thoughts: a collection of whims,
 					half-baked ideas, and streams of consciousness.
 				</P>

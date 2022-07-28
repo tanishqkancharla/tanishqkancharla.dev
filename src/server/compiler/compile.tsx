@@ -12,7 +12,7 @@ import { codeBlockLoader, LoadedCodeBlock } from "./codeblockLoader";
 import { TypeTransformedBlocks } from "./Transformer";
 import { LoadedTweet, tweetLoader } from "./tweetLoader";
 
-export type TransformedBlock = TypeTransformedBlocks<
+export type CompiledBlock = TypeTransformedBlocks<
 	"bookmark",
 	LoadedBookmark,
 	"tweet",
@@ -21,9 +21,9 @@ export type TransformedBlock = TypeTransformedBlocks<
 	LoadedCodeBlock
 >;
 
-export type TransformedDoc = {
+export type CompiledDoc = {
 	metadata: TKDoc["metadata"];
-	blocks: TransformedBlock[];
+	blocks: CompiledBlock[];
 };
 
 export async function compilePost(
@@ -31,11 +31,9 @@ export async function compilePost(
 	websiteContext: WebsiteContext,
 	href: string
 ): Promise<string> {
-	console.log("Compiling page: ", href);
-	console.log("-----------------------");
 	const ast: TKDoc = parseTK(contents);
 
-	const transformedBlocks: TransformedBlock[] = await Promise.all(
+	const compiledBlocks: CompiledBlock[] = await Promise.all(
 		ast.blocks.map((block) => {
 			switch (block.type) {
 				case "tweet":
@@ -50,11 +48,9 @@ export async function compilePost(
 		})
 	);
 
-	console.log("-----------------------");
-
-	const transformedDoc: TransformedDoc = {
+	const transformedDoc: CompiledDoc = {
 		metadata: ast.metadata,
-		blocks: transformedBlocks,
+		blocks: compiledBlocks,
 	};
 
 	let title = "Moonrise";

@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { accentColor, articleItemMargin } from "../../styles/vars";
+import { accentColor, blockMargin } from "../../styles/vars";
 
 const _Blockquote = styled.blockquote`
-	margin: 0;
-	margin-top: ${articleItemMargin};
-	margin-bottom: ${articleItemMargin};
+	margin: ${blockMargin} 0;
+
 	border-style: solid;
 	border-width: 0;
 	border-color: ${accentColor};

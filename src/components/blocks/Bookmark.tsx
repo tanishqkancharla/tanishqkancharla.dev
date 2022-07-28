@@ -1,14 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import {
-	accentColor,
-	borderColor,
-	fontSm,
-	secondaryBodyTextColor,
-	tertiaryBodyTextColor,
-	transitionDurationSm,
+  accentColor,
+  blockMargin,
+  borderColor,
+  fontSm,
+  secondaryBodyTextColor,
+  tertiaryBodyTextColor,
+  transitionDurationSm,
 } from "../../styles/vars";
 import { P } from "./Paragraph";
+
+const _BookmarkDate = styled.div`
+  color: ${secondaryBodyTextColor};
+  font - size: ${fontSm};
+  `;
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", { dateStyle: "medium" });
+
+export function BookmarkDate(props: { date: Date; }) {
+  return <_BookmarkDate>{dateFormatter.format(props.date)}</_BookmarkDate>;
+}
 
 const BookmarkTitle = styled.h4`
 	color: white;
@@ -27,8 +39,7 @@ const _Bookmark = styled.a`
 	border-width: 2px;
 
 	display: block;
-	margin-top: 0.5rem;
-	margin-bottom: 0.5rem;
+	margin: ${blockMargin} 0;
 	padding: 0.5rem;
 	text-decoration: none;
 
@@ -76,7 +87,7 @@ const _Bookmark = styled.a`
 	}
 `;
 
-const BookmarkUrl = styled.div`
+export const BookmarkUrl = styled.div`
 	color: ${tertiaryBodyTextColor};
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -94,42 +105,31 @@ const _BookmarkHeader = styled.div`
 	flex-direction: row;
 `;
 
-const _BookmarkDate = styled.div`
-	color: ${secondaryBodyTextColor};
-	font-size: ${fontSm};
-`;
-
-const dateFormatter = new Intl.DateTimeFormat("en-US", { dateStyle: "medium" });
-
-function BookmarkDate(props: { date: Date }) {
-	return <_BookmarkDate>{dateFormatter.format(props.date)}</_BookmarkDate>;
-}
-
 function BookmarkHeader(props: { title: string; date?: Date }) {
-	return (
-		<_BookmarkHeader>
-			<BookmarkTitle>{props.title}</BookmarkTitle>
-			{props.date && (
-				<>
-					<Spacer />
-					<BookmarkDate date={props.date} />
-				</>
-			)}
-		</_BookmarkHeader>
-	);
+  return (
+    <_BookmarkHeader>
+      <BookmarkTitle>{props.title}</BookmarkTitle>
+      {props.date && (
+        <>
+          <Spacer />
+          <BookmarkDate date={props.date} />
+        </>
+      )}
+    </_BookmarkHeader>
+  );
 }
 
 export function Bookmark(props: {
-	title: string;
-	url: string;
-	date?: Date;
-	children: React.ReactElement | React.ReactElement[];
+  title: string;
+  url: string;
+  date?: Date;
+  children: React.ReactElement | React.ReactElement[];
 }) {
-	return (
-		<_Bookmark href={props.url}>
-			<BookmarkHeader {...props} />
-			{props.children}
-			<BookmarkUrl>{props.url}</BookmarkUrl>
-		</_Bookmark>
-	);
+  return (
+    <_Bookmark href={props.url}>
+      <BookmarkHeader {...props} />
+      {props.children}
+      <BookmarkUrl>{props.url}</BookmarkUrl>
+    </_Bookmark>
+  );
 }

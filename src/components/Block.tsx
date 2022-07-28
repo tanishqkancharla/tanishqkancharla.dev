@@ -1,6 +1,6 @@
 import React from "react";
 import { isString, randomString } from "remeda";
-import { TransformedBlock } from "../server/compiler/compile";
+import { CompiledBlock } from "../server/compiler/compile";
 import { BlockLink } from "./blocks/BlockLink";
 import { Blockquote } from "./blocks/Blockquote";
 import { Bookmark } from "./blocks/Bookmark";
@@ -14,7 +14,7 @@ import { RichTextParagraph } from "./blocks/RichText";
 import { Toggle } from "./blocks/Toggle";
 import { Tweet } from "./blocks/Tweet";
 
-export function Block(props: { block: TransformedBlock }): JSX.Element | null {
+export function Block(props: { block: CompiledBlock }): JSX.Element | null {
 	const block = props.block;
 
 	switch (block.type) {

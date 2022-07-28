@@ -1,7 +1,10 @@
 ---
 title: Teg
-description: Open sourcing a parser toolkit library in Typescript
-date: 06/03/2022
+description: Tiny declarative parser combinator toolkit written in Typescript, for the browser or server.
+github: https://github.com/tanishqkancharla/teg
+last_edited: July 1, 2022
+status: published
+tags: [web, typescript]
 ---
 
 I recently open sourced Teg: a tiny, typed, parser combinator toolkit in Typescript. It allows you to build powerful parsers in a really composable, semantic, and typed way.

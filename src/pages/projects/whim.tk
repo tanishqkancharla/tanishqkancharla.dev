@@ -1,0 +1,25 @@
+---
+title: Whim
+header_image_src: /projects/whimheader.png
+description: A note-taking app.
+status: thinking
+tags: [web, typescript]
+---
+
+Whim is a note-taking app.
+
+[image: /projects/whim.png]
+
+This is the interface. The idea is that instead of using groups/folders to organize your notes, you just link them using connections. You don't need to (and you can't) select a folder or workspace or anything to start writing; you just do.
+
+As you write in the main editor, an AI suggests other notes you've written to you on the side a.k.a. the context. You can also just open up other notes manually. You can create connections between notes using **highlight links** (better name pending) which are basically connections between one part of one note to another part of another note (like the yellow highlights above). You can also link your highlights to images, video, other people's notes, web pages, tweets and as much media as we will try to support.
+
+The theory behind it is that hierarchical file systems like with folders/groups don't really reflect how we think. [@The Internet is a successful non-hierarchical structure](https://www.notion.so/The-Internet-is-a-successful-non-hierarchical-structure-83640d9e9c72437b850b7600d3e5316f), and we try to replicate that here, where merely writing your note will be like google searching your notes to see what connections you can make. The theory is mostly in [@Networked Thoughts](https://www.notion.so/Networked-Thoughts-e771ad23707e41ab8b90eac63430a0dc).
+
+We hope to support most of markdown, and hope to have an API as well as offline. We started work August 2020 and hope to at least have the core functionality finished by the end of the year.
+
+If you'd like to explore the public Figma, feel free:
+
+[bookmark: https://www.figma.com/file/vDMlXm8Pu2MVGkrzLiqao3/Whim?node-id=0%3A1]
+
+If you'd like to see some random unstructured thoughts on the project as we're building it: [@Whim Project Process](https://www.notion.so/Whim-Project-Process-9874a7984e8e4996adfb2f08fb6af909)

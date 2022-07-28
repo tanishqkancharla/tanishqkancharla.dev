@@ -1,0 +1,13 @@
+---
+title: tanishqkancharla.dev
+description: My personal website, designed and built from scratch.
+href: https://tanishqkancharla.dev
+github: https://github.com/tanishqkancharla/tanishqkancharla.dev
+last_edited: July 5, 2022
+status: published
+tags: [web, typescript]
+---
+
+My personal website, designed without a framework, and pretty much from scratch. Everything is pre-rendered (currently), and my blog uses a [custom blog post format](https://github.com/search?q=user%3Atanishqkancharla+tk-parser).
+
+The setup is very similar to Next.js with the /pages directory corresponding to pages on the website. These can either be .tk or .tsx files (which can use getStaticProps).

@@ -80,7 +80,7 @@ function Blog(props: PropsType) {
 					computers, programming, interfaces and myself.
 				</P>
 				<Divider />
-				{sortedMetadatas.map((post, i) => (
+				{sortedMetadatas.map((post) => (
 					<Bookmark
 						title={post.title}
 						url={post.href}

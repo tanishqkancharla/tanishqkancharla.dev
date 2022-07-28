@@ -1,0 +1,24 @@
+---
+title: Gem
+description: Performant and lightweight rich text editor.
+header_image_src: /projects/gemheader.gif
+href: https://gem.tanishqkancharla.dev
+github: https://github.com/tanishqkancharla/gem
+last_edited: March 22, 2022
+status: in-progress
+tags: [web, typescript]
+---
+
+[bookmark: https://gem.tanishqkancharla.dev]
+
+Gem is a performant and lightweight rich text editor, written with Prosemirror. The design is inspired by [Paco Coursey's writer](https://github.com/pacocoursey/writer).
+
+## Design goals
+
+Gem's goals are to be approachable, simple, and playful. It's different from other rich text editors in that its more like a syntax highlighter. This was intentional; I think it gives users more agency to keep everything keyboard-first. Normally in a rich text editor, you can write `*bold*` (or similar) to convert it into a *bold* token. That's nice if its what you intended, but it makes it annoying to change it back to a regular word, and if you happen to press backspace, now you're "stuck" in a bold context until you press cmd-b or toggle bold some other way.
+
+I got annoyed by this, so Gem takes a different approach. Syntax highlighting means pressing backspace and deleting the second `*` will remove the bold mark.
+
+## Future plans
+
+I'm actively working on Gem currently. My website has its own [blog post format](https://github.com/tanishqkancharla/tanishqkancharla.dev/blob/main/src/pages/index.tk) `.tk`, which is based on markdown. I'm working on changing Gem's parser to use my [blog post parser](https://github.com/tanishqkancharla/tk-parser) instead.

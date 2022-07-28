@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { usePageContext } from "../server/PageContext";
-import { bodyTextColor, pageWidth } from "../styles/vars";
-import { isDefined } from "../utils/typeUtils";
+import { bodyTextColor } from "../styles/vars";
 import { Body } from "./Body";
-import { Breadcrumbs } from "./Breadcrumbs";
 import { Footer } from "./Footer";
 import { Head } from "./Head";
 import { Header } from "./Header";
@@ -15,27 +13,15 @@ type PageProps = {
 };
 
 const _Page = styled.div`
-	margin-left: auto;
-	margin-right: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	margin-top: 0.5rem;
 	color: ${bodyTextColor};
-	width: ${pageWidth};
 `;
 
 export function Page({ children }: PageProps) {
-	const { href, title } = usePageContext();
-
-	const dirItems = href.split("/");
-
-	const navItems = dirItems
-		.map((dirItem, index) => {
-			if (dirItem === "index") return;
-			const name = dirItem;
-			const dirItemsUpToHere = dirItems.slice(0, index + 1);
-			const href = "/".concat(dirItemsUpToHere.join("/"));
-			return { name, href };
-		})
-		.filter(isDefined);
+	const { title } = usePageContext();
 
 	return (
 		<html lang="en">
@@ -43,10 +29,7 @@ export function Page({ children }: PageProps) {
 			<Style />
 			<Body>
 				<Header title={title} />
-				<_Page>
-					<Breadcrumbs navItems={navItems} />
-					{children}
-				</_Page>
+				<_Page>{children}</_Page>
 				<Footer />
 			</Body>
 		</html>

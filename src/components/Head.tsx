@@ -4,7 +4,7 @@ import { useWebsiteContext } from "../server/WebsiteContext";
 import { borderColor } from "../styles/vars";
 
 export function Head() {
-	const { headerImageURL, relativeClientJsPath } = useWebsiteContext();
+	const { headerImageURL, outClientJsPath } = useWebsiteContext();
 	const { title } = usePageContext();
 	return (
 		<head>
@@ -39,7 +39,7 @@ export function Head() {
 			<meta name="author" content="Tanishq Kancharla" />
 			<meta name="og:url" content="https://tanishqkancharla.dev" />
 
-			<script src={relativeClientJsPath} defer />
+			<script src={outClientJsPath} defer />
 			<link rel="preconnect" href="https://fonts.googleapis.com" />
 			<link
 				rel="preconnect"

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {
 	accentColor,
-	articleItemMargin,
+	blockMarginLg,
 	bodyTextColor,
 	shadowMd,
 	tertiateBackgroundColor,
@@ -15,8 +15,7 @@ const Pre = styled.pre`
 	background-color: ${tertiateBackgroundColor};
 	color: ${bodyTextColor};
 
-	margin-top: ${articleItemMargin};
-	margin-bottom: ${articleItemMargin};
+	margin: ${blockMarginLg} 0;
 
 	border-style: solid;
 	border-color: ${accentColor};

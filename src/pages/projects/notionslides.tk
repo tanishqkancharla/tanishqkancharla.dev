@@ -1,0 +1,19 @@
+---
+title: Notion Slides
+description: A google chrome extension that allows users to navigate notion databases in a slide show
+href: https://chrome.google.com/webstore/detail/notion-slide-shows/hmcfamnbfmaaogikhpkmgkanecnkpkpa?hl=en&authuser=0
+github: https://github.com/moonrise-tk/notion-slides
+last_edited: September 13, 2020
+status: published
+tags: [web, javascript]
+---
+
+[image: /projects/notionslides.jpg]
+
+[bookmark: https://lh3.googleusercontent.com/KN32lVeTnqM2ivvzMPPcLZ722iwNBaccwdNYDAKlySoePgoZEUGBLzB8SoXOsu_Ll8wV8Lvu5w=w640-h400-e365-rj-sc0x00ffffff](https://lh3.googleusercontent.com/KN32lVeTnqM2ivvzMPPcLZ722iwNBaccwdNYDAKlySoePgoZEUGBLzB8SoXOsu_Ll8wV8Lvu5w=w640-h400-e365-rj-sc0x00ffffff)
+
+Notion slides is a google chrome extension that allows users to navigate notion databases in a slide show!
+
+My friend, Michael, and I came up with it cuz we thought making slide shows is still too complex. We wanted a way to combine Notion's intuitive and beautiful interface with slide show capabilities.
+
+We ended up with something that works but could certainly use a lot of polishing. Problems with it are that I'd like to prefetch all the pages in a database so going between slides is easier. I also want to have some user preferences like the option to hide page properties or have pages take up full width.

@@ -1,0 +1,19 @@
+---
+title: Pokescope
+description: A small Pokemon horoscope widget.
+header_image_src: /projects/pokescope1.jpg
+github: https://github.com/tklightningfast/PokeScope
+last_edited: July 16, 2020
+status: published
+tags: [swift]
+---
+
+A small Pokemon Horoscope Widget. Adding this app as a widget shows you a different random Pokemon every day, kind of like a horoscope. It's not *completely* finished but the core idea is implemented and it just needs some polishing at this point. I was inspired to make this project by a Pokemon handbook I have. I could spend hours poring over the pages just looking at random Pokemon and reading their descriptions.
+
+It's entirely built in SwiftUI and uses PokeAPI. It supports all the widget sizes and has a light mode too.
+
+[image: /projects/pokescope1.jpg]
+
+[image: /projects/pokescope2.jpg]
+
+[image: /projects/pokescope3.png]
