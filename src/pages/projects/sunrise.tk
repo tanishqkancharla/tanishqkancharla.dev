@@ -1,5 +1,6 @@
 ---
 title: Sunrise
+header_image_src: /projects/sunriseheader.png
 description: A terminal emulator using structured data.
 status: thinking
 tags: [rust, web]

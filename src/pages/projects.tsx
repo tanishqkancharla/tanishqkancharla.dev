@@ -18,7 +18,11 @@ import { parseTK } from "tk-parser";
 import { H3 } from "../components/blocks/Heading";
 import { P } from "../components/blocks/Paragraph";
 import { Breadcrumbs } from "../components/Breadcrumbs";
-import { Gallery, GalleryLinkItem } from "../components/Gallery";
+import {
+	Gallery,
+	GalleryItemContent,
+	GalleryLinkItem,
+} from "../components/Gallery";
 import { Page } from "../components/Page";
 import { borderRadius, fontSm } from "../styles/vars";
 import { listDirectory } from "../tools/listDirectory";
@@ -39,7 +43,9 @@ type ProjectMetadata = {
 	description: string;
 	status: ProjectStatus;
 	href: string;
-	last_edited: string;
+
+	header_image_src?: string;
+	last_edited?: string;
 	tags?: string[];
 	github?: string;
 };
@@ -51,6 +57,7 @@ const projectMetadataType: dt.RuntimeDataType<ProjectMetadata> = dt.object({
 		status: projectStatusType,
 	},
 	optional: {
+		header_image_src: dt.string,
 		last_edited: dt.string,
 		tags: dt.array(dt.string),
 		github: dt.string,
@@ -135,21 +142,37 @@ const Tag = styled.span`
 	padding: 2px;
 `;
 
+const ProjectHeaderImage = styled.img`
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+`;
+
 function ProjectItem(props: { metadata: ProjectMetadata }) {
-	const { href, title, description, github, status, tags } = props.metadata;
+	const { href, title, description, header_image_src, status, tags } =
+		props.metadata;
 	return (
 		<GalleryLinkItem href={href}>
-			<H3>{title}</H3>
-			<P>{description}</P>
-			<Status>{status}</Status>
-			<div>
-				{tags?.map((tag, index) => (
-					<React.Fragment key={tag}>
-						<Tag>{tag}</Tag>
-						{index + 1 !== tags?.length && ","}
-					</React.Fragment>
-				))}
-			</div>
+			{header_image_src && (
+				<div style={{ height: "35%" }}>
+					<ProjectHeaderImage src={header_image_src} />
+				</div>
+			)}
+
+			<GalleryItemContent>
+				<H3>{title}</H3>
+				<P>{description}</P>
+				<Status>{status}</Status>
+				<div>
+					{tags?.map((tag, index) => (
+						<React.Fragment key={tag}>
+							<Tag>{tag}</Tag>
+							{index + 1 !== tags?.length && ","}
+						</React.Fragment>
+					))}
+				</div>
+			</GalleryItemContent>
 		</GalleryLinkItem>
 	);
 }

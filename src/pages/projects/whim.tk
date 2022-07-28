@@ -1,5 +1,6 @@
 ---
 title: Whim
+header_image_src: /projects/whimheader.png
 description: A note-taking app.
 status: thinking
 tags: [web, typescript]
