@@ -24,9 +24,9 @@ export const defaultWebsiteContext: WebsiteContext = {
 	clientJsPath: rootPath("/src/client/index.tsx"),
 	outClientJsPath: "/index.js",
 
-	headerImageURL: "/seoul.jpeg",
+	headerImageURL: "/montreal.jpg",
 	headerImageAlt:
-		"A shot of Seoul, South Korea of high-rise buildings set against the backdrop of a mountain, with a purple and blue sky during sunrise.",
+		"A port with boats at Old Port of Montreal, Montreal, Canada, shot just after sunset with the lit-up city in the background",
 	headerImageCredits: "https://unsplash.com/photos/LoGWCnEVDgU",
 	mode: "DEV",
 };
