@@ -33,9 +33,6 @@
 		"vercel": "^24.0.0"
 	},
 	"dependencies": {
-		"@parcel/config-default": "^2.7.0",
-		"@parcel/core": "^2.7.0",
-		"@parcel/plugin": "^2.7.0",
 		"@parcel/watcher": "^2.0.5",
 		"@radix-ui/colors": "^0.1.8",
 		"@sindresorhus/is": "^4.6.0",
