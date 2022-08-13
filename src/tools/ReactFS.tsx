@@ -1,13 +1,8 @@
 import ParcelWatcher from "@parcel/watcher";
 import fs from "fs-extra";
 import path from "path";
-import React, {
-	createContext,
-	useContext,
-	useEffect,
-	useMemo,
-	useState,
-} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import Reconciler, { HostConfig } from "react-reconciler";
 import { DefaultEventPriority } from "react-reconciler/constants";
 
@@ -367,7 +362,7 @@ export const ReactFS = {
 
 		reconciler.updateContainer(
 			<SourceFileSystemContext.Provider value={watcher}>
-				{component}
+				<ErrorBoundary fallbackRender={() => null}>{component}</ErrorBoundary>
 			</SourceFileSystemContext.Provider>,
 			root,
 			null,
@@ -422,37 +417,57 @@ export function useFile(filePath: string): string {
 		fs.readFileSync(absoluteFilePath, "utf-8")
 	);
 
-	const destroySubscription = useMemo(() => {
-		return watcher.subscribe(filePath, () => {
-			const contents = fs.readFileSync(absoluteFilePath, "utf-8");
-			setContents(contents);
-		});
-	}, [absoluteFilePath]);
-
 	useEffect(() => {
-		return destroySubscription;
-	}, [destroySubscription]);
+		const destroy = watcher.subscribe(absoluteFilePath, () => {
+			setContents(fs.readFileSync(absoluteFilePath, "utf-8"));
+		});
+
+		return destroy;
+	}, [absoluteFilePath]);
 
 	return contents;
 }
 
-export function useDirectory(dirPath: string): string[] {
+type DirContents = {
+	files: string[];
+	dirs: string[];
+};
+
+function getDirContents(absoluteDirPath: string) {
+	const files: string[] = [];
+	const dirs: string[] = [];
+
+	fs.readdirSync(absoluteDirPath).map((name) => {
+		const absolutePath = path.join(absoluteDirPath, name);
+		const stats = fs.statSync(absolutePath);
+
+		if (stats.isFile()) {
+			files.push(absolutePath);
+		} else {
+			dirs.push(absolutePath);
+		}
+	});
+
+	return { files, dirs };
+}
+
+export function useDirectory(dirPath: string): DirContents {
 	const watcher = useContext(SourceFileSystemContext);
 	if (!watcher) throw new Error("Expected SourceFileSystemContext");
 
 	const absoluteDirPath = path.join(watcher.dirPath, dirPath);
 
 	const [contents, setContents] = useState(() =>
-		fs.readdirSync(absoluteDirPath)
+		getDirContents(absoluteDirPath)
 	);
 
-	const destroySubscription = useMemo(() => {
-		return watcher.subscribe(dirPath, () => {
-			setContents(fs.readdirSync(absoluteDirPath, "utf-8"));
+	useEffect(() => {
+		const destroy = watcher.subscribe(dirPath, () => {
+			setContents(getDirContents(absoluteDirPath));
 		});
-	}, [absoluteDirPath]);
 
-	useEffect(() => destroySubscription(), [destroySubscription]);
+		return destroy;
+	}, [absoluteDirPath]);
 
 	return contents;
 }

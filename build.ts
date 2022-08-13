@@ -1,5 +1,6 @@
 #!/usr/bin/env ts-node
-import { defaultWebsiteContext } from "./src/config";
-import { buildWebsite } from "./src/server/buildWebsite";
+import { build } from "./src/server/BuildWebsite2";
 
-buildWebsite({ ...defaultWebsiteContext, mode: "PROD" });
+// buildWebsite({ ...defaultWebsiteContext, mode: "PROD" });
+
+build();
