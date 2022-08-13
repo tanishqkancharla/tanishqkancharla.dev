@@ -1,0 +1,60 @@
+---
+title: Sync engines === declarative effects
+description: The idea of a Sync engine is getting popular in recent frontend architectures. Why and how does it relate to declarative programming?
+date: 08/13/2022
+---
+
+### Some basic definitions
+
+State: something (idk)
+Event handler: updates state and has effects.
+
+Event handler should not be async: fetching is an effect, and if its async, could lead to multiple events being handled at the same time, leading to a race. Consider an async transactional:
+
+`async deleteFile(filePath: string)`
+
+User presses button, triggering delete file. If its dispatched async, user could press it twice, invoking it twice. Which could be bad news.
+
+Either the user has to wait out the async action before the UI is responsive again, (bad)
+
+or we have to make the command synchronous somehow.
+
+We do this via declarative effects. We store a piece of state whether we're currently trying to delete a file. In the first call, we set that state to true. A *Service* subscribes to this state, and when its set, it launches the async function. Meanwhile, the second time the user invokes the command, we'll see that the state has already been set, so we cancel the transaction. After the deletion is completed, the effect dispatches a transactional `resolveDeletedFile` to set the flag back to false (and do whatever else after the file's deletion is confirmed).
+
+Btw, this means services should be very very thin. Essentially a subscription, and a callback that fires an async call, awaits it, then dispatches a transactional to the database.
+
+Move *all* the logic into synchronous transactionals. There should be hardly any logic anywhere else.
+
+State, transactionals, View (render), and services.
+
+Wrapping all the business logic into transactionals makes your system very very easy to test, without resolving to an e2e test.
+
+Business logic is just initial state, a set of events, and an ending state. If all the logic is in transactionals, all you have to do is initiate your database, send events, and assert the ending state is right! 
+
+## Mocking
+
+Mocking is a code smell because it means that the programmer has to simulate an external service to manage interactions with the database, instead of simply sending events themselves in the test.
+
+Going back to the `deleteFile` example: if in the asynchronous example, we just called `await deleteFile(...)` we would have no choice but to create a mock service that will receive and respond to the `deleteFile` request to test the logic. And then we need to make sure the mock filesystem responded correctly at all. So we write tests for that, creating more Mock services...
+
+If instead, we used declarative effects, we respond to the database events directly in the test. 
+
+* Initialize a database
+
+* Send `deleteFile` event
+
+* Send `resolveDeletedFile` event 
+
+* Make sure the database is in a consistent state.
+
+Its so much simpler!
+
+## Ergonomics
+
+There is definitely an ergonomics issue here. Managing effects declaratively blows up the amount of independent state our app has when using declarative effects: there's a stateful flag for every single possible asynchronous call our app could make.
+
+It also breaks apart the scope. If running `deleteFile` asynchronously and awaiting, we had all this scope and context. If we do it as a transactional, we lose all of that context when we receive the `resolveDeletedFile`, and it has to be encoded in the database state if we need it in that resolution transactional.
+
+Can we fix this?
+
+I'm not sure how but I think a semantic layer has to be introduced between the view's _usage_ of state and that state's _representation_ in the database. Something along the lines of objects?
