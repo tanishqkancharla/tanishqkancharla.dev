@@ -49,9 +49,17 @@ If instead, we used declarative effects, we respond to the database events direc
 
 Its so much simpler!
 
+## UX and DX
+
+Synchronous transactionals and declarative effects have such great implications for UX and DX. For users, it means everything happens locally, quickly. You get to pretend everything is local.
+
+For developers, it wipes out a whole swath of race conditions you get from making event handlers asynchronous. Everything is simple, local, composition of transactinals. Also makes it easy to build new sycned state (although you have to worry about migrations.)
+
+For a sync engine between peers, there are other things to consider, like consistency and causality. I really like (Replicache's)[https://replicache.dev] model here. It's simple and straightforward although you do need to assign a server or main node. I'm curious if there are more equal ways of handling this like via Actor model.
+
 ## Ergonomics
 
-There is definitely an ergonomics issue here. Managing effects declaratively blows up the amount of independent state our app has when using declarative effects: there's a stateful flag for every single possible asynchronous call our app could make.
+There is definitely an ergonomics issue here (at a much larger scale). Managing effects declaratively blows up the amount of independent state our app has when using declarative effects: there's a stateful flag for every single possible asynchronous call our app could make.
 
 It also breaks apart the scope. If running `deleteFile` asynchronously and awaiting, we had all this scope and context. If we do it as a transactional, we lose all of that context when we receive the `resolveDeletedFile`, and it has to be encoded in the database state if we need it in that resolution transactional.
 
