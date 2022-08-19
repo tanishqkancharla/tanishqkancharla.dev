@@ -20,6 +20,25 @@ const _Page = styled.div`
 	color: ${bodyTextColor};
 `;
 
+function Noscript() {
+	return (
+		<noscript>
+			<style
+				dangerouslySetInnerHTML={{
+					__html: `
+  article > * {
+    opacity: 1 !important;
+  }
+  div > * {
+    opacity: 1 !important;
+  }
+`,
+				}}
+			></style>
+		</noscript>
+	);
+}
+
 export function Page({ children }: PageProps) {
 	const { title } = usePageContext();
 
@@ -28,6 +47,7 @@ export function Page({ children }: PageProps) {
 			<Head />
 			<Style />
 			<Body>
+				<Noscript />
 				<Header title={title} />
 				<_Page>{children}</_Page>
 				<Footer />
