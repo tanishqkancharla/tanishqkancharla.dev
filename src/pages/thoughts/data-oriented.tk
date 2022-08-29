@@ -1,0 +1,25 @@
+---
+title: Data Orinted Design
+description: Thoughts on Mike Acton's talk on DOD
+date: 08/29/2022
+---
+
+[bookmark:https://www.youtube.com/watch?v=rX0ItVEVjHc]
+
+The high level concepts I got from the talk are really pretty insightful:
+
+## The platform the program is running is part of the problem.
+
+The platform the program is running is an important part of what you're solving with your program. You cannot ignore it and solve some higher-level abstract problem instead. The problem is getting from the platform to where you want to be, so the platform has to be accounted for when writing your program.
+
+## Simplicity doesn't mean a watertight domain model.
+
+I think this whole idea of domain modeling tries to ignore the fact that, ultimately, the code has to run on a platform. "Just build your code tightly integrated with the domain model and it'll be easier to reason about and understand". I think that's true to an extent, but ultimately, the domain model needs to account for the platform as well. The model shouldn't be of some abstract thing, it should be the concrete representation of going from the platform to your end result.
+
+## Usually, you want to just externalize the branching
+
+If you have a boolean in a struct and a collection of those structs that you iterate over and case on the boolean, its better to "externalize" the boolean and store two separate arrays. Way better for branch prediction and cache hits.
+
+For example, a struct of animations with an `isActive` boolean can just be split into ActiveAnimations and InactiveAnimations.
+
+In fact, I think this idea has been inside me for a while, just never solidified it. Branching is difficult for comprehension. It's harder to reason about two branches than one. Its better to structure your code like a book: one branch, one direction (as much as possible).

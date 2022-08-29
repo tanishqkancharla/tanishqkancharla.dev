@@ -1,0 +1,23 @@
+---
+title: Links 08/29/2022
+description: Some recent links to things and my thoughts on them
+date: 08/29/2022
+---
+
+[bookmark:https://github.blog/2022-08-29-gits-database-internals-i-packed-object-store/]
+
+Interesting data structures and algorithms. Excited to read through this and the future posts!
+
+---
+
+[bookmark:https://www.youtube.com/watch?v=yy8jQgmhbAU]
+
+I ran into "Data-oriented programming" recently with the infamous Mike Action talk. This is a different talk going through a real-world walk-through of how to apply it. I honestly really enjoyed it, even though the practical bits of what he went through are totally irrelevant to me in the land of Javascript.
+
+[Thoughts on Mike Acton's talk](./data-oriented.tk)
+
+---
+
+[bookmark:https://blog.jetbrains.com/fleet/2022/08/fleet-below-deck-part-v-the-story-of-code-completion/]
+
+This whole series has been really really interesting, and it made me excited to see that Fleet's architecture is built on the same principles that have been advancing in the frontend community recently (the idea of using a synchronizing database), which are also the same principles our app is built on.
