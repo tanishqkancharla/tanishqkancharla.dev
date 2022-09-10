@@ -6,6 +6,7 @@ export type WebsiteContext = {
 	headerImageAlt: string;
 	headerImageCredits: string;
 
+	publicDir: string;
 	postsDir: string;
 	outDir: string;
 
@@ -18,6 +19,7 @@ export type WebsiteContext = {
 export const defaultWebsiteContext: WebsiteContext = {
 	accentColor: "#7772e0",
 
+	publicDir: rootPath("/public/"),
 	postsDir: rootPath("/src/pages/"),
 	outDir: rootPath("/dist/"),
 

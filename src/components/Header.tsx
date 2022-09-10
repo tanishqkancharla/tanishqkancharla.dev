@@ -1,6 +1,8 @@
+import path from "path";
 import React from "react";
 import styled from "styled-components";
 import { useWebsiteContext } from "../server/WebsiteContext";
+import { resolutionSrcSet } from "../styles/resolutions";
 import { articleWidth, transparentBackground } from "../styles/vars";
 import { H1 } from "./blocks/Heading";
 
@@ -67,11 +69,13 @@ export function Header(props: { title: string }) {
 	const { headerImageURL, headerImageAlt, headerImageCredits } =
 		useWebsiteContext();
 	const { title } = props;
+	const { name } = path.parse(headerImageURL);
+	const srcset = resolutionSrcSet(name);
 
 	return (
 		<_Header>
 			<HeaderImage>
-				<img src={headerImageURL} alt={headerImageAlt} />
+				<img src={headerImageURL} alt={headerImageAlt} srcSet={srcset} />
 			</HeaderImage>
 			<HeaderImageCredits
 				className={`img-credits`}
