@@ -1,5 +1,6 @@
 #!/usr/bin/env ts-node
 import { watch } from "chokidar";
+import { copyPublic } from "./build";
 import { defaultWebsiteContext } from "./src/config";
 import { buildPage, buildWebsite } from "./src/server/buildWebsite";
 import { rootPath } from "./src/tools/rootPath";
@@ -12,6 +13,7 @@ function serveWebsite() {
 async function buildAndServe() {
 	const context = defaultWebsiteContext;
 
+	await copyPublic(context);
 	await buildWebsite(context);
 	serveWebsite();
 

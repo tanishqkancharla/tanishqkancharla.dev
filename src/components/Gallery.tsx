@@ -35,7 +35,8 @@ export const Gallery = styled.div`
 	column-gap: 1rem;
 `;
 
-export const GalleryLinkItem = styled.a`
+export const GalleryCard = styled.div`
+	position: relative;
 	display: block;
 	text-decoration: none;
 	color: ${bodyTextColor};
@@ -54,6 +55,17 @@ export const GalleryLinkItem = styled.a`
 	}
 `;
 
-export const GalleryItemContent = styled.div`
+export const GalleryCardLink = styled.a`
+	::before {
+		content: " ";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+`;
+
+export const GalleryCardContent = styled.div`
 	padding: 0 16px;
 `;

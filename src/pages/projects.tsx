@@ -20,8 +20,9 @@ import { P } from "../components/blocks/Paragraph";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import {
 	Gallery,
-	GalleryItemContent,
-	GalleryLinkItem,
+	GalleryCard,
+	GalleryCardContent,
+	GalleryCardLink,
 } from "../components/Gallery";
 import { Page } from "../components/Page";
 import { borderRadius, fontSm } from "../styles/vars";
@@ -153,14 +154,15 @@ function ProjectItem(props: { metadata: ProjectMetadata }) {
 	const { href, title, description, header_image_src, status, tags } =
 		props.metadata;
 	return (
-		<GalleryLinkItem href={href}>
+		<GalleryCard>
+			<GalleryCardLink href={href} />
 			{header_image_src && (
 				<div style={{ height: "35%" }}>
 					<ProjectHeaderImage src={header_image_src} />
 				</div>
 			)}
 
-			<GalleryItemContent>
+			<GalleryCardContent>
 				<H3>{title}</H3>
 				<P>{description}</P>
 				<Status>{status}</Status>
@@ -172,8 +174,8 @@ function ProjectItem(props: { metadata: ProjectMetadata }) {
 						</React.Fragment>
 					))}
 				</div>
-			</GalleryItemContent>
-		</GalleryLinkItem>
+			</GalleryCardContent>
+		</GalleryCard>
 	);
 }
 
