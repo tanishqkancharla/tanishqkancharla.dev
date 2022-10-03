@@ -1,0 +1,35 @@
+---
+title: Engineering Philosophy (10/02/2022)
+description: My engineering philosophy
+date: 10/02/2022
+---
+
+Some thoughts on my engineering philosophy. Its changed over time, and I think it would be interesting to come back in 10 years and see how I've evolved.
+
+### Keeping code simple is important
+But simplicity can keep you in local minima...you can stick to the guard rails of simple code but if you don't step back every once in a while and re-evaluate the parts of your code that are not so simple, you'll inevitably end up with a mess.
+
+There's this talk by John Ousterhout where he says "If you can't have simple answers to your problems, just change the problem". A lot of the time, simplicity is just about finding the right semantics...the right way to think about something. And there's a billion ways of thinking about the same "thing". So if you're stuck in a problem where a simple solution seems impossible, change the problem so the solution is simple and obvious.
+
+### Avoid getting too meta with your code
+Meaning like you can have objects, functions on those objects, objects with values that are functions on other objects...programming lets us get as meta as we want. Which is cool, but can also be a footgun...so try to notice when you're going too far up the meta tree because that makes stuff hard to maintain and read. I'm talking about functional monoids and semigroups and all that stuff...
+
+### Composition over inheritence
+There's something magical about composition...I'm trying to figure out if there's a general rule of thumb for building composable software.
+
+### Event-driven programming
+This is a big one that I've noticed. Basically all software can be summed up as handling events to process some data. Its a really simple and flexible model that's led to some first-principles thinking on stuff I'm working on. There's a lot more to say on this topic though...for another note.
+
+### Basically everything we build is gonna be broken in some ways
+This is a big pill I'm trying to swallow. I think at some point, I got obsessed with building correct software. But its just not gonna happen (for now). I guess as builders, our responsibility is to just build stuff on our current (maybe wrong) assumptions and libraries and tools, so that the next layer of people can step back and build better tools on better assumptions. And the lower and more core those tools are, the longer they will take to change. Its like the pace layers graphic. We won't see a new usable general OS with new paradigms anytime soon...but building another react state management library with slightly different semantics? A dime a dozen.
+
+Anyway, the point is: things are going to break. Things may not be as simple as we want them. There will be gotchas. There will be bugs. As engineers, we just need to shove through and rigorously test until we build something that can hide those things 99% of the time. That sweat and blood will inform the next generation of what garbage ideas to absolutely avoid.
+
+### Testing is super important
+Not much more to say here. Design your software so its testable!
+
+### Reliability is important
+I totally underestimated this, but there is a huge difference between something working 99% of the time, and 75% of the time. It just feels completely different. There is just some threshold where a human just feels like the software is untrustworthy which completely changes their interaction with it. And its really high, like over 96% probably. And theres also a huge cliff from 100% to anything less.
+
+### Speed is important
+Another thing I totally underestimated. Speed of everything matters. Your development, the user's interaction with the software (whether its a library or a UI). If something feels "slow" or painstaking or laboring...its not a good feeling.
