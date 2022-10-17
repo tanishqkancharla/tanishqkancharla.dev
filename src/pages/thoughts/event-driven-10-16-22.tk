@@ -1,0 +1,23 @@
+---
+title: Event-Driven Programming I
+description: My thoughts on event-driven programming
+date: 10/16/2022
+---
+
+I've recently been thinking a lot about event-driven programming. I find that approaching software problems as event-driven is a model of thinking that offers clarity to a lot of hairy problems.
+
+Human-computer interaction is really event-driven. Humans send keyboard and mouse events to this alive system which updates its internal state and repsonds appropriately.
+
+Obvious and simple. But it doesn't prescribe one way to do things. All typical software tradeoffs still apply. But its a framework along which to measure software simplicity. The clearer it is how an event is handled, the easier time we have to debug, understand, and build on top of it.
+
+*UI*: mouse and keyboard event => handle event => update UI
+
+*distributed systems*: send events to other nodes, and when the other node receives the event, it will handle it and dispatch another event to the former node. Actor model is a subset of this idea.
+
+*operating system and systems software*: events being sent between kernel and running software.
+
+I'm not sure where/if event-driven programming really fits into the imperative/functional approach. The event handlers themselves are just simple imperative code, manipulating the program's data. But it's "epochal": an event is received, it's handled, and the system sits quietly running until another event is received. And one such period is an epoch.
+
+Event-driven programming by itself is not enough to build software. Traditionally, it has not had an answer to building composable software that can be built into large programs. Moving a point around on the screen is easy, but how would you approach building something like Unix?
+
+Building a composable event-driven abstraction has become a recent interest of mine, and I've put a lot of thinking/research into it. HTML and JS actually strictly follow one model...the user clicks somewhere, and the event (if not handled by the current component) "propagates" up to the window. It feels like the right start but it has not been successful. We needed to build abstractions like React on top of it to truly have encapsulated components.
