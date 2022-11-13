@@ -5,9 +5,9 @@
 	"main": "src/index.ts",
 	"scripts": {
 		"clear": "mkdir -p dist && rm -rf dist/*",
-		"build": "npm run clear; ts-node build.ts",
+		"build": "npm run clear; tsx build.ts",
 		"serve": "serve",
-		"dev": "npm run clear; ts-node dev.ts",
+		"dev": "npm run clear; tsx dev.ts",
 		"deploy": "npx vercel deploy",
 		"test": "mocha -r ts-node/register './src/**/*.test.ts' --verbose"
 	},
@@ -28,6 +28,7 @@
 		"mocha": "^9.2.2",
 		"serve": "^13.0.2",
 		"ts-node": "^10.6.0",
+		"tsx": "^3.12.1",
 		"typescript": "^4.6.2",
 		"vercel": "^24.0.0"
 	},

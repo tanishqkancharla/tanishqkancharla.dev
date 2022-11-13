@@ -17,7 +17,7 @@ export type WebsiteContext = {
 };
 
 export const defaultWebsiteContext: WebsiteContext = {
-	accentColor: "#7772e0",
+	accentColor: "#6c81ad",
 
 	publicDir: rootPath("/public/"),
 	postsDir: rootPath("/src/pages/"),
@@ -26,9 +26,8 @@ export const defaultWebsiteContext: WebsiteContext = {
 	clientJsPath: rootPath("/src/client/index.tsx"),
 	outClientJsPath: "/index.js",
 
-	headerImageURL: "/montreal.jpg",
-	headerImageAlt:
-		"A port with boats at Old Port of Montreal, Montreal, Canada, shot just after sunset with the lit-up city in the background",
+	headerImageURL: "Italy.jpeg",
+	headerImageAlt: "Foggy mountains in Italy after the evening rain.",
 	headerImageCredits: "https://unsplash.com/photos/LoGWCnEVDgU",
 	mode: "DEV",
 };
