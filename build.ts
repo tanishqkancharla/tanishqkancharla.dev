@@ -31,4 +31,9 @@ async function main() {
 	await buildWebsite({ ...context, mode: "PROD" });
 }
 
-main();
+if (require.main === module) {
+	main().catch((error) => {
+		console.error(error);
+		process.exit(1);
+	});
+}

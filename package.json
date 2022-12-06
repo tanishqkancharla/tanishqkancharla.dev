@@ -41,7 +41,7 @@
 		"fetch-opengraph": "^1.0.35",
 		"fs-extra": "^10.1.0",
 		"glob": "^8.0.3",
-		"motion": "^10.10.0",
+		"motion": "^10.15.0",
 		"node-fetch": "^2.6.7",
 		"prismjs": "^1.28.0",
 		"react": "^18.0.0",
@@ -49,6 +49,8 @@
 		"remeda": "^0.0.32",
 		"sharp": "^0.31.0",
 		"styled-components": "^5.3.5",
-		"tk-parser": "^0.0.5"
+		"tk-parser": "^0.0.5",
+		"tsparticles": "^2.6.0",
+		"tsparticles-preset-snow": "^2.6.0"
 	}
 }

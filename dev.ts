@@ -1,13 +1,13 @@
 #!/usr/bin/env ts-node
+import { exec } from "child_process";
 import { watch } from "chokidar";
 import { copyPublic } from "./build";
 import { defaultWebsiteContext } from "./src/config";
 import { buildPage, buildWebsite } from "./src/server/buildWebsite";
 import { rootPath } from "./src/tools/rootPath";
-import { spawn } from "./src/tools/spawn";
 
 function serveWebsite() {
-	return spawn("serve", []);
+	return exec("npx serve");
 }
 
 async function buildAndServe() {
@@ -15,6 +15,7 @@ async function buildAndServe() {
 
 	await copyPublic(context);
 	await buildWebsite(context);
+
 	serveWebsite();
 
 	watch(["src"]).on("change", async (filePath) => {
@@ -28,4 +29,9 @@ async function buildAndServe() {
 	});
 }
 
-buildAndServe();
+if (require.main === module) {
+	buildAndServe().catch((error) => {
+		console.error(error);
+		process.exit(1);
+	});
+}

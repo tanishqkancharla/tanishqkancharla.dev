@@ -1,0 +1,11 @@
+---
+title: A new Experiments website
+description: My new website for exploring ideas
+date: 12/06/2022
+---
+
+I have a new website up where I can prototype and explore ideas I have: [experiments.tanishqkancharla.dev](https://experiments.tanishqkancharla.dev).
+
+It's small right now, but I have a lot of ideas for things to add. At the moment I'm thinking a lot about event-driven programming and combinators.
+
+I also have some ideas for a structured editor: I want one for Teg's docs website so people can edit and write parser code directly, but without the whole javascript vulnerability.

@@ -49,8 +49,22 @@ export function Page({ children }: PageProps) {
 			<Body>
 				<Noscript />
 				<Header title={title} />
-				<_Page>{children}</_Page>
-				<Footer />
+				<div style={{ position: "relative" }}>
+					<div
+						aria-label="Snow"
+						id="snow"
+						style={{
+							zIndex: -1,
+							position: "absolute",
+							width: "100%",
+							height: "100%",
+						}}
+					></div>
+
+					{/* So children show above the snow */}
+					<_Page>{children}</_Page>
+					<Footer />
+				</div>
 			</Body>
 		</html>
 	);
