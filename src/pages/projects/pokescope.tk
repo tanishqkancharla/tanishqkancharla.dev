@@ -1,6 +1,6 @@
 ---
 title: Pokescope
-description: A small Pokemon horoscope widget.
+description: A small Pokemon horoscope widget built in SwiftUI.
 header_image_src: /projects/pokescope1.jpg
 github: https://github.com/tklightningfast/PokeScope
 last_edited: July 16, 2020

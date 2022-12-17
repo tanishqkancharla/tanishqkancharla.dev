@@ -1,9 +1,7 @@
 ---
 title: Aqua
 description: A DSL to write CSS in that makes it easier to compose styles.
-last_edited: November 19, 2021
-status: archived
-tags: [rust]
+date: November 19, 2021
 ---
 
 CSS isn't amazing, but I've found I really don't like most of the CSS-in-JS ways getting around it. They're usually some abominations built on strings.

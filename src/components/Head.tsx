@@ -5,7 +5,8 @@ import { borderColor } from "../styles/vars";
 
 export function Head() {
 	const { headerImageURL, outClientJsPath } = useWebsiteContext();
-	const { title } = usePageContext();
+	const { title, href } = usePageContext();
+
 	return (
 		<head>
 			<title>{`${title}: TK's website`}</title>
@@ -50,6 +51,10 @@ export function Head() {
 				href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap"
 				rel="stylesheet"
 			/>
+
+			{href === "index" && (
+				<script src="https://app.embed.im/snow.js" defer></script>
+			)}
 		</head>
 	);
 }

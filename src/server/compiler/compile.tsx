@@ -72,7 +72,7 @@ export async function compilePost(
 	);
 }
 
-export function compileReactComponent<P>(
+export function compileReactComponent<P extends JSX.IntrinsicAttributes>(
 	Component: React.JSXElementConstructor<P>,
 	props: P,
 	websiteContext: WebsiteContext,

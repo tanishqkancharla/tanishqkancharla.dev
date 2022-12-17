@@ -1,30 +1,4 @@
 import { animate, stagger } from "motion";
-import { tsParticles } from "tsparticles-engine";
-import { loadSnowPreset } from "tsparticles-preset-snow";
-import { backgroundColor } from "../styles/vars";
-
-async function loadSnow() {
-	await loadSnowPreset(tsParticles);
-
-	await tsParticles.load("snow", {
-		preset: "snow",
-		particles: {
-			opacity: { value: { min: 0.2, max: 0.5 } },
-			size: { value: { min: 2, max: 3 } },
-			move: { speed: { min: 0.4, max: 1.2 } },
-			number: {
-				density: { enable: true },
-			},
-		},
-		style: {
-			position: "absolute",
-			zIndex: "-1",
-		},
-		background: { color: backgroundColor },
-	});
-}
-
-loadSnow();
 
 const article = document.querySelector("article");
 
