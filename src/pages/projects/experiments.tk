@@ -1,0 +1,12 @@
+---
+title: Experiments
+description: A public website for my web experiments.
+href: https://experiments.tanishqkancharla.dev
+last_edited: Dec 19, 2022
+status: published
+tags: [web, typescript]
+---
+
+*Experiments* is a new website for web app experiments I'm working on or have worked on. It gives me a playground to explore new ideas quickly.
+
+The most recent one I've added is my CLI experiment, where I play with combining textual and command-line interfaces.
