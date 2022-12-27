@@ -1,0 +1,23 @@
+---
+title: Design goals
+description: On writing down design goals before working on projects.
+date: 12/27/2022
+---
+
+Recently, I've been following the practice of writing down my "Design goals" every time I start thinking about a new project. This is just a list of goals that I want the project to accomplish once it's done (or v1 is done). For example, here is some goals I have for a css framework I've been thinking about making:
+
+```md
+- Write in typescript
+- Compile with lightningcss
+- Pure (doesn't automatically insert styles in dom)
+- Composition on a declaration level rather than a value level.
+- Static styles + potentially state-based runtime styling?
+```
+
+I've found this really helps clarify what I want out of the project. It keeps me focused while working on the project, and a measure of success for the project ("How many goals has it achieved?"). If I don't write down my design goals, I get cranky and confused while working on the project, going back and forth in my head about whether I should be doing what I'm doing.
+
+By project, I don't necessarily mean a full new repo/library either. It might just be a new feature for an app. By thinking about the end goals first, it lets me work backwards from what I *want* to what I *need to build*.
+
+Additionally, I've found this is also a great way to explain what something does to other people, because often their question is "Why? What's wrong with existing solutions?". So it ends up making great README copy if you explain "I needed these features. I worked backwards from there to arrive at this technical architecture".
+
+More generally speaking, this follows the principle of "the right technical architecture is the one the enables you to build and accomplish what you need to".
