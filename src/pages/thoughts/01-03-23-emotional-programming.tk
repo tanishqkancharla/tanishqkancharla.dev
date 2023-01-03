@@ -1,0 +1,21 @@
+---
+title: Programming is more emotional than people think.
+description: There's a lot of emotion behind a programmer's decision-making process.
+date: 01/03/2023
+---
+
+Programming is more emotional than people think. Why do you name a variable a certain way? Why do you decide to assign a variable instead of inlining the computation? Why do you break some computation into a function? Why do you sometimes feel pleasant when you read some code and disgust at others?
+
+Why does it feel like some data belongs in a JSON config file while other data belong next to your app code? Why does it feel like some variables need to be placed in all caps at the beginning of a file? Why does leveraging a high level of abstraction feel good? Why does making changes to a maze of object-oriented inheritance feel suffocating?
+
+Why do some changes to code feel like they should be a separate commit, and others don't? Why do some changes feel like they should be a separate branch? A separate repo?
+
+Why does fixing type errors feel boring, but writing the body of a new function feel exciting?
+
+There's a lot of emotion and intuition behind a programmer's decisions. They have an image of the code's structure in their head, and they're pattern-matching against patterns they've seen before, and based on how familiar it feels, can intuit whether a pattern is ugly or pretty and whether writing code is boring or exciting.
+
+It's too bad we don't have great tooling to formalize this a bit more. Maybe that pattern-matching can be more explicitly done, with refactoring or design pattern suggestions.
+
+I suppose this is similar to how AI assistants like Copilot work, but it would be nice if it could tell you why it did what it did.
+
+But for now, I think there's something to gain through introspection when you feel a certain way while writing or reading some code. Sort of like externalizing yourself from your emotions, and making sure your actions are intentional.
