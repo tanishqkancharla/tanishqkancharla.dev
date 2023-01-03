@@ -1,11 +1,16 @@
+import path from "path";
 import React from "react";
 import { usePageContext } from "../server/PageContext";
 import { useWebsiteContext } from "../server/WebsiteContext";
+import { resolutionFileName } from "../styles/resolutions";
 import { borderColor } from "../styles/vars";
 
 export function Head() {
 	const { headerImageURL, outClientJsPath } = useWebsiteContext();
 	const { title, href } = usePageContext();
+
+	const { name } = path.parse(headerImageURL);
+	const headerUrl = resolutionFileName(name, 640);
 
 	return (
 		<head>
@@ -18,7 +23,7 @@ export function Head() {
 				name="og:description"
 				content="Tanishq Kancharla's personal website"
 			/>
-			<meta property="og:image" content={headerImageURL} key="ogimage" />
+			<meta property="og:image" content={headerUrl} key="ogimage" />
 
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:creator" content="@moonriseTK" key="twhandle" />
@@ -27,7 +32,7 @@ export function Head() {
 				name="twitter:description"
 				content="Tanishq Kancharla's personal website."
 			/>
-			<meta name="twitter:image" content={headerImageURL} />
+			<meta name="twitter:image" content={headerUrl} />
 
 			{/* https://developer.twitter.com/en/docs/twitter-for-websites/webpage-properties */}
 			<meta name="twitter:widgets:theme" content="dark"></meta>
