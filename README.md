@@ -1,4 +1,4 @@
-# Moonrise
+# Personal website
 My personal website, designed without a framework, and pretty much from scratch. Everything is pre-rendered (currently), and my blog uses a custom blog post format.
 
 The setup is very similar to Next.js with the `/pages` directory corresponding to pages on the website. These can either be `.tk` or `.tsx` files (which can use `getStaticProps`).

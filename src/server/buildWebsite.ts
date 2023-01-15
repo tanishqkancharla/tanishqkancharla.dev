@@ -43,7 +43,7 @@ async function buildReactPage(context: WebsiteContext, pageFilePath: string) {
 		props = await getStaticProps(context);
 	}
 
-	const title = imports.title || "Moonrise";
+	const title = imports.title || "Tanishq K.";
 
 	const relativePostDir = path.relative(context.postsDir, dir);
 	const href = path.join(relativePostDir, name);
