@@ -1,9 +1,9 @@
-## What have I been thinking about?
+## What am I thinking about this year (2023)?
 I've been thinking a lot about computers and people. I decided a year ago that I want to focus my career on building software that empowers people to make their own solutions. Programming is a super power but it's too hard; there is an opportunity to make it 1000s of times easier.
 
 So I've been working on a novel programming interface that can make this a lot easier. I haven't fleshed out all the technical details yet, but it will probably eventually use something I'm calling event-driven combinators, in a mix of nodes & wires and textual program interfaces. If you are building something in this space too and want to share ideas, [please reach out](mailto:tanishqkancharla3@gmail.com)!
 
-Other things I've been working on (in the realm of computers) is increasing my knowledge and comfort with Rust. I feel like having Typescript and Rust under my belt as a programmer can make me powerful; I can spin up new web prototypes in minutes while also able to build performance-critical low-level software.
+Other things I've been working on (in the realm of computers) is increasing my knowledge and comfort with Rust. I feel like having Typescript and Rust under my belt makes me a flexible and powerful programmer; I can spin up new web prototypes in minutes while also being able to work on performance-critical low-level software.
 
 Along that vein, I want to eventually culminate my Rust learnings into a database. I want the semantics to be similar to [tuple-database](https://github.com/ccorcos/tuple-database) or FoundationDb, but I've been looking into different kinds of trees like [GiST (Generalized Search Tree)](https://dsf.berkeley.edu/papers/vldb95-gist.pdf) and [Bkd-tree](https://users.cs.duke.edu/~pankaj/publications/papers/bkd-sstd.pdf).
 
