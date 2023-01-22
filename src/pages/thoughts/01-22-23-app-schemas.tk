@@ -1,0 +1,20 @@
+---
+title: Software and schemas.
+description: Exploring the choice of schema in software.
+date: 01/22/2023
+---
+
+Software apps are just abstractions that let us store and retrieve data. Better abstractions are built by asking: “How does the user want to store and retrieve their data?”
+
+Just like in databases, there’s a specific correlation between how much data you have and how you want to store and retrieve it. If you have a lot of data and you want to be able to query it many different ways, you need to be able to index it those many different ways. Likewise, for small amounts of data, there’s no need for complex queries: you can just provide everything. That technique also applies to people.
+
+For example, consider a recipe app that lets you add recipes to your calendar. Suppose the app, when you add them to your calendar, forces you to choose between adding it to breakfast, lunch, and dinner. This is a poor user interface choice, because at max, you might have 5 recipes per day that you’re looking to cook , so indexing by “type of meal to cook this for” for a recipe in the calendar is totally useless!
+
+On the other hand, you could have a few hundreds to thousands of recipes stored in your recipe book, which might make it amenable to categorize (read “index”) your recipes. You could have user-defined tags, but even without that, a solid indexing choice is simply the meal you’d expect to cook it for: breakfast, lunch, or dinner.
+
+Building or designing software is all about picking the right schema or indexes for your domain model. Or, if you’re a database, you let the user (the developer) choose their schema and indexes. Sometimes, if you’re a very general-purpose app, like Notion, you also let the user choose their schema and indexes.
+
+There are some open directions you can take this line of reasoning in:
+
+- What do applications that “grow” with the data look like? Starting with a very simple schema for ease of understanding, and slowly ramping up the complexity of the schema and indexes as the user provides more data to store
+- What do applications that let users make their own schema look like? Notion is one take on the idea, but how else can this be explored?
