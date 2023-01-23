@@ -1,0 +1,14 @@
+---
+title: Kvs
+description: A key-value database built on Riak's Bitcask paper.
+github: https://github.com/tanishqkancharla/pna-rust-project
+last_edited: Jan 23, 2023
+status: published
+tags: [rust]
+---
+
+This is my project built on [Pingcap's talent plan rust course](https://github.com/tanishqkancharla/talent-plan/blob/master/courses/rust/docs/lesson-plan.md).
+
+The project walks you through implementing a key-value database built on [Riak's Bitcask paper](https://github.com/basho/bitcask/blob/develop/doc/bitcask-intro.pdf). It's simple, but effective and fast!
+
+I'm doing this to learn Rust, and eventually build my own key-value database.
