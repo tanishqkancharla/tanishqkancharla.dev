@@ -1,0 +1,106 @@
+---
+title: React context and algebraic effects
+description: How React context inspires a more general API in programming languages.
+date: 11/30/2023
+---
+
+Generally speaking, functions in most programming languages only allow explicit parameters. There’s no sense of a function being able to “use the context” in which it’s run in. But it’s a very powerful concept in React that I’d like to see a modern programming language experiment with.
+
+If you’re unfamiliar with React Context, it’s a mechanism that lets you create generic abstractions that can use different implementations at run-time.
+
+```jsx
+function Parent1() {
+	// ...
+	return (
+		<LocalFileSystemProvider>
+			<Child />
+		</LocalFileSystemProvider>
+	)
+}
+
+function Parent2() {
+	// ...
+	return (
+		<RemoteFileSystemProvider>
+			<Child />
+		</RemoteFileSystemProvider>
+	)
+}
+
+function Child() {
+	// This will load whatever filesystem the component was mounted in
+	const fs = useContext(FileSystemContext)
+	// ...
+}
+```
+
+In the example, the same child can be re-used but in contexts with different implementations of the filesystem.
+
+You could technically replicate the same behavior by just using function arguments (`<Child fs={remoteFs}/>`), but I think this approach has a lot of benefits:
+
+- Deep parts of your code can use values from much higher up easily, e.g. add a remote logger without having to plumb a logging parameter everywhere. Plumbing a parameter everywhere is impractical at best, and impossible sometimes if you’re using a third-party library.
+- you don’t need any global instances of anything in the standard library: instead of using the filesystem directly, you call `useFileSystemContext` which lets callers decide what filesystem is available to you. This lets you sandbox code.
+- Corollary of the above point, you can deal with situations where you don’t have access to an API dynamically. For example, if you don’t have access to the camera (`useCameraContext` returns `None`), then you can choose to not show a menu item that lets you take a photo.
+
+In the functional programming world, I think this construct is very similar to [co-effects](https://tomasp.net/coeffects/)/[algebraic effects](https://overreacted.io/algebraic-effects-for-the-rest-of-us/), except most of the work I’ve seen around that tries to fit it into the type-system. This makes it so you can never call functions that expect a certain context in a place where they don’t have it (so `Child` in the above example would have a type error if it is mounted in a place that doesn’t have access to a `FileSystemContext`). Besides this being extremely complex to type-check, I think it’s also a mistake — tracking context in the type-system essentially turns them into function parameters with a different syntax. Having it dynamically resolve is more powerful.
+
+Consider the following examples to see how powerful of a pattern this can be in non-React:
+
+- If you need a different allocation strategy for a part of the system, you can wrap that part of the system in your allocator’s implementation:
+
+```jsx
+return ArenaAlloctatorProvider([
+  Subsystem()
+])
+```
+
+If that subsystem uses 3rd party libraries which also allocate memory, those will automatically use your arena allocator. You could only do this something like this today if you [passed around the allocator as an argument everywhere](https://github.com/ziglang/zig/blob/325e0f5f0e8a9ce2540ec3ec5b7cbbecac15257a/src/Module.zig#L961). And if you were using a 3rd party data structure library which did not do that, you’re out of luck.
+
+- Suppose a system of your app is interfacing with some insecure user or third-party code and you need to guarantee it doesn’t have access to the filesystem. You can clear it out of the subtree by supplying a provider that stubs out every api or throws an error.
+
+```jsx
+return NoFilesystemProvider([
+  Subsystem()
+])
+```
+
+Something like this would be practically impossible in most languages. Even in Javascript, to run insecure code that can’t modify the DOM or make fetch calls, you need a lot of infrastructure like [Shadow Realms](https://github.com/tc39/proposal-shadowrealm) or [quickjs-emscripten](https://github.com/justjake/quickjs-emscripten).
+
+- For [rendering a flexbox layout hierarchy](https://docs.flutter.dev/ui/layout/constraints), a parent can see the space it has available using a `LayoutContext`. Then the parent can determine the max and min space its first child can have and mount it with a `LayoutContext` with those constraints. The first child then recursively determines how much space it actually needs, then the parent keeps going with the rest of the children:
+
+```jsx
+function div({ children: Children }) {
+  const {min, max} = useLayoutContext()
+
+  const parentSpace = (0, 0)
+  for(const child of children) {
+    const remainingMin = min - parentSpace
+    const remainingMax = max - parentSpace
+
+    const { usedSpace } =
+      LayoutProvider(
+        { min: remainingMin, max: remainingMax },
+        [ Child() ]
+      )
+
+    parentSpace += usedSpace
+  }
+
+  return { usedSpace: parentSpace }
+}
+
+// The input and label are in the layout context of the div
+div([
+  input(),
+  label("hi"),
+])
+```
+
+That’s some very rough pseudo-code, and some serious details are missing (how does the `Child` ”return” how much space it used ***through*** the `LayoutProvider`?), but it’s illustrative in an abstract sense: you are able to create an API where user code does not have to worry about plumbing down a layout context to all its children; its done automatically.
+
+In fact, this is exactly why HTML was created: to enable and visualize this idea of children being “inside” the layout context of parents.
+
+
+In one sense, its like composable capability-based security. New runtimes like Deno allow top-level capability security (i.e. you write `deno run --allow-net hello.ts` to allow network access to the whole program), but they don’t let you specify capabilities for just a part of the program. Context is just that: you have fine-grained control over specifically what APIs each part of your program has. I think the WASM component model does something like this as well (your subcomponents only have access to the contexts you have access to) but I don’t know enough about it.
+
+I’d really like this API in a general-purpose programming language. You can definitely build it as a library, but I think it’d be interesting as a first-class primitive.

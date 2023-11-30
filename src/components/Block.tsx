@@ -1,5 +1,7 @@
 import React from "react";
-import { isString, randomString } from "remeda";
+import { isArray, randomString } from "remeda";
+import { RichTextContent } from "tk-parser/dist/blocks/richText";
+import { UnorderedListToken } from "tk-parser/dist/blocks/unorderedList";
 import { CompiledBlock } from "../server/compiler/compile";
 import { BlockLink } from "./blocks/BlockLink";
 import { Blockquote } from "./blocks/Blockquote";
@@ -37,14 +39,18 @@ export function Block(props: { block: CompiledBlock }): JSX.Element | null {
 			return (
 				<Ul>
 					{block.listItems.map((listItemContent, index) => {
-						if (isString(listItemContent)) {
-							return <Li key={index}>{listItemContent}</Li>;
-						} else {
+						if (isListItemNested(listItemContent)) {
 							const [firstContent, indentedList] = listItemContent;
 							return (
 								<Li key={index}>
-									{firstContent}
+									<RichTextParagraph>{firstContent}</RichTextParagraph>
 									<Block block={indentedList} />
+								</Li>
+							);
+						} else {
+							return (
+								<Li key={index}>
+									<RichTextParagraph>{listItemContent}</RichTextParagraph>
 								</Li>
 							);
 						}
@@ -90,4 +96,12 @@ export function Block(props: { block: CompiledBlock }): JSX.Element | null {
 			throw new Error(`Unknown block: ${JSON.stringify(block, null, 2)}`);
 		}
 	}
+}
+
+function isListItemNested(
+	list: RichTextContent | [RichTextContent, UnorderedListToken]
+): list is [RichTextContent, UnorderedListToken] {
+	return (
+		isArray(list) && list.length === 2 && list[1]?.type === "unorderedList"
+	);
 }

@@ -41,6 +41,10 @@ export const A = styled.a`
 `;
 
 export function RichTextParagraph(props: { children: RichTextContent }) {
+	if (!("map" in props.children)) {
+		console.log("NO MAP FOUND");
+		console.log(props.children);
+	}
 	const content = props.children.map((token) => {
 		switch (token.type) {
 			case "bold":
