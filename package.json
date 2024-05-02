@@ -49,6 +49,6 @@
 		"remeda": "^0.0.32",
 		"sharp": "^0.31.0",
 		"styled-components": "^5.3.5",
-		"tk-parser": "file:../tk-parser"
+		"tk-parser": "^0.3.0"
 	}
 }
