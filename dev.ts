@@ -18,6 +18,8 @@ async function buildAndServe() {
 
 	serveWebsite();
 
+	console.log("Serving at http://localhost:3000");
+
 	watch(["src"]).on("change", async (filePath) => {
 		const built = await buildPage(context, rootPath(filePath));
 		if (built) {

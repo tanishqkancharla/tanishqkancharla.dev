@@ -11,8 +11,8 @@ export const bodyTextColor = "rgba(171, 171, 171, 1)";
 export const secondaryBodyTextColor = "rgba(135, 135, 135, 1)";
 export const tertiaryBodyTextColor = "rgba(89, 89, 89, 1)";
 
-export const blockMargin = "0.3rem";
-export const blockMarginLg = "0.5rem";
+export const blockMargin = "0.5rem";
+export const blockMarginLg = "1.4rem";
 
 export const fontSm = "85%";
 

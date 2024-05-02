@@ -57,8 +57,8 @@ const BreadcrumbNavIcon = styled(BreadcrumbNavA)`
 `;
 
 const Icon = styled.svg`
-	height: 0.9rem;
-	width: 0.9rem;
+	height: 0.85rem;
+	width: 0.85rem;
 	fill: ${secondaryBodyTextColor};
 	${transitionSm}
 

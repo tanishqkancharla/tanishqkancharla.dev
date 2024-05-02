@@ -1,4 +1,17 @@
-## What am I thinking about this year (2023)?
+## (2024) What am I thinking about this year?
+
+For the past 6-ish months, I've mainly been heading iOS development at Shortwave, and mobile development has stayed very top-of-mind for me. Mobile interfaces are very different from desktop interfaces, and React native is a completely different platform to build for than the web: I have access to haptics, native UI elements, native-level code and performance. On the flip side, I have to deal with limited screen real estate, no hover feedback, the on-screen keyboard, and the worst of it all: flaky build-tooling.
+
+Just like last year, I still want my career to focus on building software that empowers people to make their own solutions. But I've been gone on a bit of a detour, and I'm learning to really develop my product intuition. Although I do think well-designed products and building human-empowerment platforms go hand-in-hand: the most impactful inventions are simple to use but enable people to do things they couldn't before: light bulbs, bikes, Excel.
+
+I've also developed a weird fascination with databases. I spent a long time [building a database](https://x.com/moonriseTK/status/1782621443811115137) I thought would be the perfect API, but I ended up feeling meh about it. I'm still chasing the dream of building my own local-first database and sync engine, but I haven't yet done it in a way I'm happy with.
+
+I guess the general theme of this year is *interfaces*, whether they are for engineers or end-users.
+
+---
+
+## (2023) What am I thinking about this year?
+
 I've been thinking a lot about computers and people. I decided a year ago that I want to focus my career on building software that empowers people to make their own solutions. Programming is a super power but it's too hard; there is an opportunity to make it 1000s of times easier.
 
 So I've been working on a novel programming interface that can make this a lot easier. I haven't fleshed out all the technical details yet, but it will probably eventually use something I'm calling event-driven combinators, in a mix of nodes & wires and textual program interfaces. If you are building something in this space too and want to share ideas, [please reach out](mailto:tanishqkancharla3@gmail.com)!

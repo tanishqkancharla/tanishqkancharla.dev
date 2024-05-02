@@ -4,8 +4,6 @@ import { articleWidth } from "../styles/vars";
 import { Breadcrumbs } from "./Breadcrumbs";
 
 const _Article = styled.article`
-	display: flex;
-	flex-direction: column;
 	width: ${articleWidth};
 
 	& > * {
