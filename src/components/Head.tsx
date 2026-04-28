@@ -1,5 +1,4 @@
 import path from "path";
-import React from "react";
 import { usePageContext } from "../server/PageContext";
 import { useWebsiteContext } from "../server/WebsiteContext";
 import { resolutionFileName } from "../styles/resolutions";

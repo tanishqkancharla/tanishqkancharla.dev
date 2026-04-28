@@ -1,9 +1,8 @@
 import * as esbuild from "esbuild";
-import fs from "fs-extra";
-import glob from "glob";
-import minimatch from "minimatch";
+import fs from "node:fs/promises";
+import { glob } from "glob";
+import { minimatch } from "minimatch";
 import path from "path";
-import { flatten } from "remeda";
 import { WebsiteContext } from "../config";
 import { rootPath } from "../tools/rootPath";
 import { keys } from "../utils/typeUtils";
@@ -27,7 +26,7 @@ async function buildTKPost(context: WebsiteContext, postFilePath: string) {
 		`${name}.html`
 	);
 
-	await fs.ensureFile(outPostPath);
+	await fs.mkdir(path.dirname(outPostPath), { recursive: true });
 	await fs.writeFile(outPostPath, contents, "utf8");
 }
 
@@ -61,7 +60,7 @@ async function buildReactPage(context: WebsiteContext, pageFilePath: string) {
 		`${name}.html`
 	);
 
-	await fs.ensureFile(outPostPath);
+	await fs.mkdir(path.dirname(outPostPath), { recursive: true });
 	await fs.writeFile(outPostPath, contents, "utf8");
 }
 
@@ -84,18 +83,13 @@ const pageBuilders = {
 };
 
 function matchGlob(globStr: string): Promise<string[]> {
-	return new Promise((resolve, reject) => {
-		glob(globStr, (error, matches) => {
-			if (error) reject(error);
-			resolve(matches);
-		});
-	});
+	return glob(globStr);
 }
 
 export async function getAllPages() {
 	const pageGlobs = keys(pageBuilders).map(rootPath);
 	const matchingFiles = await Promise.all(pageGlobs.map(matchGlob));
-	return flatten(matchingFiles);
+	return matchingFiles.flat();
 }
 
 export async function buildPage(context: WebsiteContext, filePath: string) {

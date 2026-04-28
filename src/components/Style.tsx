@@ -1,4 +1,3 @@
-import React from "react";
 import { useWebsiteContext } from "../server/WebsiteContext";
 
 export const Style = () => {

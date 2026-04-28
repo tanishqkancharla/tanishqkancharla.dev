@@ -1,5 +1,3 @@
-import React from "react";
-import { randomString } from "remeda";
 import styled from "styled-components";
 import { usePageContext } from "../server/PageContext";
 import {
@@ -120,7 +118,7 @@ export function Breadcrumbs() {
 				</BreadcrumbNavIcon>
 			)}
 			{navItems.map((navItem) => (
-				<BreadcrumbItem key={randomString(10)} navItem={navItem} />
+				<BreadcrumbItem key={Math.random().toString(36).substring(2, 12)} navItem={navItem} />
 			))}
 		</BreadcrumbNav>
 	);

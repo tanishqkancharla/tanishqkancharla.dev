@@ -1,5 +1,4 @@
-import Prism from "prismjs";
-import loadLanguages from "prismjs/components/";
+import { codeToHtml } from "shiki";
 import { TKBlock } from "tk-parser";
 import { TKBlockTransformer } from "./Transformer";
 
@@ -20,8 +19,10 @@ export const codeBlockLoader: CodeBlockLoader = async (
 
 	console.log("Loading code block with lang", lang);
 
-	loadLanguages(lang);
-	const html = Prism.highlight(content, Prism.languages[lang], lang);
+	const html = await codeToHtml(content, {
+		lang,
+		theme: "one-dark-pro",
+	});
 
 	return { ...block, html } as const;
 };

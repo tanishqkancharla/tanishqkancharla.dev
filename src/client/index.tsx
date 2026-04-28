@@ -11,7 +11,7 @@ if (article) {
 			transform: ["translate(0, 2rem) scale(0.8)", "none"],
 			opacity: [null, 1],
 		},
-		{ delay: stagger(0.02, { easing: "ease-out" }), duration: 0.35 }
+		{ delay: stagger(0.02, { ease: "easeOut" }), duration: 0.35 }
 	);
 }
 
@@ -26,6 +26,6 @@ if (gallery) {
 			transform: ["translate(0, 2rem)", "none"],
 			opacity: [null, 1],
 		},
-		{ delay: stagger(0.04, { easing: "ease-out" }), duration: 0.35 }
+		{ delay: stagger(0.04, { ease: "easeOut" }), duration: 0.35 }
 	);
 }

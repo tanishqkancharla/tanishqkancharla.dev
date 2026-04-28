@@ -1,3 +1,11 @@
+## (2026) What am I thinking about this year?
+
+I'm building [Libretto](https://libretto.sh) — an AI toolkit for building robust web integrations. It started as an internal tool for automating complex healthcare portals where nothing else worked, and we've turned it into an open-source agent skill and CLI that inspects live pages, reverse-engineers network requests, and ships production-ready integration workflows.
+
+The theme this year is taking the leap into founding a company. It's a very different kind of work than being an engineer at someone else's company — I'm thinking about product, distribution, hiring, and the business all at once. But I love it. The core technical problem is fascinating: how do you make browser automation deterministic and debuggable in a world where everyone else is throwing agents at the problem and hoping for the best?
+
+---
+
 ## (2024) What am I thinking about this year?
 
 For the past 6-ish months, I've mainly been heading iOS development at Shortwave, and mobile development has stayed very top-of-mind for me. Mobile interfaces are very different from desktop interfaces, and React native is a completely different platform to build for than the web: I have access to haptics, native UI elements, native-level code and performance. On the flip side, I have to deal with limited screen real estate, no hover feedback, the on-screen keyboard, and the worst of it all: flaky build-tooling.

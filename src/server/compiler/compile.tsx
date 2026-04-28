@@ -1,6 +1,5 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { isString } from "remeda";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 import { parseTK, TKDoc } from "tk-parser";
 import { TKPage } from "../../components/TKPage";
@@ -55,7 +54,7 @@ export async function compilePost(
 
 	let title = "Tanishq K.";
 
-	if (isString(ast.metadata.title)) {
+	if (typeof ast.metadata.title === "string") {
 		title = ast.metadata.title;
 	}
 
@@ -72,7 +71,7 @@ export async function compilePost(
 	);
 }
 
-export function compileReactComponent<P extends JSX.IntrinsicAttributes>(
+export function compileReactComponent<P extends Record<string, unknown>>(
 	Component: React.JSXElementConstructor<P>,
 	props: P,
 	websiteContext: WebsiteContext,

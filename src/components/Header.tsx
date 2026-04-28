@@ -1,5 +1,4 @@
 import path from "path";
-import React from "react";
 import styled from "styled-components";
 import { useWebsiteContext } from "../server/WebsiteContext";
 import { resolutionSrcSet } from "../styles/resolutions";

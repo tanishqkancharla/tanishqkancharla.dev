@@ -49,7 +49,7 @@ export const GalleryCard = styled.div`
 	border-style: solid;
 
 	${transitionLg}
-	:hover {
+	&:hover {
 		border-color: ${accentColor};
 		${shadowMd}
 	}

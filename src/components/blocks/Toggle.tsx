@@ -1,5 +1,3 @@
-import React from "react";
-import { randomString } from "remeda";
 import styled from "styled-components";
 import { RichTextContent } from "tk-parser/dist/blocks/richText";
 import { accentColor, blockMargin } from "../../styles/vars";
@@ -33,7 +31,7 @@ export function Toggle(props: { label: string; content: RichTextContent[] }) {
 		<Details>
 			<Summary>{props.label}</Summary>
 			{props.content.map((content) => (
-				<RichTextParagraph key={randomString(10)}>{content}</RichTextParagraph>
+				<RichTextParagraph key={Math.random().toString(36).substring(2, 12)}>{content}</RichTextParagraph>
 			))}
 		</Details>
 	);

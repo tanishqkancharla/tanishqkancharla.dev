@@ -1,7 +1,6 @@
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 import path from "path";
-import React from "react";
-import { isDefined, reverse, sortBy } from "remeda";
+import { isDefined } from "../utils/typeUtils";
 import { parseTK, TKDoc } from "tk-parser";
 import { Article } from "../components/Article";
 import { Bookmark } from "../components/blocks/Bookmark";
@@ -70,7 +69,7 @@ export const title = "Blog";
 function Blog(props: PropsType) {
 	const { postMetadatas } = props;
 
-	const sortedMetadatas = reverse(sortBy(postMetadatas, (post) => post.date));
+	const sortedMetadatas = [...postMetadatas].sort((a, b) => b.date.getTime() - a.date.getTime());
 
 	return (
 		<Page>

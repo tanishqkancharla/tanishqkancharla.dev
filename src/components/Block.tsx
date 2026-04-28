@@ -1,5 +1,4 @@
-import React from "react";
-import { isArray, randomString } from "remeda";
+import type React from "react";
 import { RichTextContent } from "tk-parser/dist/blocks/richText";
 import { UnorderedListToken } from "tk-parser/dist/blocks/unorderedList";
 import { CompiledBlock } from "../server/compiler/compile";
@@ -16,7 +15,7 @@ import { RichTextParagraph } from "./blocks/RichText";
 import { Toggle } from "./blocks/Toggle";
 import { Tweet } from "./blocks/Tweet";
 
-export function Block(props: { block: CompiledBlock }): JSX.Element | null {
+export function Block(props: { block: CompiledBlock }): React.JSX.Element | null {
 	const block = props.block;
 
 	switch (block.type) {
@@ -79,7 +78,7 @@ export function Block(props: { block: CompiledBlock }): JSX.Element | null {
 		}
 		case "blockquote": {
 			const content = block.content.map((richTextTokens) => (
-				<RichTextParagraph key={randomString(10)}>
+				<RichTextParagraph key={Math.random().toString(36).substring(2, 12)}>
 					{richTextTokens}
 				</RichTextParagraph>
 			));
@@ -102,6 +101,6 @@ function isListItemNested(
 	list: RichTextContent | [RichTextContent, UnorderedListToken]
 ): list is [RichTextContent, UnorderedListToken] {
 	return (
-		isArray(list) && list.length === 2 && list[1]?.type === "unorderedList"
+		Array.isArray(list) && list.length === 2 && list[1]?.type === "unorderedList"
 	);
 }

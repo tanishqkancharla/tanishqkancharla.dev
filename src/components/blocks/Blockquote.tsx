@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import styled from "styled-components";
 import { accentColor, blockMargin } from "../../styles/vars";
 
@@ -12,6 +12,8 @@ const _Blockquote = styled.blockquote`
 	padding-left: 1rem;
 `;
 
-export function Blockquote(props: { content: JSX.Element | JSX.Element[] }) {
+export function Blockquote(props: {
+	content: React.JSX.Element | React.JSX.Element[];
+}) {
 	return <_Blockquote>{props.content}</_Blockquote>;
 }

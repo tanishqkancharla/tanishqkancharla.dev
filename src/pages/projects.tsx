@@ -9,10 +9,9 @@ import {
 	violetDarkA,
 } from "@radix-ui/colors";
 import * as dt from "data-type-ts";
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 import path from "path";
 import React from "react";
-import { sortBy } from "remeda";
 import styled from "styled-components";
 import { parseTK } from "tk-parser";
 import { H3 } from "../components/blocks/Heading";
@@ -99,11 +98,13 @@ ${validateError}`);
 		archived: 3,
 	};
 
-	const sortedMetadatas = sortBy(
-		projectPostMetadatas.filter(isDefined),
-		(metadata) => statusPriority[metadata.status],
-		[({ last_edited }) => (last_edited ? Date.parse(last_edited) : 0), "desc"]
-	);
+	const sortedMetadatas = [...projectPostMetadatas.filter(isDefined)].sort((a, b) => {
+		const statusDiff = statusPriority[a.status] - statusPriority[b.status];
+		if (statusDiff !== 0) return statusDiff;
+		const aDate = a.last_edited ? Date.parse(a.last_edited) : 0;
+		const bDate = b.last_edited ? Date.parse(b.last_edited) : 0;
+		return bDate - aDate; // desc
+	});
 
 	return { projectMetadatas: sortedMetadatas };
 }
@@ -124,16 +125,14 @@ const statusBackgroundColor = {
 	archived: violetDarkA["violetA4"],
 };
 
-const Status = styled.div`
+const Status = styled.div<{ $status: ProjectStatus }>`
 	display: inline-block;
 	margin: 4px 0;
 	border-radius: ${borderRadius};
 	padding: 2px 4px;
 	font-size: ${fontSm};
-	color: ${({ children }: { children: ProjectStatus }) =>
-		statusColor[children]};
-	background-color: ${({ children }: { children: ProjectStatus }) =>
-		statusBackgroundColor[children]};
+	color: ${({ $status }) => statusColor[$status]};
+	background-color: ${({ $status }) => statusBackgroundColor[$status]};
 `;
 
 const Tag = styled.span`
@@ -165,7 +164,7 @@ function ProjectItem(props: { metadata: ProjectMetadata }) {
 			<GalleryCardContent>
 				<H3>{title}</H3>
 				<P>{description}</P>
-				<Status>{status}</Status>
+				<Status $status={status}>{status}</Status>
 				<div>
 					{tags?.map((tag, index) => (
 						<React.Fragment key={tag}>

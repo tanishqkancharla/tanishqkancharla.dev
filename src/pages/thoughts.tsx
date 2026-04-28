@@ -1,7 +1,6 @@
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 import path from "path";
-import React from "react";
-import { isDefined, reverse, sortBy } from "remeda";
+import { isDefined } from "../utils/typeUtils";
 import styled from "styled-components";
 import { parseTK, TKDoc } from "tk-parser";
 import { Article } from "../components/Article";
@@ -111,7 +110,7 @@ function ThoughtsDBRow(props: Metadata) {
 function Thoughts(props: PropsType) {
 	const { postMetadatas } = props;
 
-	const sortedMetadatas = reverse(sortBy(postMetadatas, (post) => post.date));
+	const sortedMetadatas = [...postMetadatas].sort((a, b) => b.date.getTime() - a.date.getTime());
 
 	return (
 		<Page>

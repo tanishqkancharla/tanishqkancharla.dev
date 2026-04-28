@@ -1,12 +1,13 @@
-import fs from "fs-extra";
-import { isDefined } from "remeda";
+import fs from "node:fs/promises";
+import type { Dirent } from "node:fs";
+import { isDefined } from "../utils/typeUtils";
 
 export type ListDirectoryResult = { name: string; isDir: boolean };
 
 export async function listDirectory(
 	dirPath: string
 ): Promise<ListDirectoryResult[]> {
-	let items: fs.Dirent[] = [];
+	let items: Dirent[] = [];
 	try {
 		items = await fs.readdir(dirPath, { withFileTypes: true });
 	} catch (error) {}

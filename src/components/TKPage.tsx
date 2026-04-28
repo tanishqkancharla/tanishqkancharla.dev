@@ -1,4 +1,3 @@
-import React from "react";
 import { CompiledDoc } from "../server/compiler/compile";
 import { Article } from "./Article";
 import { Block } from "./Block";

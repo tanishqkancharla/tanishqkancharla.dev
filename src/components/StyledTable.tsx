@@ -19,7 +19,7 @@ export const StyledRow = styled.a`
 	flex-direction: row;
 	align-items: center;
 
-	:last-child {
+	&:last-child {
 		border-bottom: solid ${borderColor} 1.5px;
 	}
 
@@ -27,13 +27,13 @@ export const StyledRow = styled.a`
 
 	${transitionSm}
 
-	:hover {
+	&:hover {
 		cursor: pointer;
 		border-color: ${accentColor};
 		color: ${accentColor};
 	}
 
-	:focus {
+	&:focus {
 		outline: none;
 		border-color: ${accentColor};
 	}
