@@ -18,7 +18,7 @@ const BlockLinkA = styled.a`
 	border-radius: ${borderRadius};
 	border-width: ${borderWidth};
 
-	padding: 0.25rem;
+	padding: 2px 4px;
 
 	text-decoration: none;
 
