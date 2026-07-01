@@ -1,4 +1,3 @@
-import * as esbuild from "esbuild";
 import fs from "node:fs/promises";
 import { glob } from "glob";
 import { minimatch } from "minimatch";
@@ -64,22 +63,9 @@ async function buildReactPage(context: WebsiteContext, pageFilePath: string) {
 	await fs.writeFile(outPostPath, contents, "utf8");
 }
 
-async function buildJavascript(context: WebsiteContext, filePath: string) {
-	const dev = context.mode === "DEV";
-	await esbuild.build({
-		entryPoints: [filePath],
-		outdir: context.outDir,
-		bundle: true,
-		minify: !dev,
-		sourcemap: dev ? "inline" : undefined,
-		sourcesContent: dev,
-	});
-}
-
 const pageBuilders = {
 	"src/pages/**/*.tk": buildTKPost,
 	"src/pages/**/*.tsx": buildReactPage,
-	"src/client/index.tsx": buildJavascript,
 };
 
 function matchGlob(globStr: string): Promise<string[]> {

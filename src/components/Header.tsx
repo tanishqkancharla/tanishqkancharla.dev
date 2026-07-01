@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useWebsiteContext } from "../server/WebsiteContext";
 import { resolutionSrcSet } from "../styles/resolutions";
 import { articleWidth, transparentBackground } from "../styles/vars";
-import { H1 } from "./blocks/Heading";
 
 export const _Header = styled.div`
 	height: 18rem;
@@ -54,14 +53,16 @@ const Banner = styled.div`
 	background-color: ${transparentBackground};
 	-webkit-backdrop-filter: blur(8px);
 	backdrop-filter: blur(8px);
+`;
 
-	& h1 {
-		display: block;
-		margin-top: 0;
-		margin-bottom: 0;
-		color: rgba(250, 250, 250, 1);
-		width: ${articleWidth};
-	}
+const BannerTitle = styled.h1`
+	display: block;
+	margin: 0;
+	font-weight: 600;
+	font-size: 2.5rem;
+	line-height: 3rem;
+	color: rgba(250, 250, 250, 1);
+	width: ${articleWidth};
 `;
 
 export function Header(props: { title: string }) {
@@ -88,7 +89,7 @@ export function Header(props: { title: string }) {
 			</HeaderImageCredits>
 
 			<Banner>
-				<H1>{title}</H1>
+				<BannerTitle>{title}</BannerTitle>
 			</Banner>
 		</_Header>
 	);
