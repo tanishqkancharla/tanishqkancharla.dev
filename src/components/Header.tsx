@@ -1,8 +1,17 @@
 import path from "path";
 import styled from "styled-components";
 import { useWebsiteContext } from "../server/WebsiteContext";
-import { resolutionSrcSet } from "../styles/resolutions";
-import { articleWidth, transparentBackground } from "../styles/vars";
+import {
+	HEADER_IMAGE_HEIGHT,
+	HEADER_IMAGE_WIDTH,
+	headerImageDefaultSrc,
+	resolutionSrcSet,
+} from "../styles/resolutions";
+import {
+	articleWidth,
+	tertiateBackgroundColor,
+	transparentBackground,
+} from "../styles/vars";
 
 export const _Header = styled.div`
 	height: 18rem;
@@ -16,11 +25,28 @@ export const _Header = styled.div`
 const HeaderImage = styled.div`
 	width: 100%;
 	height: 100%;
+	background-size: cover;
+	background-position: center;
+	background-color: ${tertiateBackgroundColor};
 
-	& img {
-		height: 100%;
+	& img.header-img {
+		display: block;
 		width: 100%;
+		height: 100%;
 		object-fit: cover;
+		object-position: center;
+		opacity: 0;
+		transition: opacity 150ms ease-out;
+	}
+
+	& img.header-img.loaded {
+		opacity: 1;
+	}
+
+	@media (scripting: none) {
+		& img.header-img {
+			opacity: 1;
+		}
 	}
 `;
 
@@ -65,18 +91,42 @@ const BannerTitle = styled.h1`
 	width: ${articleWidth};
 `;
 
+const headerImageRevealScript = `
+(() => {
+	const show = (img) => img.classList.add("loaded");
+	for (const img of document.querySelectorAll(".header-img")) {
+		if (img.complete) show(img);
+		else img.addEventListener("load", () => show(img), { once: true });
+	}
+})();
+`;
+
 export function Header(props: { title: string }) {
 	const { headerImageURL, headerImageAlt, headerImageCredits } =
 		useWebsiteContext();
 	const { title } = props;
 	const { name } = path.parse(headerImageURL);
+	const src = headerImageDefaultSrc(name);
 	const srcset = resolutionSrcSet(name);
 
 	return (
 		<_Header>
-			<HeaderImage>
-				<img src={headerImageURL} alt={headerImageAlt} srcSet={srcset} />
+			<HeaderImage style={{ backgroundImage: `url(${src})` }}>
+				<img
+					className="header-img"
+					src={src}
+					alt={headerImageAlt}
+					srcSet={srcset}
+					sizes="100vw"
+					width={HEADER_IMAGE_WIDTH}
+					height={HEADER_IMAGE_HEIGHT}
+					fetchPriority="high"
+					decoding="async"
+				/>
 			</HeaderImage>
+			<script
+				dangerouslySetInnerHTML={{ __html: headerImageRevealScript }}
+			/>
 			<HeaderImageCredits
 				className={`img-credits`}
 				target="_blank"

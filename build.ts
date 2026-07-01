@@ -8,7 +8,7 @@ import { resolutionFileName, resolutions } from "./src/styles/resolutions";
 
 export async function copyPublic(context: WebsiteContext) {
 	const { publicDir, outDir, headerImageURL } = context;
-	const headerImagePath = path.join(publicDir, headerImageURL);
+	const headerImagePath = path.join(publicDir, path.basename(headerImageURL));
 
 	await fs.cp(publicDir, outDir, { recursive: true });
 

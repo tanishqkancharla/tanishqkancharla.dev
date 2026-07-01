@@ -9,7 +9,7 @@ export function Head() {
 	const { title, href } = usePageContext();
 
 	const { name } = path.parse(headerImageURL);
-	const headerUrl = resolutionFileName(name, 640);
+	const headerUrl = `/${resolutionFileName(name, 640)}`;
 
 	return (
 		<head>
