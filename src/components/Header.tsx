@@ -23,11 +23,19 @@ export const _Header = styled.div`
 `;
 
 const HeaderImage = styled.div`
+	position: relative;
 	width: 100%;
 	height: 100%;
 	background-size: cover;
 	background-position: center;
 	background-color: ${tertiateBackgroundColor};
+
+	& .header-shader-root {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
 
 	& img.header-img {
 		display: block;
@@ -41,6 +49,10 @@ const HeaderImage = styled.div`
 
 	& img.header-img.loaded {
 		opacity: 1;
+	}
+
+	&.header-shader-active img.header-img {
+		opacity: 0;
 	}
 
 	@media (scripting: none) {
@@ -91,16 +103,6 @@ const BannerTitle = styled.h1`
 	width: ${articleWidth};
 `;
 
-const headerImageRevealScript = `
-(() => {
-	const show = (img) => img.classList.add("loaded");
-	for (const img of document.querySelectorAll(".header-img")) {
-		if (img.complete) show(img);
-		else img.addEventListener("load", () => show(img), { once: true });
-	}
-})();
-`;
-
 export function Header(props: { title: string }) {
 	const { headerImageURL, headerImageAlt, headerImageCredits } =
 		useWebsiteContext();
@@ -111,7 +113,15 @@ export function Header(props: { title: string }) {
 
 	return (
 		<_Header>
-			<HeaderImage style={{ backgroundImage: `url(${src})` }}>
+			<HeaderImage
+				className="header-image"
+				style={{ backgroundImage: `url(${src})` }}
+			>
+				<div
+					className="header-shader-root"
+					data-image={src}
+					aria-hidden="true"
+				/>
 				<img
 					className="header-img"
 					src={src}
@@ -124,9 +134,6 @@ export function Header(props: { title: string }) {
 					decoding="async"
 				/>
 			</HeaderImage>
-			<script
-				dangerouslySetInnerHTML={{ __html: headerImageRevealScript }}
-			/>
 			<HeaderImageCredits
 				className={`img-credits`}
 				target="_blank"

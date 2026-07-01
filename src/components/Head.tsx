@@ -5,7 +5,7 @@ import { resolutionFileName } from "../styles/resolutions";
 import { borderColor } from "../styles/vars";
 
 export function Head() {
-	const { headerImageURL } = useWebsiteContext();
+	const { headerImageURL, outClientJsPath } = useWebsiteContext();
 	const { title, href } = usePageContext();
 
 	const { name } = path.parse(headerImageURL);
@@ -44,6 +44,7 @@ export function Head() {
 			<meta name="author" content="Tanishq Kancharla" />
 			<meta name="og:url" content="https://tanishqkancharla.dev" />
 
+			<script src={outClientJsPath} defer />
 			<link rel="preconnect" href="https://fonts.googleapis.com" />
 			<link
 				rel="preconnect"

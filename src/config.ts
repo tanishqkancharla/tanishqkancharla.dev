@@ -10,6 +10,9 @@ export type WebsiteContext = {
 	postsDir: string;
 	outDir: string;
 
+	clientJsPath: string;
+	outClientJsPath: string;
+
 	mode: "DEV" | "PROD";
 };
 
@@ -19,6 +22,9 @@ export const defaultWebsiteContext: WebsiteContext = {
 	publicDir: rootPath("/public/"),
 	postsDir: rootPath("/src/pages/"),
 	outDir: rootPath("/dist/"),
+
+	clientJsPath: rootPath("/src/client/index.tsx"),
+	outClientJsPath: "/index.js",
 
 	headerImageURL: "/mcwayfalls.JPG",
 	headerImageAlt:
