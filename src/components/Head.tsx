@@ -25,7 +25,7 @@ export function Head() {
 			<meta property="og:image" content={headerUrl} key="ogimage" />
 
 			<meta name="twitter:card" content="summary_large_image" />
-			<meta name="twitter:creator" content="@moonriseTK" key="twhandle" />
+			<meta name="twitter:creator" content="@tanishqk" key="twhandle" />
 			<meta name="twitter:title" content="Tanishq Kancharla" />
 			<meta
 				name="twitter:description"
