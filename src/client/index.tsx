@@ -8,7 +8,7 @@ if (article) {
 	animate(
 		children,
 		{
-			transform: ["translate(0, 2rem) scale(0.8)", "none"],
+			transform: ["translate(0, 2rem) scale(0.8)", "translate(0, 0) scale(1)"],
 			opacity: [null, 1],
 		},
 		{ delay: stagger(0.02, { ease: "easeOut" }), duration: 0.35 }
@@ -23,7 +23,7 @@ if (gallery) {
 	animate(
 		children,
 		{
-			transform: ["translate(0, 2rem)", "none"],
+			transform: ["translate(0, 2rem)", "translate(0, 0)"],
 			opacity: [null, 1],
 		},
 		{ delay: stagger(0.04, { ease: "easeOut" }), duration: 0.35 }
