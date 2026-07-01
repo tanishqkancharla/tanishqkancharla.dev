@@ -25,6 +25,7 @@
 		"vercel": "^52.0.0"
 	},
 	"dependencies": {
+		"@paper-design/shaders-react": "^0.0.76",
 		"@radix-ui/colors": "^3.0.0",
 		"data-type-ts": "^0.0.8",
 		"fetch-opengraph": "^1.0.35",

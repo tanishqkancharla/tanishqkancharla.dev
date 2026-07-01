@@ -13,6 +13,10 @@ export const Style = () => {
 
         :root {
           --accent-color: ${accentColor}
+        }
+
+        html {
+          background-color: rgba(32, 32, 32, 1);
         }`,
 			}}
 		/>

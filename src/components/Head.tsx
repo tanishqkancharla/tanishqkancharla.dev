@@ -9,7 +9,7 @@ export function Head() {
 	const { title, href } = usePageContext();
 
 	const { name } = path.parse(headerImageURL);
-	const headerUrl = resolutionFileName(name, 640);
+	const headerUrl = `/${resolutionFileName(name, 640)}`;
 
 	return (
 		<head>
@@ -25,7 +25,7 @@ export function Head() {
 			<meta property="og:image" content={headerUrl} key="ogimage" />
 
 			<meta name="twitter:card" content="summary_large_image" />
-			<meta name="twitter:creator" content="@moonriseTK" key="twhandle" />
+			<meta name="twitter:creator" content="@tanishqk" key="twhandle" />
 			<meta name="twitter:title" content="Tanishq Kancharla" />
 			<meta
 				name="twitter:description"
@@ -52,7 +52,7 @@ export function Head() {
 				crossOrigin="anonymous"
 			/>
 			<link
-				href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap"
+				href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=optional"
 				rel="stylesheet"
 			/>
 		</head>

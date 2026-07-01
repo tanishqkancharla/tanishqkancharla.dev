@@ -1,9 +1,17 @@
 import path from "path";
 import styled from "styled-components";
 import { useWebsiteContext } from "../server/WebsiteContext";
-import { resolutionSrcSet } from "../styles/resolutions";
-import { articleWidth, transparentBackground } from "../styles/vars";
-import { H1 } from "./blocks/Heading";
+import {
+	HEADER_IMAGE_HEIGHT,
+	HEADER_IMAGE_WIDTH,
+	headerImageDefaultSrc,
+	resolutionSrcSet,
+} from "../styles/resolutions";
+import {
+	articleWidth,
+	tertiateBackgroundColor,
+	transparentBackground,
+} from "../styles/vars";
 
 export const _Header = styled.div`
 	height: 18rem;
@@ -15,13 +23,42 @@ export const _Header = styled.div`
 `;
 
 const HeaderImage = styled.div`
+	position: relative;
 	width: 100%;
 	height: 100%;
+	background-size: cover;
+	background-position: center;
+	background-color: ${tertiateBackgroundColor};
 
-	& img {
-		height: 100%;
+	& .header-shader-root {
+		position: absolute;
+		inset: 0;
 		width: 100%;
+		height: 100%;
+	}
+
+	& img.header-img {
+		display: block;
+		width: 100%;
+		height: 100%;
 		object-fit: cover;
+		object-position: center;
+		opacity: 0;
+		transition: opacity 150ms ease-out;
+	}
+
+	& img.header-img.loaded {
+		opacity: 1;
+	}
+
+	&.header-shader-active img.header-img {
+		opacity: 0;
+	}
+
+	@media (scripting: none) {
+		& img.header-img {
+			opacity: 1;
+		}
 	}
 `;
 
@@ -54,14 +91,16 @@ const Banner = styled.div`
 	background-color: ${transparentBackground};
 	-webkit-backdrop-filter: blur(8px);
 	backdrop-filter: blur(8px);
+`;
 
-	& h1 {
-		display: block;
-		margin-top: 0;
-		margin-bottom: 0;
-		color: rgba(250, 250, 250, 1);
-		width: ${articleWidth};
-	}
+const BannerTitle = styled.h1`
+	display: block;
+	margin: 0;
+	font-weight: 600;
+	font-size: 2.5rem;
+	line-height: 3rem;
+	color: rgba(250, 250, 250, 1);
+	width: ${articleWidth};
 `;
 
 export function Header(props: { title: string }) {
@@ -69,12 +108,31 @@ export function Header(props: { title: string }) {
 		useWebsiteContext();
 	const { title } = props;
 	const { name } = path.parse(headerImageURL);
+	const src = headerImageDefaultSrc(name);
 	const srcset = resolutionSrcSet(name);
 
 	return (
 		<_Header>
-			<HeaderImage>
-				<img src={headerImageURL} alt={headerImageAlt} srcSet={srcset} />
+			<HeaderImage
+				className="header-image"
+				style={{ backgroundImage: `url(${src})` }}
+			>
+				<div
+					className="header-shader-root"
+					data-image={src}
+					aria-hidden="true"
+				/>
+				<img
+					className="header-img"
+					src={src}
+					alt={headerImageAlt}
+					srcSet={srcset}
+					sizes="100vw"
+					width={HEADER_IMAGE_WIDTH}
+					height={HEADER_IMAGE_HEIGHT}
+					fetchPriority="high"
+					decoding="async"
+				/>
 			</HeaderImage>
 			<HeaderImageCredits
 				className={`img-credits`}
@@ -88,7 +146,7 @@ export function Header(props: { title: string }) {
 			</HeaderImageCredits>
 
 			<Banner>
-				<H1>{title}</H1>
+				<BannerTitle>{title}</BannerTitle>
 			</Banner>
 		</_Header>
 	);

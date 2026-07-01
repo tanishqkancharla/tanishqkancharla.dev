@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { enterAnimation } from "../styles/enterAnimation";
 import {
 	accentColor,
 	blockMarginLg,
@@ -26,10 +27,11 @@ export const Gallery = styled.div`
 		grid-template-columns: repeat(1, 1fr);
 	}
 
-	& > * {
-		// This gets animated to opacity 1 in client code
-		opacity: 0;
-	}
+	${enterAnimation({
+		name: "enter-gallery",
+		fromTransform: "translate(0, 2rem)",
+		staggerStep: 0.04,
+	})}
 
 	row-gap: 1rem;
 	column-gap: 1rem;

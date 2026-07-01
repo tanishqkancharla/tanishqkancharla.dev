@@ -1,31 +1,42 @@
-import { animate, stagger } from "motion";
+import { createRoot } from "react-dom/client";
+import { HeaderShader } from "./HeaderShader";
 
-const article = document.querySelector("article");
-
-if (article) {
-	const children = Array.from(article.children);
-
-	animate(
-		children,
-		{
-			transform: ["translate(0, 2rem) scale(0.8)", "none"],
-			opacity: [null, 1],
-		},
-		{ delay: stagger(0.02, { ease: "easeOut" }), duration: 0.35 }
-	);
+function prefersReducedMotion() {
+	return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-const gallery = document.querySelector(".gallery");
-
-if (gallery) {
-	const children = Array.from(gallery.children);
-
-	animate(
-		children,
-		{
-			transform: ["translate(0, 2rem)", "none"],
-			opacity: [null, 1],
-		},
-		{ delay: stagger(0.04, { ease: "easeOut" }), duration: 0.35 }
-	);
+function hasWebGL() {
+	try {
+		const canvas = document.createElement("canvas");
+		return !!canvas.getContext("webgl2");
+	} catch {
+		return false;
+	}
 }
+
+function revealHeaderImages() {
+	const show = (img: HTMLImageElement) => img.classList.add("loaded");
+	for (const img of document.querySelectorAll<HTMLImageElement>(".header-img")) {
+		if (img.complete) show(img);
+		else img.addEventListener("load", () => show(img), { once: true });
+	}
+}
+
+function mountHeaderShaders() {
+	if (prefersReducedMotion() || !hasWebGL()) return;
+
+	for (const mountPoint of document.querySelectorAll<HTMLElement>(
+		".header-shader-root"
+	)) {
+		const image = mountPoint.dataset.image;
+		const container = mountPoint.closest<HTMLElement>(".header-image");
+		if (!image || !container) continue;
+
+		const root = createRoot(mountPoint);
+		root.render(<HeaderShader image={image} />);
+		container.classList.add("header-shader-active");
+	}
+}
+
+revealHeaderImages();
+mountHeaderShaders();

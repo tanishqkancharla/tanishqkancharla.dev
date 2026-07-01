@@ -52,7 +52,7 @@ export async function compilePost(
 		blocks: compiledBlocks,
 	};
 
-	let title = "Tanishq K.";
+	let title = "Tanishq K";
 
 	if (typeof ast.metadata.title === "string") {
 		title = ast.metadata.title;
