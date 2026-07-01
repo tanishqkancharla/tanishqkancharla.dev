@@ -11,11 +11,11 @@ export function HeaderShader({ image }: HeaderShaderProps) {
 			colorBack="#00000000"
 			colorShadow="#000000"
 			colorHighlight="#ffffff"
-			size={0.5}
+			size={0.85}
 			shadows={0.25}
 			highlights={0.1}
 			shape="lines"
-			angle={0}
+			angle={13}
 			distortionShape="prism"
 			distortion={0.5}
 			shift={0}
