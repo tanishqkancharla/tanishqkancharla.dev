@@ -37,12 +37,13 @@ export const Gallery = styled.div`
 	column-gap: 1rem;
 `;
 
-export const GalleryCard = styled.div`
+export const GalleryCard = styled.a`
 	position: relative;
 	display: block;
 	text-decoration: none;
 	color: ${bodyTextColor};
 	overflow: hidden;
+	cursor: pointer;
 
 	height: 300px;
 	border-width: ${borderWidth};
@@ -54,17 +55,6 @@ export const GalleryCard = styled.div`
 	&:hover {
 		border-color: ${accentColor};
 		${shadowMd}
-	}
-`;
-
-export const GalleryCardLink = styled.a`
-	::before {
-		content: " ";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
 	}
 `;
 
