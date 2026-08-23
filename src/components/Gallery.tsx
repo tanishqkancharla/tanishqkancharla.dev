@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { enterAnimation } from "../styles/enterAnimation";
 import {
 	accentColor,
 	blockMarginLg,
@@ -26,12 +25,6 @@ export const Gallery = styled.div`
 	${mediaPhone} {
 		grid-template-columns: repeat(1, 1fr);
 	}
-
-	${enterAnimation({
-		name: "enter-gallery",
-		fromTransform: "translate(0, 2rem)",
-		staggerStep: 0.04,
-	})}
 
 	row-gap: 1rem;
 	column-gap: 1rem;
