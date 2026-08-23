@@ -1,0 +1,10 @@
+---
+title: Pi Caffeinated
+description: Pi extension that adds a /caffeinate command to keep your machine awake.
+github: https://github.com/tanishqkancharla/pi-caffeinated
+last_edited: May 7, 2026
+status: published
+tags: [typescript]
+---
+
+`/caffeinate` starts a platform-native keep-awake process and shows a coffee-break modal while it runs.

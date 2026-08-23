@@ -1,0 +1,10 @@
+---
+title: Pi Executor
+description: Pi extension that runs TypeScript against a managed local Executor server.
+github: https://github.com/tanishqkancharla/pi-executor
+last_edited: May 19, 2026
+status: published
+tags: [typescript]
+---
+
+Adds an `executor_run` tool. TypeScript is submitted to a local Executor server with files and web tools, not bash.

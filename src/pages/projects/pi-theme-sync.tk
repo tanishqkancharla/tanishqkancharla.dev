@@ -1,0 +1,10 @@
+---
+title: Pi Theme Sync
+description: Auto-switch Pi themes when macOS appearance changes.
+github: https://github.com/tanishqkancharla/pi-theme-sync
+last_edited: May 7, 2026
+status: published
+tags: [typescript]
+---
+
+macOS-only Pi extension. A Swift daemon watches light/dark appearance and switches Pi's theme instantly.

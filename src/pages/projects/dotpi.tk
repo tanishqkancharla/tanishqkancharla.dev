@@ -1,0 +1,10 @@
+---
+title: Dotpi
+description: Personal Pi agent config — extensions, subagents, and prompts.
+github: https://github.com/tanishqkancharla/dotpi
+last_edited: April 20, 2026
+status: published
+tags: [typescript]
+---
+
+Dotfiles for the Pi coding agent: custom extensions, subagents, and agent prompts.

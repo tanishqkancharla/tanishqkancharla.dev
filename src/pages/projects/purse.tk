@@ -1,0 +1,11 @@
+---
+title: Purse
+description: A CSS-in-JS styling solution with Tailwind-style composition.
+github: https://github.com/tanishqkancharla/purse-styles
+href: https://www.npmjs.com/package/purse-styles
+last_edited: July 30, 2026
+status: published
+tags: [web, typescript]
+---
+
+Purse is a small styling library for web apps. You define styles outside components, compose them, and apply them with `useStyles`.
