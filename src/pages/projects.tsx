@@ -86,7 +86,7 @@ ${validateError}`);
 			}
 
 			return projectMetadataType.is(metadata)
-				? { ...metadata, href }
+				? { ...metadata, href: metadata.href ?? href }
 				: undefined;
 		})
 	);
@@ -150,11 +150,16 @@ const ProjectHeaderImage = styled.img`
 `;
 
 function ProjectItem(props: { metadata: ProjectMetadata }) {
-	const { href, title, description, header_image_src, status, tags } =
+	const { href, github, title, description, header_image_src, status, tags } =
 		props.metadata;
+	const cardHref = github ?? href;
+	const isExternal = /^https?:\/\//.test(cardHref);
 	return (
 		<GalleryCard>
-			<GalleryCardLink href={href} />
+			<GalleryCardLink
+				href={cardHref}
+				{...(isExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+			/>
 			{header_image_src && (
 				<div style={{ height: "35%" }}>
 					<ProjectHeaderImage src={header_image_src} />
@@ -184,7 +189,10 @@ function ProjectsPage(props: PropsType) {
 			<Breadcrumbs />
 			<Gallery className="gallery">
 				{props.projectMetadatas.map((metadata) => (
-					<ProjectItem key={metadata.href} metadata={metadata} />
+					<ProjectItem
+						key={metadata.github ?? metadata.href}
+						metadata={metadata}
+					/>
 				))}
 			</Gallery>
 		</Page>
