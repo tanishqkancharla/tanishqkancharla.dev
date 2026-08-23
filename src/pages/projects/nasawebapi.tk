@@ -2,7 +2,7 @@
 title: NASA Web Client
 description: A web client to NASA's media archives.
 header_image_src: /projects/nasawebapi.gif
-github: https://github.com/tklightningfast/nasa-web-api
+github: https://github.com/tanishqkancharla/nasa-web-api
 last_edited: May 5, 2020
 status: published
 tags: [web, javascript]

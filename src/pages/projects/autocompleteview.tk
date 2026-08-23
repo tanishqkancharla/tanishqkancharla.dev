@@ -2,7 +2,7 @@
 title: Autocomplete View
 description: Simple autocomplete view for SwiftUI.
 header_image_src: /projects/autocompleteviewheader.gif
-github: https://github.com/tklightningfast/AutocompleteView
+github: https://github.com/tanishqkancharla/AutocompleteView
 last_edited: April 13, 2021
 status: published
 tags: [swift]

@@ -1,0 +1,10 @@
+---
+title: Pi Code Mode
+description: Pi extension that swaps tools for a single exec tool via /codemode.
+github: https://github.com/tanishqkancharla/pi-code-mode
+last_edited: May 28, 2026
+status: published
+tags: [typescript]
+---
+
+A Pi extension. `/codemode` replaces the active tool set with one `exec` tool that runs TypeScript inside QuickJS.

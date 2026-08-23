@@ -1,0 +1,10 @@
+---
+title: Pi Live Terminal
+description: Pi extension with a live tmux widget and long-running terminal tools.
+github: https://github.com/tanishqkancharla/pi-live-terminal
+last_edited: June 18, 2026
+status: published
+tags: [typescript]
+---
+
+Adds `live_terminal_run` / `live_terminal_close` and a tmux widget inside Pi, so long-running or interactive commands stay visible.

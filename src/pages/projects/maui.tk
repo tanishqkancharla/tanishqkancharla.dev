@@ -1,0 +1,13 @@
+---
+title: Maui
+description: TypeScript-first design system styled with purse-styles.
+github: https://github.com/tanishqkancharla/maui
+href: https://maui.tanishqkancharla.dev
+last_edited: August 20, 2026
+status: in-progress
+tags: [web, typescript]
+---
+
+Maui is a TypeScript-first design system — tokens, components, and a gallery of patterns. The published package is [`@tanishqkancharla/maui`](https://www.npmjs.com/package/@tanishqkancharla/maui).
+
+[bookmark: https://maui.tanishqkancharla.dev]

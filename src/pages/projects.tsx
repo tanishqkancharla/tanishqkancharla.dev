@@ -14,14 +14,13 @@ import path from "path";
 import React from "react";
 import styled from "styled-components";
 import { parseTK } from "tk-parser";
-import { H3 } from "../components/blocks/Heading";
+import { _H3 as H3 } from "../components/blocks/Heading";
 import { P } from "../components/blocks/Paragraph";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import {
 	Gallery,
 	GalleryCard,
 	GalleryCardContent,
-	GalleryCardLink,
 } from "../components/Gallery";
 import { Page } from "../components/Page";
 import { borderRadius, fontSm } from "../styles/vars";
@@ -61,6 +60,7 @@ const projectMetadataType: dt.RuntimeDataType<ProjectMetadata> = dt.object({
 		last_edited: dt.string,
 		tags: dt.array(dt.string),
 		github: dt.string,
+		href: dt.string,
 	},
 });
 
@@ -86,7 +86,7 @@ ${validateError}`);
 			}
 
 			return projectMetadataType.is(metadata)
-				? { ...metadata, href }
+				? { ...metadata, href: metadata.href ?? href }
 				: undefined;
 		})
 	);
@@ -150,11 +150,15 @@ const ProjectHeaderImage = styled.img`
 `;
 
 function ProjectItem(props: { metadata: ProjectMetadata }) {
-	const { href, title, description, header_image_src, status, tags } =
+	const { href, github, title, description, header_image_src, status, tags } =
 		props.metadata;
+	const cardHref = github ?? href;
+	const isExternal = /^https?:\/\//.test(cardHref);
 	return (
-		<GalleryCard>
-			<GalleryCardLink href={href} />
+		<GalleryCard
+			href={cardHref}
+			{...(isExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+		>
 			{header_image_src && (
 				<div style={{ height: "35%" }}>
 					<ProjectHeaderImage src={header_image_src} />
@@ -184,7 +188,10 @@ function ProjectsPage(props: PropsType) {
 			<Breadcrumbs />
 			<Gallery className="gallery">
 				{props.projectMetadatas.map((metadata) => (
-					<ProjectItem key={metadata.href} metadata={metadata} />
+					<ProjectItem
+						key={metadata.github ?? metadata.href}
+						metadata={metadata}
+					/>
 				))}
 			</Gallery>
 		</Page>

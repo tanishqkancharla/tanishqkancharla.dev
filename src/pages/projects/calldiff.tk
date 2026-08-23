@@ -1,0 +1,14 @@
+---
+title: Calldiff
+description: Diff function call stacks across git commits, AST-based across 23 languages.
+github: https://github.com/tanishqkancharla/calldiff
+last_edited: August 20, 2026
+status: in-progress
+tags: [typescript]
+---
+
+Calldiff is like `git diff`, but for who-calls-whom. Built for agentic review when line diffs bury the shape of a change.
+
+```bash
+npx calldiff@latest
+```
