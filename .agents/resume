@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Dependencies are preserved in the snapshot. This project has no authentication
+# or backing services to reconnect, so waking an orb requires no extra work.
