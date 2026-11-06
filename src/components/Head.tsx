@@ -1,6 +1,7 @@
 import path from "path";
 import { usePageContext } from "../server/PageContext";
 import { useWebsiteContext } from "../server/WebsiteContext";
+import { coreFontURLs, fontCSS } from "../styles/fonts";
 import { resolutionFileName } from "../styles/resolutions";
 import { borderColor } from "../styles/vars";
 
@@ -45,16 +46,17 @@ export function Head() {
 			<meta name="og:url" content="https://tanishqkancharla.dev" />
 
 			<script src={outClientJsPath} defer />
-			<link rel="preconnect" href="https://fonts.googleapis.com" />
-			<link
-				rel="preconnect"
-				href="https://fonts.gstatic.com"
-				crossOrigin="anonymous"
-			/>
-			<link
-				href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap"
-				rel="stylesheet"
-			/>
+			{coreFontURLs.map((url) => (
+				<link
+					key={url}
+					rel="preload"
+					href={url}
+					as="font"
+					type="font/woff2"
+					crossOrigin="anonymous"
+				/>
+			))}
+			<style dangerouslySetInnerHTML={{ __html: fontCSS }} />
 		</head>
 	);
 }
