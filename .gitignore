@@ -3,3 +3,6 @@
 
 .vercel
 .DS_Store
+
+# Orb portal metadata is local to each thread.
+.amp/portals/*
