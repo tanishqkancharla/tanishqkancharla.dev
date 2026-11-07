@@ -4,6 +4,7 @@ import path from "path";
 import sharp from "sharp";
 import { defaultWebsiteContext, WebsiteContext } from "./src/config";
 import { buildWebsite } from "./src/server/buildWebsite";
+import { prepareImages } from "./src/server/prepareImages";
 import { resolutionFileName, resolutions } from "./src/styles/resolutions";
 
 export async function copyPublic(context: WebsiteContext) {
@@ -14,14 +15,22 @@ export async function copyPublic(context: WebsiteContext) {
 
 	const { name: fileName } = path.parse(headerImagePath);
 	const inputBuffer = await fs.readFile(headerImagePath);
+	const publicPaths = await fs.readdir(publicDir, { recursive: true });
+	const headerPaths: string[] = [];
 
 	for (const res of resolutions) {
 		const jpgOutputFilename = resolutionFileName(fileName, res);
+		headerPaths.push(jpgOutputFilename);
 
 		const jpgFilePath = path.join(outDir, jpgOutputFilename);
 
 		await sharp(inputBuffer).resize(res).toFile(jpgFilePath);
 	}
+
+	context.imageAssets = await prepareImages(outDir, [
+		...publicPaths,
+		...headerPaths,
+	]);
 }
 
 async function main() {

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { fontSm, secondaryBodyTextColor } from "../../styles/vars";
+import { PreparedImage } from "../PreparedImage";
 
 const Figure = styled.figure`
 	margin: 0;
@@ -24,7 +25,14 @@ const Figcaption = styled.figcaption`
 export function Image(props: { url: string; caption?: string }) {
 	return (
 		<Figure>
-			<img src={props.url} />
+			{/* Preserve automatic sizing: intrinsic attributes changed fractional layout. */}
+			<PreparedImage
+				src={props.url}
+				width={undefined}
+				height={undefined}
+				loading="lazy"
+				decoding="async"
+			/>
 			<Figcaption>{props.caption}</Figcaption>
 		</Figure>
 	);

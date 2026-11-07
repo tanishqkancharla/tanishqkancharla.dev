@@ -1,5 +1,6 @@
 import path from "path";
 import styled from "styled-components";
+import { PreparedImage } from "./PreparedImage";
 import { useWebsiteContext } from "../server/WebsiteContext";
 import {
 	HEADER_IMAGE_HEIGHT,
@@ -30,35 +31,12 @@ const HeaderImage = styled.div`
 	background-position: center;
 	background-color: ${tertiateBackgroundColor};
 
-	& .header-shader-root {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-	}
-
 	& img.header-img {
 		display: block;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		object-position: center;
-		opacity: 0;
-		transition: opacity 150ms ease-out;
-	}
-
-	& img.header-img.loaded {
-		opacity: 1;
-	}
-
-	&.header-shader-active img.header-img {
-		opacity: 0;
-	}
-
-	@media (scripting: none) {
-		& img.header-img {
-			opacity: 1;
-		}
 	}
 `;
 
@@ -113,16 +91,8 @@ export function Header(props: { title: string }) {
 
 	return (
 		<_Header>
-			<HeaderImage
-				className="header-image"
-				style={{ backgroundImage: `url(${src})` }}
-			>
-				<div
-					className="header-shader-root"
-					data-image={src}
-					aria-hidden="true"
-				/>
-				<img
+			<HeaderImage className="header-image">
+				<PreparedImage
 					className="header-img"
 					src={src}
 					alt={headerImageAlt}
@@ -130,6 +100,7 @@ export function Header(props: { title: string }) {
 					sizes="100vw"
 					width={HEADER_IMAGE_WIDTH}
 					height={HEADER_IMAGE_HEIGHT}
+					loading="eager"
 					fetchPriority="high"
 					decoding="async"
 				/>

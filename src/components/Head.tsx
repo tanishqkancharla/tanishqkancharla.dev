@@ -6,7 +6,7 @@ import { resolutionFileName } from "../styles/resolutions";
 import { borderColor } from "../styles/vars";
 
 export function Head() {
-	const { headerImageURL, outClientJsPath } = useWebsiteContext();
+	const { headerImageURL } = useWebsiteContext();
 	const { title, href } = usePageContext();
 
 	const { name } = path.parse(headerImageURL);
@@ -45,7 +45,6 @@ export function Head() {
 			<meta name="author" content="Tanishq Kancharla" />
 			<meta name="og:url" content="https://tanishqkancharla.dev" />
 
-			<script src={outClientJsPath} defer />
 			{coreFontURLs.map((url) => (
 				<link
 					key={url}
