@@ -8,7 +8,7 @@ import { prepareImages } from "./src/server/prepareImages";
 import { resolutionFileName, resolutions } from "./src/styles/resolutions";
 
 export async function copyPublic(context: WebsiteContext) {
-	const { publicDir, outDir, headerImageURL } = context;
+	const { publicDir, outDir, headerImageURL, socialImageURL } = context;
 	const headerImagePath = path.join(publicDir, path.basename(headerImageURL));
 
 	await fs.cp(publicDir, outDir, { recursive: true });
@@ -16,20 +16,27 @@ export async function copyPublic(context: WebsiteContext) {
 	const { name: fileName } = path.parse(headerImagePath);
 	const inputBuffer = await fs.readFile(headerImagePath);
 	const publicPaths = await fs.readdir(publicDir, { recursive: true });
-	const headerPaths: string[] = [];
+	const generatedPaths: string[] = [];
 
 	for (const res of resolutions) {
 		const jpgOutputFilename = resolutionFileName(fileName, res);
-		headerPaths.push(jpgOutputFilename);
+		generatedPaths.push(jpgOutputFilename);
 
 		const jpgFilePath = path.join(outDir, jpgOutputFilename);
 
 		await sharp(inputBuffer).resize(res).toFile(jpgFilePath);
 	}
 
+	const socialImagePath = path.join(publicDir, path.basename(socialImageURL));
+	const socialFilename = resolutionFileName(path.parse(socialImagePath).name, 640);
+	await sharp(await fs.readFile(socialImagePath))
+		.resize(640)
+		.toFile(path.join(outDir, socialFilename));
+	generatedPaths.push(socialFilename);
+
 	context.imageAssets = await prepareImages(outDir, [
 		...publicPaths,
-		...headerPaths,
+		...generatedPaths,
 	]);
 }
 

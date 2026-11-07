@@ -12,6 +12,7 @@ export type WebsiteContext = {
 	headerImageURL: string;
 	headerImageAlt: string;
 	headerImageCredits: string;
+	socialImageURL: string;
 
 	publicDir: string;
 	postsDir: string;
@@ -29,6 +30,7 @@ export const defaultWebsiteContext: WebsiteContext = {
 	outDir: rootPath("/dist/"),
 
 	headerImageURL: "/mcwayfalls-glass.jpg",
+	socialImageURL: "/mcwayfalls.JPG",
 	headerImageAlt:
 		"A top-down view of Mcway Falls, with a pristine turquouse blue beach lagoon, surrounded on all sides by rocky cliffs.",
 	headerImageCredits: "https://unsplash.com/photos/n7wnAWG4hB0",
