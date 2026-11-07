@@ -1,15 +1,16 @@
 import path from "path";
 import { usePageContext } from "../server/PageContext";
 import { useWebsiteContext } from "../server/WebsiteContext";
+import { coreFontURLs, fontCSS } from "../styles/fonts";
 import { resolutionFileName } from "../styles/resolutions";
 import { borderColor } from "../styles/vars";
 
 export function Head() {
-	const { headerImageURL, outClientJsPath } = useWebsiteContext();
+	const { socialImageURL } = useWebsiteContext();
 	const { title, href } = usePageContext();
 
-	const { name } = path.parse(headerImageURL);
-	const headerUrl = `/${resolutionFileName(name, 640)}`;
+	const { name } = path.parse(socialImageURL);
+	const socialUrl = `/${resolutionFileName(name, 640)}`;
 
 	return (
 		<head>
@@ -22,7 +23,7 @@ export function Head() {
 				name="og:description"
 				content="Tanishq Kancharla's personal website"
 			/>
-			<meta property="og:image" content={headerUrl} key="ogimage" />
+			<meta property="og:image" content={socialUrl} key="ogimage" />
 
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:creator" content="@tanishqk" key="twhandle" />
@@ -31,7 +32,7 @@ export function Head() {
 				name="twitter:description"
 				content="Tanishq Kancharla's personal website."
 			/>
-			<meta name="twitter:image" content={headerUrl} />
+			<meta name="twitter:image" content={socialUrl} />
 
 			{/* https://developer.twitter.com/en/docs/twitter-for-websites/webpage-properties */}
 			<meta name="twitter:widgets:theme" content="dark"></meta>
@@ -44,17 +45,17 @@ export function Head() {
 			<meta name="author" content="Tanishq Kancharla" />
 			<meta name="og:url" content="https://tanishqkancharla.dev" />
 
-			<script src={outClientJsPath} defer />
-			<link rel="preconnect" href="https://fonts.googleapis.com" />
-			<link
-				rel="preconnect"
-				href="https://fonts.gstatic.com"
-				crossOrigin="anonymous"
-			/>
-			<link
-				href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap"
-				rel="stylesheet"
-			/>
+			{coreFontURLs.map((url) => (
+				<link
+					key={url}
+					rel="preload"
+					href={url}
+					as="font"
+					type="font/woff2"
+					crossOrigin="anonymous"
+				/>
+			))}
+			<style dangerouslySetInnerHTML={{ __html: fontCSS }} />
 		</head>
 	);
 }

@@ -1,7 +1,7 @@
 export const resolutions = [480, 640, 1280, 2880] as const;
 
-export const HEADER_IMAGE_WIDTH = 1280;
-export const HEADER_IMAGE_HEIGHT = 853;
+export const HEADER_IMAGE_WIDTH = 2880;
+export const HEADER_IMAGE_HEIGHT = 576;
 
 export const resolutionFileName = (
 	fileName: string,

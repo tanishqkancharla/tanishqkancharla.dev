@@ -23,6 +23,7 @@ import {
 	GalleryCardContent,
 } from "../components/Gallery";
 import { Page } from "../components/Page";
+import { PreparedImage } from "../components/PreparedImage";
 import { borderRadius, fontSm } from "../styles/vars";
 import { listDirectory } from "../tools/listDirectory";
 import { rootPath } from "../tools/rootPath";
@@ -142,7 +143,7 @@ const Tag = styled.span`
 	padding: 2px;
 `;
 
-const ProjectHeaderImage = styled.img`
+const ProjectHeaderImage = styled(PreparedImage)`
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -161,7 +162,11 @@ function ProjectItem(props: { metadata: ProjectMetadata }) {
 		>
 			{header_image_src && (
 				<div style={{ height: "35%" }}>
-					<ProjectHeaderImage src={header_image_src} />
+					<ProjectHeaderImage
+						src={header_image_src}
+						loading="lazy"
+						decoding="async"
+					/>
 				</div>
 			)}
 

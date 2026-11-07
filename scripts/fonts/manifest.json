@@ -1,0 +1,410 @@
+{
+  "contentSHA256": "216d34efe1f36c6be167911ef60373e6462b705ee8d15581acd94826cceef03b",
+  "pageCount": 51,
+  "usedCharacters": "U+000A,U+0020-007E,U+00A0,U+200D,U+2013-2014,U+2019,U+201C-201D,U+2026,U+2192,U+2642,U+2705,U+274C,U+FE0F,U+1F319,U+1F3FE,U+1F44E,U+1F4A1,U+1F4AD,U+1F4CB,U+1F4F8,U+1F602,U+1F604-1F605,U+1F644,U+1F64B,U+1F64F,U+1F6E0",
+  "requestedCharacters": "U+000A,U+0020-007E,U+00A0-017F,U+200D,U+2010-2015,U+2018-201F,U+2026,U+2192,U+2642,U+2705,U+274C,U+FE0F,U+1F319,U+1F3FE,U+1F44E,U+1F4A1,U+1F4AD,U+1F4CB,U+1F4F8,U+1F602,U+1F604-1F605,U+1F644,U+1F64B,U+1F64F,U+1F6E0",
+  "featuresKept": [
+    "ccmp",
+    "locl",
+    "liga",
+    "kern",
+    "mark",
+    "mkmk"
+  ],
+  "originals": [
+    {
+      "file": "scripts/fonts/originals/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNa7lqDY.woff2",
+      "bytes": 5044,
+      "glyphs": 90,
+      "characters": 55,
+      "axes": [],
+      "features": {
+        "GSUB": [],
+        "GPOS": [
+          "kern"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNa7lqDY.woff2",
+      "weight": 400
+    },
+    {
+      "file": "scripts/fonts/originals/6xK3dSBYKcSV-LCoeQqfX1RYOo3qPK7lqDY.woff2",
+      "bytes": 7920,
+      "glyphs": 152,
+      "characters": 106,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "locl"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xK3dSBYKcSV-LCoeQqfX1RYOo3qPK7lqDY.woff2",
+      "weight": 400
+    },
+    {
+      "file": "scripts/fonts/originals/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNK7lqDY.woff2",
+      "bytes": 6036,
+      "glyphs": 301,
+      "characters": 237,
+      "axes": [],
+      "features": {
+        "GSUB": [],
+        "GPOS": [
+          "kern"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNK7lqDY.woff2",
+      "weight": 400
+    },
+    {
+      "file": "scripts/fonts/originals/6xK3dSBYKcSV-LCoeQqfX1RYOo3qO67lqDY.woff2",
+      "bytes": 7016,
+      "glyphs": 117,
+      "characters": 88,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "locl"
+        ],
+        "GPOS": [
+          "kern"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xK3dSBYKcSV-LCoeQqfX1RYOo3qO67lqDY.woff2",
+      "weight": 400
+    },
+    {
+      "file": "scripts/fonts/originals/6xK3dSBYKcSV-LCoeQqfX1RYOo3qN67lqDY.woff2",
+      "bytes": 5836,
+      "glyphs": 167,
+      "characters": 115,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "locl"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xK3dSBYKcSV-LCoeQqfX1RYOo3qN67lqDY.woff2",
+      "weight": 400
+    },
+    {
+      "file": "scripts/fonts/originals/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNq7lqDY.woff2",
+      "bytes": 23096,
+      "glyphs": 523,
+      "characters": 397,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "liga",
+          "locl"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNq7lqDY.woff2",
+      "weight": 400
+    },
+    {
+      "file": "scripts/fonts/originals/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7l.woff2",
+      "bytes": 14812,
+      "glyphs": 304,
+      "characters": 231,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "dnom",
+          "frac",
+          "liga",
+          "locl",
+          "numr",
+          "pnum"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7l.woff2",
+      "weight": 400
+    },
+    {
+      "file": "scripts/fonts/originals/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmhduz8A.woff2",
+      "bytes": 5012,
+      "glyphs": 90,
+      "characters": 55,
+      "axes": [],
+      "features": {
+        "GSUB": [],
+        "GPOS": [
+          "kern"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmhduz8A.woff2",
+      "weight": 600
+    },
+    {
+      "file": "scripts/fonts/originals/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwkxduz8A.woff2",
+      "bytes": 7984,
+      "glyphs": 152,
+      "characters": 106,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "locl"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwkxduz8A.woff2",
+      "weight": 600
+    },
+    {
+      "file": "scripts/fonts/originals/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmxduz8A.woff2",
+      "bytes": 5976,
+      "glyphs": 301,
+      "characters": 237,
+      "axes": [],
+      "features": {
+        "GSUB": [],
+        "GPOS": [
+          "kern"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmxduz8A.woff2",
+      "weight": 600
+    },
+    {
+      "file": "scripts/fonts/originals/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlBduz8A.woff2",
+      "bytes": 6976,
+      "glyphs": 117,
+      "characters": 88,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "locl"
+        ],
+        "GPOS": [
+          "kern"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlBduz8A.woff2",
+      "weight": 600
+    },
+    {
+      "file": "scripts/fonts/originals/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmBduz8A.woff2",
+      "bytes": 5808,
+      "glyphs": 167,
+      "characters": 115,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "locl"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmBduz8A.woff2",
+      "weight": 600
+    },
+    {
+      "file": "scripts/fonts/originals/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmRduz8A.woff2",
+      "bytes": 23040,
+      "glyphs": 523,
+      "characters": 397,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "liga",
+          "locl"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwmRduz8A.woff2",
+      "weight": 600
+    },
+    {
+      "file": "scripts/fonts/originals/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu.woff2",
+      "bytes": 14772,
+      "glyphs": 304,
+      "characters": 231,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "dnom",
+          "frac",
+          "liga",
+          "locl",
+          "numr",
+          "pnum"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "url": "https://fonts.gstatic.com/s/sourcesanspro/v24/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu.woff2",
+      "weight": 600
+    }
+  ],
+  "outputs": [
+    {
+      "file": "public/fonts/tk-site-sans-400-extended-f85502b48dbd.woff2",
+      "bytes": 8448,
+      "glyphs": 221,
+      "characters": 127,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "locl"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "weight": 400,
+      "part": "extended",
+      "unicodeRange": "U+0100-0130,U+0132-0151,U+0154-017E,U+0304,U+0308",
+      "shapingSupport": "U+0041"
+    },
+    {
+      "file": "public/fonts/tk-site-sans-400-core-c4e288ab0eed.woff2",
+      "bytes": 12344,
+      "glyphs": 250,
+      "characters": 205,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "liga",
+          "locl"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "weight": 400,
+      "part": "core",
+      "unicodeRange": "U+0020-007E,U+00A0-00FF,U+0131,U+0152-0153,U+0304,U+0308,U+2013-2014,U+2018-201A,U+201C-201E,U+2026",
+      "shapingSupport": ""
+    },
+    {
+      "file": "public/fonts/tk-site-sans-600-extended-1ad60edcb31b.woff2",
+      "bytes": 8432,
+      "glyphs": 221,
+      "characters": 127,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "locl"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "weight": 600,
+      "part": "extended",
+      "unicodeRange": "U+0100-0130,U+0132-0151,U+0154-017E,U+0304,U+0308",
+      "shapingSupport": "U+0041"
+    },
+    {
+      "file": "public/fonts/tk-site-sans-600-core-599c2b765cb3.woff2",
+      "bytes": 12384,
+      "glyphs": 250,
+      "characters": 205,
+      "axes": [],
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "liga",
+          "locl"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "hintingTables": [],
+      "instructedGlyphs": 0,
+      "weight": 600,
+      "part": "core",
+      "unicodeRange": "U+0020-007E,U+00A0-00FF,U+0131,U+0152-0153,U+0304,U+0308,U+2013-2014,U+2018-201A,U+201C-201E,U+2026",
+      "shapingSupport": ""
+    }
+  ]
+}

@@ -12,8 +12,6 @@ npm run serve // Serve built blog
 ```
 
 ## Source directories explained:
-`/client`: Javascript for the client. At the moment its very very minimal.
-
 `/pages`: Blog post pages which are either `.tk` (my personal blog post format) or `.tsx` files.
 
 `/components`: Styled components for the website, including for each individual block in the blog posts.
@@ -32,7 +30,7 @@ npm run serve // Serve built blog
 
 The dev server is passable. See `dev.ts` for how it works, but it basically builds the website, starts a web server, and watches source files for changes.
 
-Unfortunately, at the moment, if a source file that's not one of the end-pages (i.e. `/src/pages/` or `/src/client/`) changes, it has to rebuild the website, since it doesn't know which files are dependent on it.
+Unfortunately, at the moment, if a source file that's not one of the end-pages (i.e. `/src/pages/`) changes, it has to rebuild the website, since it doesn't know which files are dependent on it.
 
 Eventually, I'd like to build something that will fix this, e.g. dependency graph parser. Either that, or cache the compilations of tk posts. But for now, everything is fairly fast.
 
