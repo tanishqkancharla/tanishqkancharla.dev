@@ -304,7 +304,10 @@ for (const card of document.querySelectorAll("[data-hover-play]")) {
 		if (event.pointerType === "mouse") play();
 	});
 	card.addEventListener("pointerleave", stop);
-	card.addEventListener("focus", play);
+	// Taps also focus the link; only keyboard focus should start a clip.
+	card.addEventListener("focus", () => {
+		if (card.matches(":focus-visible")) play();
+	});
 	card.addEventListener("blur", stop);
 }
 `;
