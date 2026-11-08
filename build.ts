@@ -5,7 +5,12 @@ import sharp from "sharp";
 import { defaultWebsiteContext, WebsiteContext } from "./src/config";
 import { buildWebsite } from "./src/server/buildWebsite";
 import { prepareImages } from "./src/server/prepareImages";
-import { resolutionFileName, resolutions } from "./src/styles/resolutions";
+import {
+	headerWidths,
+	narrowFileName,
+	narrowHeaderWidths,
+	resolutionFileName,
+} from "./src/styles/resolutions";
 
 export async function copyPublic(context: WebsiteContext) {
 	const { publicDir, outDir, headerImageURL, socialImageURL } = context;
@@ -18,13 +23,30 @@ export async function copyPublic(context: WebsiteContext) {
 	const publicPaths = await fs.readdir(publicDir, { recursive: true });
 	const generatedPaths: string[] = [];
 
-	for (const res of resolutions) {
+	for (const res of headerWidths) {
 		const jpgOutputFilename = resolutionFileName(fileName, res);
 		generatedPaths.push(jpgOutputFilename);
 
 		const jpgFilePath = path.join(outDir, jpgOutputFilename);
 
 		await sharp(inputBuffer).resize(res).toFile(jpgFilePath);
+	}
+
+	// Center crops of the 90rem-wide strip, 40rem × 18rem.
+	for (const res of narrowHeaderWidths) {
+		const jpgOutputFilename = narrowFileName(fileName, res);
+		generatedPaths.push(jpgOutputFilename);
+
+		const stripWidth = (res * 90) / 40;
+		await sharp(inputBuffer)
+			.resize(stripWidth)
+			.extract({
+				left: (stripWidth - res) / 2,
+				top: 0,
+				width: res,
+				height: (res * 18) / 40,
+			})
+			.toFile(path.join(outDir, jpgOutputFilename));
 	}
 
 	const socialImagePath = path.join(publicDir, path.basename(socialImageURL));

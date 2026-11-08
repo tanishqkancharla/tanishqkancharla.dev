@@ -32,3 +32,17 @@ optimizations rather than silently accepting them.
   when needed. Report the browser/platform tested rather than claiming universal
   pixel identity. Sharp-decoded image equality alone does not prove browser pixel
   equality; browser comparisons rejected previously tested WebP conversions.
+
+# Header image
+
+Read [scripts/header/README.md](scripts/header/README.md) before changing the
+header photo, the glass look, or the header's size. The glass is a manual bake,
+never part of the build: `npm run render-header` writes
+`public/mcwayfalls-glass.jpg`; commit it with the change that caused it.
+
+- Never screenshot a live page to re-bake: headless Chrome ignores the emulated
+  device scale for the shader's canvas, which once shipped a 1× bake stretched
+  2×. The render script sets the scale through the shader and checks the size.
+- `src/styles/resolutions.ts` owns the variants and `sizes`. If the header's
+  height or the strip's aspect changes, update it and check in a browser that
+  no viewport and pixel ratio picks a file smaller than its drawn size.
