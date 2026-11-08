@@ -8,15 +8,18 @@
 		"build": "npm run clear; tsx build.ts",
 		"serve": "serve",
 		"dev": "npm run clear; tsx dev.ts",
+		"render-header": "tsx scripts/header/render.ts",
 		"deploy": "npx vercel deploy",
 		"test": "node --test"
 	},
 	"author": "Tanishq Kancharla",
 	"license": "MIT",
 	"devDependencies": {
+		"@paper-design/shaders-react": "0.0.76",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
 		"chokidar": "^3.6.0",
+		"esbuild": "^0.28.2",
 		"minimatch": "^10.0.0",
 		"serve": "^14.2.0",
 		"tsx": "^4.19.0",

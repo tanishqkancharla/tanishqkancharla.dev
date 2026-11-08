@@ -1,12 +1,16 @@
 import path from "path";
 import styled from "styled-components";
-import { PreparedImage } from "./PreparedImage";
+import { PreparedImage, usePreparedSrcSet } from "./PreparedImage";
 import { useWebsiteContext } from "../server/WebsiteContext";
 import {
 	HEADER_IMAGE_HEIGHT,
 	HEADER_IMAGE_WIDTH,
 	headerImageDefaultSrc,
-	resolutionSrcSet,
+	headerSizes,
+	headerSrcSet,
+	narrowHeaderMedia,
+	narrowHeaderSizes,
+	narrowHeaderSrcSet,
 } from "../styles/resolutions";
 import {
 	articleWidth,
@@ -31,6 +35,7 @@ const HeaderImage = styled.div`
 	background-position: center;
 	background-color: ${tertiateBackgroundColor};
 
+	& picture,
 	& img.header-img {
 		display: block;
 		width: 100%;
@@ -87,23 +92,30 @@ export function Header(props: { title: string }) {
 	const { title } = props;
 	const { name } = path.parse(headerImageURL);
 	const src = headerImageDefaultSrc(name);
-	const srcset = resolutionSrcSet(name);
+	const narrowSrcSet = usePreparedSrcSet(narrowHeaderSrcSet(name));
 
 	return (
 		<_Header>
 			<HeaderImage className="header-image">
-				<PreparedImage
-					className="header-img"
-					src={src}
-					alt={headerImageAlt}
-					srcSet={srcset}
-					sizes="100vw"
-					width={HEADER_IMAGE_WIDTH}
-					height={HEADER_IMAGE_HEIGHT}
-					loading="eager"
-					fetchPriority="high"
-					decoding="async"
-				/>
+				<picture>
+					<source
+						media={narrowHeaderMedia}
+						srcSet={narrowSrcSet}
+						sizes={narrowHeaderSizes}
+					/>
+					<PreparedImage
+						className="header-img"
+						src={src}
+						alt={headerImageAlt}
+						srcSet={headerSrcSet(name)}
+						sizes={headerSizes}
+						width={HEADER_IMAGE_WIDTH}
+						height={HEADER_IMAGE_HEIGHT}
+						loading="eager"
+						fetchPriority="high"
+						decoding="async"
+					/>
+				</picture>
 			</HeaderImage>
 			<HeaderImageCredits
 				className={`img-credits`}
