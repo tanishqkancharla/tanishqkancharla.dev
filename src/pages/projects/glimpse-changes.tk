@@ -1,10 +1,12 @@
 ---
 title: Glimpse Changes
 description: Render Markdown with inline diffs in a native Glimpse window.
+header_image_src: /projects/headers/glimpse-changes.webp
+header_video_src: /projects/headers/glimpse-changes.mp4
 github: https://github.com/tanishqkancharla/glimpse-changes
 last_edited: July 18, 2026
 status: published
-tags: [typescript]
+tags: [devtools, agents, typescript]
 ---
 
 A CLI that turns a Markdown walkthrough into a Critique-like review, resolving git `changes` blocks and opening the result in [Glimpse](https://glimpse.app).

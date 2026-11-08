@@ -1,10 +1,12 @@
 ---
 title: Pi MCP
 description: MCP server integration for Pi — stdio and HTTP/OAuth2, through an AXI-style CLI.
+header_image_src: /projects/headers/pi-mcp.webp
+header_video_src: /projects/headers/pi-mcp.mp4
 github: https://github.com/tanishqkancharla/pi-mcp-axi
 last_edited: April 12, 2026
 status: published
-tags: [typescript]
+tags: [pi, agents, typescript]
 ---
 
 Connects Pi to MCP servers, then presents tools through a compact AXI-style CLI instead of raw JSON schemas.
