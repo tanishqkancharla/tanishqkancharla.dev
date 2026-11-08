@@ -1,11 +1,13 @@
 ---
 title: tanishqkancharla.dev
 description: My personal website, designed and built from scratch.
+header_image_src: /projects/headers/website.webp
+header_video_src: /projects/headers/website.mp4
 href: https://tanishqkancharla.dev
 github: https://github.com/tanishqkancharla/tanishqkancharla.dev
 last_edited: July 5, 2022
 status: published
-tags: [web, typescript]
+tags: [app, web, typescript]
 ---
 
 My personal website, designed without a framework, and pretty much from scratch. Everything is pre-rendered (currently), and my blog uses a [custom blog post format](https://github.com/search?q=user%3Atanishqkancharla+tk-parser).

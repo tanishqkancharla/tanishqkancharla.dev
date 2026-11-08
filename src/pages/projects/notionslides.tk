@@ -1,10 +1,12 @@
 ---
 title: Notion Slides
 description: A google chrome extension that allows users to navigate notion databases in a slide show
+header_image_src: /projects/headers/notionslides.webp
+header_video_src: /projects/headers/notionslides.mp4
 href: https://chromewebstore.google.com/detail/notion-slide-shows/hmcfamnbfmaaogikhpkmgkanecnkpkpa
 last_edited: September 13, 2020
 status: published
-tags: [web, javascript]
+tags: [app, web, javascript]
 ---
 
 [image: /projects/notionslides.jpg]

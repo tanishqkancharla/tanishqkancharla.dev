@@ -1,10 +1,12 @@
 ---
 title: Pi Prompt Shelf
 description: Stash prompts into a persistent shelf with shortcuts and a picker.
+header_image_src: /projects/headers/pi-prompt-shelf.webp
+header_video_src: /projects/headers/pi-prompt-shelf.mp4
 github: https://github.com/tanishqkancharla/pi-prompt-shelf
 last_edited: May 7, 2026
 status: published
-tags: [typescript]
+tags: [pi, agents, typescript]
 ---
 
 A Pi extension for shelving prompts instead of submitting them. Each session keeps its own shelf, visible as a widget above the editor.

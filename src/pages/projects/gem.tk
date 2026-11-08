@@ -1,12 +1,13 @@
 ---
 title: Gem
 description: Performant and lightweight rich text editor.
-header_image_src: /projects/gemheader.gif
+header_image_src: /projects/headers/gem.webp
+header_video_src: /projects/headers/gem.mp4
 href: https://gem.tanishqkancharla.dev
 github: https://github.com/tanishqkancharla/gem
 last_edited: March 22, 2022
 status: in-progress
-tags: [web, typescript]
+tags: [app, web, typescript]
 ---
 
 [bookmark: https://gem.tanishqkancharla.dev]

@@ -1,10 +1,12 @@
 ---
 title: Pi Apply Patch
 description: Codex-style apply_patch tool extension for Pi.
+header_image_src: /projects/headers/pi-apply-patch.webp
+header_video_src: /projects/headers/pi-apply-patch.mp4
 github: https://github.com/tanishqkancharla/pi-apply-patch
 last_edited: May 18, 2026
 status: published
-tags: [typescript]
+tags: [pi, agents, typescript]
 ---
 
 Registers a Codex-style `apply_patch` tool and swaps it with Pi's built-in `edit` tool depending on the selected model.

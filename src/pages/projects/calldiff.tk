@@ -1,10 +1,12 @@
 ---
 title: Calldiff
 description: Diff function call stacks across git commits, AST-based across 23 languages.
+header_image_src: /projects/headers/calldiff.webp
+header_video_src: /projects/headers/calldiff.mp4
 github: https://github.com/tanishqkancharla/calldiff
 last_edited: August 20, 2026
 status: in-progress
-tags: [typescript]
+tags: [devtools, agents, typescript]
 ---
 
 Calldiff is like `git diff`, but for who-calls-whom. Built for agentic review when line diffs bury the shape of a change.
