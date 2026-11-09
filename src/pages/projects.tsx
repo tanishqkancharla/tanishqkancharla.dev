@@ -353,6 +353,7 @@ function ProjectItem(props: { metadata: ProjectMetadata }) {
 		tags,
 		last_edited,
 	} = props.metadata;
+	// Date.parse reads "May 2021" as local midnight, so format with local fields too.
 	const edited = last_edited ? new Date(Date.parse(last_edited)) : undefined;
 	const cardHref = github ?? href;
 	const isExternal = /^https?:\/\//.test(cardHref);
@@ -389,11 +390,12 @@ function ProjectItem(props: { metadata: ProjectMetadata }) {
 				<ProjectTitleRow>
 					<ProjectTitle>{title}</ProjectTitle>
 					{edited && (
-						<ProjectDate dateTime={edited.toISOString().slice(0, 7)}>
+						<ProjectDate
+							dateTime={`${edited.getFullYear()}-${String(edited.getMonth() + 1).padStart(2, "0")}`}
+						>
 							{edited.toLocaleDateString("en-US", {
 								month: "short",
 								year: "numeric",
-								timeZone: "UTC",
 							})}
 						</ProjectDate>
 					)}
