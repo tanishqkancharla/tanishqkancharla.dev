@@ -1,12 +1,12 @@
 {
 	const fields = [...document.querySelectorAll("[data-field]")];
-	const saved = new Map(fields.map((el) => [el.dataset.field, el.innerText]));
+	const saved = new Map(fields.map((el) => [el.dataset.field, { text: el.innerText, html: el.innerHTML }]));
 	const save = document.querySelector("#save-edits");
 	const discard = document.querySelector("#discard-edits");
 	const message = document.querySelector("#save-status");
 	const token = document.querySelector('meta[name="resume-save-token"]')?.content;
 	let saving = false;
-	const changes = () => fields.filter((el) => el.innerText !== saved.get(el.dataset.field));
+	const changes = () => fields.filter((el) => el.innerText !== saved.get(el.dataset.field).text);
 	const update = () => {
 		const dirty = changes().length > 0;
 		save.disabled = !dirty || saving || !token;
@@ -38,14 +38,14 @@
 		}
 	});
 	discard.addEventListener("click", () => {
-		for (const el of fields) el.textContent = saved.get(el.dataset.field);
+		for (const el of fields) el.innerHTML = saved.get(el.dataset.field).html;
 		message.textContent = "Unsaved edits discarded.";
 		update();
 	});
 	save.addEventListener("click", async () => {
 		const edits = changes().map((el) => ({
 			field: el.dataset.field,
-			before: saved.get(el.dataset.field),
+			before: saved.get(el.dataset.field).text,
 			value: el.innerText,
 		}));
 		if (!edits.length || saving) return;
@@ -65,7 +65,7 @@
 			});
 			const result = await response.json();
 			if (!response.ok) throw new Error(result.error || "Could not save.");
-			for (const el of fields) saved.set(el.dataset.field, el.innerText);
+			for (const el of fields) saved.set(el.dataset.field, { text: el.innerText, html: el.innerHTML });
 			message.textContent = "Saved to resume/content.json. All HTML versions rebuilt.";
 		} catch (error) {
 			message.textContent = `${error.message} Your edits are still here; copy them before refreshing.`;
