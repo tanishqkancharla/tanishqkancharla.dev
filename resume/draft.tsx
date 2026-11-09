@@ -57,6 +57,7 @@ export async function buildResumes(content?: ResumeContent, { publish = false } 
 	const interBold = (await fs.readFile(path.resolve(__dirname, "fonts/inter-Bold.woff2"))).toString("base64");
 	const interItalic = (await fs.readFile(path.resolve(__dirname, "fonts/inter-Italic.woff2"))).toString("base64");
 	const { person, headings, jobs, education, variants } = content ?? await readContent();
+	const updated = new Date();
 	for (const [id, variant] of Object.entries(variants)) {
 		if (publish && id !== "product-engineer") continue;
 		const edit = (field: string, value: string, linked = false) => <span data-field={publish ? undefined : field} contentEditable={publish ? undefined : "plaintext-only"} suppressContentEditableWarning>{linked ? linkText(value) : value}</span>;
@@ -93,8 +94,9 @@ export async function buildResumes(content?: ResumeContent, { publish = false } 
 					<title>{`Tanishq Kancharla — ${variant.title}${publish ? "" : " — Draft"}`}</title>
 				</head>
 				<body className={body}>
-					{publish ? <aside className={`review ${meta}`} aria-label="Résumé download">
-						<a className={defaultButton} style={{ alignSelf: "flex-end" }} href="/resume.pdf" download="Tanishq-Kancharla-Resume.pdf"><span className={buttonLabel}>Download PDF</span></a>
+					{publish ? <aside className={`review download-bar ${meta}`} aria-label="Résumé download">
+						<p>Updated <time dateTime={updated.toISOString().slice(0, 10)}>{updated.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}</time></p>
+						<a className={defaultButton} href="/resume.pdf" download="Tanishq-Kancharla-Resume.pdf"><span className={buttonLabel}>Download PDF</span></a>
 					</aside> : <aside className={`review ${meta}`} aria-label="Draft review tools">
 						<nav className="variant-switcher" aria-label="Résumé version">
 							{Object.keys(variants).map((key) => <a key={key} className={key === id ? defaultButton : quietButton} href={`tanishq-${key}.html`} aria-current={key === id ? "page" : undefined}><span className={buttonLabel}>{key === "product-engineer" ? "Product Engineer" : key === "product" ? "Product / Design" : key === "full-stack" ? "Full-Stack" : "AI / Dev Tools"}</span></a>)}
@@ -175,6 +177,7 @@ main a:focus-visible { outline: 2px solid ${colors.blue[8]}; outline-offset: 3px
 .edit-tools { display: flex; flex-wrap: wrap; align-items: center; gap: ${spacing.value(4)}; }
 #save-status { flex-basis: 100%; }
 .review { display: flex; flex-direction: column; gap: ${spacing.value(4)}; max-width: 816px; margin: ${spacing.value(12)} auto ${spacing.value(8)}; padding: 0 ${spacing.value(16)}; }
+.download-bar { width: min(816px, calc(100% - 32px)); padding: 0; flex-direction: row; align-items: center; justify-content: space-between; }
 .variant-switcher { display: flex; flex-wrap: wrap; gap: ${spacing.value(4)}; }
 .review a:hover { text-decoration: none; }
 .sheet { width: min(816px, calc(100% - 32px)); margin: 0 auto 32px; }
@@ -198,6 +201,7 @@ strong { font-weight: 600; }
 @media screen and (max-width: 580px) {
  .sheet { width: 100%; margin: 0; padding: 24px 20px; border: 0; }
  .review { margin-top: 16px; padding: 0 20px; }
+ .download-bar { width: 100%; }
  .role-line { display: block; }
  address { flex-direction: column; }
  address a::after { display: none; }

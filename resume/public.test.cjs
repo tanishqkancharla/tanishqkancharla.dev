@@ -12,6 +12,7 @@ test("the website résumé is the read-only default with a static PDF download",
 	assert.match(homepage, /\[📋 Resume\]\(\/resume\)/);
 	assert.match(html, /<title>Tanishq Kancharla — Product Engineer<\/title>/);
 	assert.match(html, /href="\/resume\.pdf" download="Tanishq-Kancharla-Resume\.pdf"/);
+	assert.match(html, /Updated <time dateTime="\d{4}-\d{2}-\d{2}">/i);
 	assert.doesNotMatch(html, /<script\b|\scontenteditable=|\sdata-field=|resume-save-token|\/api\//i);
 	assert.doesNotMatch(html, /<nav\b|id="save-edits"|id="discard-edits"|noindex/);
 	assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
