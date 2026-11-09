@@ -11,6 +11,15 @@ npm run build // Build blog
 npm run serve // Serve built blog
 ```
 
+## Résumé
+
+The homepage links to `/resume`, a standalone, read-only HTML résumé with a
+Download PDF button. To update the public HTML and PDF together after editing
+`resume/content.json`, run `npm run build:public-resume`, then `npm run build`.
+The generated files live in `public/resume.html` and `public/resume.pdf`; normal
+website builds serve these static assets without a résumé API or browser runtime.
+See [`resume/README.md`](resume/README.md) for the editable review portal.
+
 ## Source directories explained:
 `/pages`: Blog post pages which are either `.tk` (my personal blog post format) or `.tsx` files.
 

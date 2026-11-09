@@ -1,0 +1,179 @@
+{
+	"person": {
+		"name": "Tanishq Kancharla",
+		"email": "tanishqkancharla3@gmail.com",
+		"website": "tanishqkancharla.dev",
+		"github": "github.com/tanishqkancharla",
+		"x": "x.com/tanishqk"
+	},
+	"headings": {
+		"experience": "Experience",
+		"projects": "Projects & Open Source",
+		"skills": "Technical Skills",
+		"education": "Education"
+	},
+	"jobs": {
+		"saffron": {
+			"company": "Saffron Health, Inc.",
+			"role": "Co-founder & CTO · YC Spring 2025",
+			"dates": "Feb 2025 – Nov 2026"
+		},
+		"shortwave": {
+			"company": "Shortwave",
+			"role": "Full-Stack Engineer",
+			"dates": "Mar 2023 – Jan 2025"
+		},
+		"stealth": {
+			"company": "Stealth Startup",
+			"role": "Full-Stack Engineer",
+			"dates": "Nov 2021 – Dec 2022",
+			"bullet": "Developed an Electron-based digital research notebook with Chet Corcos (Notion’s first engineering hire) spanning rich-text editing, desktop app architecture, and maintainable design systems."
+		}
+	},
+	"education": {
+		"school": "Carnegie Mellon University",
+		"dates": "2017 – 2021",
+		"degree": "Bachelor’s · Computer Science and Physics"
+	},
+	"variants": {
+		"product-engineer": {
+			"title": "Product Engineer",
+			"summary": "Product engineer and former startup CTO turning customer problems into useful software, mostly at early-stage startups. I own problems end to end, from understanding primary care referral workflows to shipping email apps used by tens of thousands of people.",
+			"founder": [
+				"Worked directly as referral coordinators in a primary care clinic for five months, then co-built and deployed AI referral automation software for a rural clinic network.",
+				"Converted the pilot to a paying customer. The software deployment delivered 82% faster referral processing, appointment availability 55% sooner, and 44% fewer referral kickbacks.",
+				"Sold the Saffron Health product for $125,000. After that, co-built Libretto, an open-source agent harness that turns browser workflows into reusable integration scripts."
+			],
+			"shortwave": [
+				"Joined as 5th engineer and led iOS and desktop development for Shortwave, an email client used by tens of thousands of people.",
+				"Touched all parts of the application surfaces, including a new inbox layout, rebuilding iOS and Android apps, building Electron-based desktop app, redesigning the landing page and documentation, and improving developer experience."
+			],
+			"projects": [
+				{
+					"name": "Tandem",
+					"url": "https://github.com/tanishqkancharla/tandem",
+					"detail": "Built a database and sync engine so collaborative apps feel immediate while data syncs in the background. Supports optimistic updates, live queries, and persistence. Embeddable alternative to ElectricSQL."
+				},
+				{
+					"name": "diffmap",
+					"url": "https://github.com/tanishqkancharla/diffmap",
+					"detail": "Built a tool for reviewing agent-written code through interactive, source-linked diagrams and annotated diffs, with inline feedback and shareable walkthroughs."
+				},
+				{
+					"name": "Halo",
+					"url": "https://github.com/tanishqkancharla/halo-v2",
+					"detail": "Built a desktop app for general-purpose agents using Electron and Pi, with a standalone Node.js workspace server, Turso-backed conversation storage, and exe-hosted workspace VMs."
+				}
+			],
+			"skills": "TypeScript, JavaScript, Node.js, React, React Native, Electron, browser automation, AI agents, local-first data and sync"
+		},
+		"product": {
+			"title": "Product / Design Engineer",
+			"summary": "Product-minded engineer and former startup CTO building thoughtful interfaces for humans and agents. Co-founded a healthcare workflow automation company and built open-source developer tools. Previously shipped redesigns of iOS/Android/desktop apps at Shortwave.",
+			"founder": [
+				"Co-built a referral automation product by working directly as referral coordinators for five months, then translating clinical workflows into agentic software used by a rural clinic network.",
+				"The team’s deployment delivered 82% faster referral processing, appointment availability 55% sooner, and 44% fewer referral kickbacks; converted the pilot to a paying customer.",
+				"Sold the Saffron Health product for $125,000. Co-built Libretto, an open-source agent harness that turns browser workflows into reusable integration scripts."
+			],
+			"shortwave": [
+				"Joined as 5th engineer to lead development of Shortwave’s iOS and desktop apps, an email client used by tens of thousands of people.",
+				"Shipped redesigns of iOS and Android apps (React Native-based). Created new email inbox layouts and improved the web app interface and design system."
+			],
+			"projects": [
+				{
+					"name": "Maui",
+					"url": "https://github.com/tanishqkancharla/maui",
+					"detail": "Published TypeScript design system with shared tokens, accessible components, and reusable UI patterns. Uses purse-styles for typed, composable styling."
+				},
+				{
+					"name": "diffmap",
+					"url": "https://github.com/tanishqkancharla/diffmap",
+					"detail": "Designed a review UI that makes agent-written changes inspectable through interactive, source-linked diagrams, annotated diffs, and inline comments."
+				},
+				{
+					"name": "Tandem",
+					"url": "https://github.com/tanishqkancharla/tandem",
+					"detail": "Built a local database and sync engine for collaborative apps, with optimistic writes, live React queries, and IndexedDB persistence across browser tabs."
+				},
+				{
+					"name": "ProseMirror (contributor)",
+					"url": "https://github.com/ProseMirror/prosemirror-view/pull/141",
+					"detail": "Added transformCopied to customize copied and cut document slices."
+				}
+			],
+			"skills": "TypeScript, JavaScript, React, React Native, HTML, CSS, design systems, ProseMirror, browser automation"
+		},
+		"full-stack": {
+			"title": "Senior Full-Stack Engineer",
+			"summary": "Full-stack engineer and former startup CTO with experience spanning production mobile and desktop apps, healthcare workflow automation, and developer tooling. Combines hands-on engineering with direct customer discovery and end-to-end product ownership.",
+			"founder": [
+				"Co-built and deployed AI-powered referral automation spanning EHR integrations, payer-portal authorizations, specialist calls, patient notifications, and consult-note retrieval.",
+				"The team’s clinic deployment delivered 82% faster referral processing, appointment availability 55% sooner, and 44% fewer referral kickbacks; converted the pilot to a paying customer.",
+				"Sold the Saffron Health product for $125,000. Co-built Libretto, an open-source agent harness that turns browser workflows into reusable integration scripts."
+			],
+			"shortwave": [
+				"Joined as 5th engineer to lead development of Shortwave’s iOS and desktop apps, an email client used by tens of thousands of people.",
+				"Shipped React Native redesigns of the iOS and Android apps, new email inbox layouts, and improvements to the web interface and design system."
+			],
+			"projects": [
+				{
+					"name": "Tandem",
+					"url": "https://github.com/tanishqkancharla/tandem",
+					"detail": "TypeScript database and sync engine for collaborative apps. Implements optimistic mutation replay, live queries, IndexedDB persistence, and server storage adapters."
+				},
+				{
+					"name": "calldiff",
+					"url": "https://github.com/tanishqkancharla/calldiff",
+					"detail": "Built a Tree-sitter-based CLI to compare call trees across Git revisions and trace call paths, with structured output for automated review workflows."
+				},
+				{
+					"name": "diffmap",
+					"url": "https://github.com/tanishqkancharla/diffmap",
+					"detail": "Built a code-review viewer linking interactive diagrams to source code and commit diffs, with persistent inline comments and shareable walkthroughs."
+				},
+				{
+					"name": "Electron Architecture (contributor)",
+					"url": "https://github.com/ccorcos/electron-architecture/pull/137",
+					"detail": "Added headless Playwright E2E tests and a test-harness server."
+				}
+			],
+			"skills": "TypeScript, JavaScript, React, React Native, HTML, CSS, Electron, IndexedDB, browser automation, parser combinators, optimistic state and sync protocols"
+		},
+		"ai": {
+			"title": "AI / Developer-Tools Engineer",
+			"summary": "Engineer and former startup CTO building tools that make AI-driven workflows inspectable and reusable. Co-built Libretto from production healthcare integration tooling, with earlier experience leading iOS and desktop development at Shortwave.",
+			"founder": [
+				"Co-built Libretto, an open-source agent harness that inspects live pages, reverse-engineers network requests, and turns browser workflows into reusable integration scripts.",
+				"Developed the tooling while operating a healthcare automation product across EHRs and payer portals, addressing the reliability and maintenance limits of unconstrained browser agents.",
+				"The team’s referral deployment delivered 82% faster processing, appointment availability 55% sooner, and 44% fewer kickbacks. Converted the pilot to a paying customer and sold the Saffron Health product for $125,000."
+			],
+			"shortwave": [
+				"Joined as 5th engineer to lead development of Shortwave’s iOS and desktop apps, an email client used by tens of thousands of people.",
+				"Shipped React Native redesigns of iOS and Android apps, along with new inbox layouts and web design-system improvements."
+			],
+			"projects": [
+				{
+					"name": "calldiff",
+					"url": "https://github.com/tanishqkancharla/calldiff",
+					"detail": "Built a Tree-sitter-based call-flow diff CLI for agentic review. Compares Git revisions, traces call paths, and exposes structured output and MCP integration."
+				},
+				{
+					"name": "diffmap",
+					"url": "https://github.com/tanishqkancharla/diffmap",
+					"detail": "Built an agent skill and viewer for explaining changes with source-linked diagrams, annotated diffs, and review comments that feed back into the agent workflow."
+				},
+				{
+					"name": "Tandem",
+					"url": "https://github.com/tanishqkancharla/tandem",
+					"detail": "Built a database and sync engine with optimistic mutation replay and live subscriptions. Includes a collaborative agent-chat example using the same query API."
+				},
+				{
+					"name": "Cua (contributor)",
+					"url": "https://github.com/trycua/cua/pull/3864",
+					"detail": "Fixed stale accessibility-tree indexing so X11 clicks retain the observed target."
+				}
+			],
+			"skills": "TypeScript, JavaScript, React, React Native, browser automation, AI agents, CLI tooling, MCP, Tree-sitter, Electron, parser combinators"
+		}
+	}
+}
