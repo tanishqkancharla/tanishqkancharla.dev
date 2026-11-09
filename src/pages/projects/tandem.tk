@@ -4,9 +4,9 @@ description: A sync engine and client-side database for collaborative apps.
 header_image_src: /projects/headers/tandem.webp
 header_video_src: /projects/headers/tandem.mp4
 github: https://github.com/tanishqkancharla/tandem
-last_edited: August 23, 2026
-status: in-progress
-tags: [library, data, web, typescript]
+last_edited: November 2026
+status: published
+tags: [featured, library, data, web, typescript]
 ---
 
 Tandem is a sync engine and database for building collaborative apps: local records, optimistic mutations, and a remote push/pull/poke protocol.

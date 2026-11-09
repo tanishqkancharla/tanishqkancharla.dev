@@ -4,8 +4,8 @@ description: Diff function call stacks across git commits, AST-based across 23 l
 header_image_src: /projects/headers/calldiff.webp
 header_video_src: /projects/headers/calldiff.mp4
 github: https://github.com/tanishqkancharla/calldiff
-last_edited: August 20, 2026
-status: in-progress
+last_edited: November 2026
+status: published
 tags: [devtools, agents, typescript]
 ---
 

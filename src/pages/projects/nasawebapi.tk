@@ -4,7 +4,7 @@ description: A web client to NASA's media archives.
 header_image_src: /projects/headers/nasawebapi.webp
 header_video_src: /projects/headers/nasawebapi.mp4
 github: https://github.com/tanishqkancharla/nasa-web-api
-last_edited: May 5, 2020
+last_edited: January 2021
 status: published
 tags: [app, web, javascript]
 ---

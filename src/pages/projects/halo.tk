@@ -4,9 +4,9 @@ description: Electron desktop app with React, Maui, and Pi in the main process.
 header_image_src: /projects/headers/halo.webp
 header_video_src: /projects/headers/halo.mp4
 github: https://github.com/tanishqkancharla/halo-v2
-last_edited: August 23, 2026
+last_edited: November 2026
 status: in-progress
-tags: [app, agents, pi, typescript]
+tags: [featured, app, agents, pi, typescript]
 ---
 
 Halo is a desktop coding-agent app. The renderer is React on Maui; the main process hosts workspace services and Pi.

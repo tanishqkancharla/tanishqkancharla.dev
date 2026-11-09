@@ -4,7 +4,7 @@ description: Pi extension that swaps tools for a single exec tool via /codemode.
 header_image_src: /projects/headers/pi-code-mode.webp
 header_video_src: /projects/headers/pi-code-mode.mp4
 github: https://github.com/tanishqkancharla/pi-code-mode
-last_edited: May 28, 2026
+last_edited: May 2026
 status: published
 tags: [pi, agents, typescript]
 ---

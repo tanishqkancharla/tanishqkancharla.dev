@@ -5,9 +5,9 @@ header_image_src: /projects/headers/maui.webp
 header_video_src: /projects/headers/maui.mp4
 github: https://github.com/tanishqkancharla/maui
 href: https://maui.tanishqkancharla.dev
-last_edited: August 20, 2026
-status: in-progress
-tags: [library, ui, web, typescript]
+last_edited: November 2026
+status: published
+tags: [featured, library, ui, web, typescript]
 ---
 
 Maui is a TypeScript-first design system — tokens, components, and a gallery of patterns. The published package is [`@tanishqkancharla/maui`](https://www.npmjs.com/package/@tanishqkancharla/maui).

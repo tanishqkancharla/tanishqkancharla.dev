@@ -4,7 +4,7 @@ description: A small Pokemon horoscope widget built in SwiftUI.
 header_image_src: /projects/headers/pokescope.webp
 header_video_src: /projects/headers/pokescope.mp4
 github: https://github.com/tanishqkancharla/PokeScope
-last_edited: July 16, 2020
+last_edited: July 2020
 status: published
 tags: [app, swift]
 ---

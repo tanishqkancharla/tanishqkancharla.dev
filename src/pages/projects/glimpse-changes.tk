@@ -4,7 +4,7 @@ description: Render Markdown with inline diffs in a native Glimpse window.
 header_image_src: /projects/headers/glimpse-changes.webp
 header_video_src: /projects/headers/glimpse-changes.mp4
 github: https://github.com/tanishqkancharla/glimpse-changes
-last_edited: July 18, 2026
+last_edited: July 2026
 status: published
 tags: [devtools, agents, typescript]
 ---

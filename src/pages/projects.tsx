@@ -45,7 +45,7 @@ const projectStatusType = dt.or(
 	dt.literal("thinking"),
 	dt.literal("published"),
 	dt.literal("in-progress"),
-	dt.literal("archived")
+	dt.literal("archived"),
 );
 
 type ProjectMetadata = {
@@ -102,7 +102,7 @@ ${validateError}`);
 			return projectMetadataType.is(metadata)
 				? { ...metadata, href: metadata.href ?? href }
 				: undefined;
-		})
+		}),
 	);
 
 	const statusPriority: Record<ProjectStatus, number> = {
@@ -112,13 +112,15 @@ ${validateError}`);
 		archived: 3,
 	};
 
-	const sortedMetadatas = [...projectPostMetadatas.filter(isDefined)].sort((a, b) => {
-		const statusDiff = statusPriority[a.status] - statusPriority[b.status];
-		if (statusDiff !== 0) return statusDiff;
-		const aDate = a.last_edited ? Date.parse(a.last_edited) : 0;
-		const bDate = b.last_edited ? Date.parse(b.last_edited) : 0;
-		return bDate - aDate; // desc
-	});
+	const sortedMetadatas = [...projectPostMetadatas.filter(isDefined)].sort(
+		(a, b) => {
+			const statusDiff = statusPriority[a.status] - statusPriority[b.status];
+			if (statusDiff !== 0) return statusDiff;
+			const aDate = a.last_edited ? Date.parse(a.last_edited) : 0;
+			const bDate = b.last_edited ? Date.parse(b.last_edited) : 0;
+			return bDate - aDate; // desc
+		},
+	);
 
 	return { projectMetadatas: sortedMetadatas };
 }
@@ -181,13 +183,38 @@ const ProjectContent = styled(GalleryCardContent)`
 	padding-bottom: 12px;
 `;
 
+const ProjectTitleRow = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0 8px;
+	margin-top: 14px;
+`;
+
+// Same size as the description, so the card reads as one block of text.
+const ProjectTitle = styled(H3)`
+	margin: 0;
+	font-size: 1.025rem;
+	line-height: 1.65rem;
+`;
+
+const ProjectDescription = styled(P)`
+	margin: 2px 0 0;
+`;
+
 const ProjectMeta = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 4px 8px;
 	margin-top: auto;
-	padding-top: 4px;
+	padding-top: 14px;
+`;
+
+const ProjectDate = styled.time`
+	margin-left: auto;
+	font-size: ${fontSm};
+	color: ${tertiaryBodyTextColor};
 `;
 
 const CardTag = styled.span`
@@ -261,11 +288,13 @@ const Projects = styled.div<{ $tags: string[] }>`
 					}
 				}
 
-				#${filterId(tag)}:focus-visible ~ ${FilterBar} label[for="${filterId(tag)}"] {
+				#${filterId(tag)}:focus-visible
+					~ ${FilterBar}
+					label[for="${filterId(tag)}"] {
 					outline: 2px solid ${headingTextColor};
 					outline-offset: 2px;
 				}
-			`
+			`,
 		)}
 
 	${({ $tags }) =>
@@ -278,13 +307,13 @@ const Projects = styled.div<{ $tags: string[] }>`
 				#${filterId(tag)}:checked ~ ${Gallery} ${CardTag}[data-tag="${tag}"] {
 					color: ${headingTextColor};
 				}
-			`
+			`,
 		)}
 `;
 
 const filterId = (tag: string) => `project-tag-${tag}`;
 
-// Topic tags are listed before language tags; each group is sorted by usage.
+// `featured` comes first, then topic tags, then language tags; each group is sorted by usage.
 const languageTags = ["typescript", "javascript", "swift", "rust"];
 
 // The header clip is muted and only plays while its card is hovered or focused.
@@ -322,7 +351,9 @@ function ProjectItem(props: { metadata: ProjectMetadata }) {
 		header_video_src,
 		status,
 		tags,
+		last_edited,
 	} = props.metadata;
+	const edited = last_edited ? new Date(Date.parse(last_edited)) : undefined;
 	const cardHref = github ?? href;
 	const isExternal = /^https?:\/\//.test(cardHref);
 	return (
@@ -355,10 +386,21 @@ function ProjectItem(props: { metadata: ProjectMetadata }) {
 			)}
 
 			<ProjectContent>
-				<H3>{title}</H3>
-				<P>{description}</P>
+				<ProjectTitleRow>
+					<ProjectTitle>{title}</ProjectTitle>
+					{edited && (
+						<ProjectDate dateTime={edited.toISOString().slice(0, 7)}>
+							{edited.toLocaleDateString("en-US", {
+								month: "short",
+								year: "numeric",
+								timeZone: "UTC",
+							})}
+						</ProjectDate>
+					)}
+				</ProjectTitleRow>
+				<ProjectDescription>{description}</ProjectDescription>
 				<ProjectMeta>
-					<Status $status={status}>{status}</Status>
+					<Status $status={status}>{status.replace("-", " ")}</Status>
 					{tags?.map((tag) => (
 						<CardTag key={tag} data-tag={tag}>
 							#{tag}
@@ -386,7 +428,10 @@ function ProjectsPage(props: PropsType) {
 		for (const tag of tags ?? []) counts.set(tag, (counts.get(tag) ?? 0) + 1);
 	}
 	const byUsage = [...counts.keys()].sort(
-		(a, b) => counts.get(b)! - counts.get(a)! || a.localeCompare(b)
+		(a, b) =>
+			Number(b === "featured") - Number(a === "featured") ||
+			counts.get(b)! - counts.get(a)! ||
+			a.localeCompare(b),
 	);
 	const topics = byUsage.filter((tag) => !languageTags.includes(tag));
 	const languages = byUsage.filter((tag) => languageTags.includes(tag));

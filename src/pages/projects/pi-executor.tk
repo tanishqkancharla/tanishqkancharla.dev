@@ -4,7 +4,7 @@ description: Pi extension that runs TypeScript against a managed local Executor 
 header_image_src: /projects/headers/pi-executor.webp
 header_video_src: /projects/headers/pi-executor.mp4
 github: https://github.com/tanishqkancharla/pi-executor
-last_edited: May 19, 2026
+last_edited: May 2026
 status: published
 tags: [pi, agents, typescript]
 ---

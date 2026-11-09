@@ -1,0 +1,15 @@
+---
+title: Diffmap
+description: Agent skill that explains code changes with interactive diagrams linked to source.
+header_image_src: /projects/headers/diffmap.webp
+header_video_src: /projects/headers/diffmap.mp4
+href: https://diffmap.dev
+github: https://github.com/tanishqkancharla/diffmap
+last_edited: November 2026
+status: published
+tags: [featured, devtools, agents, typescript]
+---
+
+Your coding agent writes more code than you can review. Diffmap is an agent skill that has the agent write a spec with interactive diagrams — service diagrams you can step through, diagram and call-stack diffs, and per-phase commit cards — where each part of a diagram links back to its source.
+
+[bookmark: https://diffmap.dev]
