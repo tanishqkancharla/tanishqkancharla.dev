@@ -4,7 +4,7 @@ description: Codex-style apply_patch tool extension for Pi.
 header_image_src: /projects/headers/pi-apply-patch.webp
 header_video_src: /projects/headers/pi-apply-patch.mp4
 github: https://github.com/tanishqkancharla/pi-apply-patch
-last_edited: May 18, 2026
+last_edited: May 2026
 status: published
 tags: [pi, agents, typescript]
 ---

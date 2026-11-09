@@ -4,9 +4,9 @@ description: A key-value database built on Riak's Bitcask paper.
 header_image_src: /projects/headers/kvs.webp
 header_video_src: /projects/headers/kvs.mp4
 github: https://github.com/tanishqkancharla/pna-rust-project
-last_edited: Jan 23, 2023
+last_edited: March 2023
 status: published
-tags: [data, rust]
+tags: [featured, data, rust]
 ---
 
 This is my project built on [Pingcap's talent plan rust course](https://github.com/tanishqkancharla/talent-plan/blob/master/courses/rust/docs/lesson-plan.md).

@@ -4,7 +4,7 @@ description: Pi extension with a live tmux widget and long-running terminal tool
 header_image_src: /projects/headers/pi-live-terminal.webp
 header_video_src: /projects/headers/pi-live-terminal.mp4
 github: https://github.com/tanishqkancharla/pi-live-terminal
-last_edited: June 18, 2026
+last_edited: August 2026
 status: published
 tags: [pi, agents, typescript]
 ---

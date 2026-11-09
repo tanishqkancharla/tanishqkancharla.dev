@@ -4,7 +4,7 @@ description: Pi extension that adds a /caffeinate command to keep your machine a
 header_image_src: /projects/headers/pi-caffeinated.webp
 header_video_src: /projects/headers/pi-caffeinated.mp4
 github: https://github.com/tanishqkancharla/pi-caffeinated
-last_edited: May 7, 2026
+last_edited: May 2026
 status: published
 tags: [pi, agents, typescript]
 ---

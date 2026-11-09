@@ -4,7 +4,7 @@ description: Personal Pi agent config — extensions, subagents, and prompts.
 header_image_src: /projects/headers/dotpi.webp
 header_video_src: /projects/headers/dotpi.mp4
 github: https://github.com/tanishqkancharla/dotpi
-last_edited: April 20, 2026
+last_edited: April 2026
 status: published
 tags: [pi, agents, typescript]
 ---
